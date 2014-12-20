@@ -23,9 +23,9 @@ return array(
 		'mysql' => array(
 			'driver'    => 'mysql',
 			'host'      => '192.168.1.150',
-			'database'  => 'fan',
-			'username'  => 'root',
-			'password'  => '008008',
+			'database'  => 'homestead',
+			'username'  => 'homestead',
+			'password'  => 'secret',
 			'charset'   => 'utf8',
 			'collation' => 'utf8_unicode_ci',
 			'prefix'    => '',
@@ -33,7 +33,7 @@ return array(
 
 		'pgsql' => array(
 			'driver'   => 'pgsql',
-			'host'     => 'localhost',
+			'host'     => '192.168.1.150',
 			'database' => 'homestead',
 			'username' => 'homestead',
 			'password' => 'secret',
