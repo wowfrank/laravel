@@ -1,6 +1,6 @@
-<?php namespace App\Services;
+<?php namespace pigfly\Services;
 
-use App\User;
+use pigfly\User;
 use Validator;
 use Illuminate\Contracts\Auth\Registrar as RegistrarContract;
 

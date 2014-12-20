@@ -113,9 +113,9 @@ return [
 		/*
 		 * Application Service Providers...
 		 */
-		'App\Providers\AppServiceProvider',
-		'App\Providers\EventServiceProvider',
-		'App\Providers\RouteServiceProvider',
+		'pigfly\Providers\AppServiceProvider',
+		'pigfly\Providers\EventServiceProvider',
+		'pigfly\Providers\RouteServiceProvider',
 
 		/*
 		 * Laravel Framework Service Providers...
