@@ -21,7 +21,8 @@ class ViewGeneratorCommand extends GeneratorCommand {
     protected $description = 'Generate a view';
 
     /**
-     * Create directory tree for views, and fire the generator.
+     * Create directory tree for views,
+     * and fire generator
      */
     public function fire()
     {
@@ -36,7 +37,7 @@ class ViewGeneratorCommand extends GeneratorCommand {
     }
 
     /**
-     * The path to where the file will be created.
+     * The path where the file will be created
      *
      * @return mixed
      */
@@ -49,7 +50,7 @@ class ViewGeneratorCommand extends GeneratorCommand {
     }
 
     /**
-     * Fetch the template data.
+     * Fetch the template data
      *
      * @return array
      */
@@ -61,7 +62,7 @@ class ViewGeneratorCommand extends GeneratorCommand {
     }
 
     /**
-     * Get the path to the template for the generator.
+     * Get path to the template for the generator
      *
      * @return mixed
      */

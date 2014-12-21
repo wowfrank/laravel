@@ -38,7 +38,7 @@ class PhpBridgeSessionStorage extends NativeSessionStorage
      */
     public function start()
     {
-        if ($this->started) {
+        if ($this->started && !$this->closed) {
             return true;
         }
 

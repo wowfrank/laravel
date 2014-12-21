@@ -1,9 +1,8 @@
 <?php namespace Illuminate\Cookie;
 
 use Symfony\Component\HttpFoundation\Cookie;
-use Illuminate\Contracts\Cookie\QueueingFactory as JarContract;
 
-class CookieJar implements JarContract {
+class CookieJar {
 
 	/**
 	 * The default path (if specified).

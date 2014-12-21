@@ -13,11 +13,12 @@ class SoftDeletingScope implements ScopeInterface {
 	 * Apply the scope to a given Eloquent query builder.
 	 *
 	 * @param  \Illuminate\Database\Eloquent\Builder  $builder
-	 * @param  \Illuminate\Database\Eloquent\Model  $model
 	 * @return void
 	 */
-	public function apply(Builder $builder, Model $model)
+	public function apply(Builder $builder)
 	{
+		$model = $builder->getModel();
+
 		$builder->whereNull($model->getQualifiedDeletedAtColumn());
 
 		$this->extend($builder);
@@ -27,12 +28,11 @@ class SoftDeletingScope implements ScopeInterface {
 	 * Remove the scope from the given Eloquent query builder.
 	 *
 	 * @param  \Illuminate\Database\Eloquent\Builder  $builder
-	 * @param  \Illuminate\Database\Eloquent\Model  $model
 	 * @return void
 	 */
-	public function remove(Builder $builder, Model $model)
+	public function remove(Builder $builder)
 	{
-		$column = $model->getQualifiedDeletedAtColumn();
+		$column = $builder->getModel()->getQualifiedDeletedAtColumn();
 
 		$query = $builder->getQuery();
 
@@ -65,30 +65,12 @@ class SoftDeletingScope implements ScopeInterface {
 
 		$builder->onDelete(function(Builder $builder)
 		{
-			$column = $this->getDeletedAtColumn($builder);
+			$column = $builder->getModel()->getDeletedAtColumn();
 
 			return $builder->update(array(
 				$column => $builder->getModel()->freshTimestampString()
 			));
 		});
-	}
-
-	/**
-	 * Get the "deleted at" column for the builder.
-	 *
-	 * @param  \Illuminate\Database\Eloquent\Builder  $builder
-	 * @return string
-	 */
-	protected function getDeletedAtColumn(Builder $builder)
-	{
-		if (count($builder->getQuery()->joins) > 0)
-		{
-			return $builder->getModel()->getQualifiedDeletedAtColumn();
-		}
-		else
-		{
-			return $builder->getModel()->getDeletedAtColumn();
-		}
 	}
 
 	/**
@@ -131,7 +113,7 @@ class SoftDeletingScope implements ScopeInterface {
 	{
 		$builder->macro('withTrashed', function(Builder $builder)
 		{
-			$this->remove($builder, $builder->getModel());
+			$this->remove($builder);
 
 			return $builder;
 		});
@@ -147,11 +129,9 @@ class SoftDeletingScope implements ScopeInterface {
 	{
 		$builder->macro('onlyTrashed', function(Builder $builder)
 		{
-			$model = $builder->getModel();
+			$this->remove($builder);
 
-			$this->remove($builder, $model);
-
-			$builder->getQuery()->whereNotNull($model->getQualifiedDeletedAtColumn());
+			$builder->getQuery()->whereNotNull($builder->getModel()->getQualifiedDeletedAtColumn());
 
 			return $builder;
 		});

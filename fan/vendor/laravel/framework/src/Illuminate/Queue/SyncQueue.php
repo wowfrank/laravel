@@ -1,8 +1,6 @@
 <?php namespace Illuminate\Queue;
 
-use Illuminate\Contracts\Queue\Queue as QueueContract;
-
-class SyncQueue extends Queue implements QueueContract {
+class SyncQueue extends Queue implements QueueInterface {
 
 	/**
 	 * Push a new job onto the queue.
@@ -14,7 +12,7 @@ class SyncQueue extends Queue implements QueueContract {
 	 */
 	public function push($job, $data = '', $queue = null)
 	{
-		$this->resolveJob($this->createPayload($job, $data, $queue))->fire();
+		$this->resolveJob($job, json_encode($data))->fire();
 
 		return 0;
 	}
@@ -50,7 +48,7 @@ class SyncQueue extends Queue implements QueueContract {
 	 * Pop the next job off of the queue.
 	 *
 	 * @param  string  $queue
-	 * @return \Illuminate\Contracts\Queue\Job|null
+	 * @return \Illuminate\Queue\Jobs\Job|null
 	 */
 	public function pop($queue = null) {}
 
@@ -58,12 +56,12 @@ class SyncQueue extends Queue implements QueueContract {
 	 * Resolve a Sync job instance.
 	 *
 	 * @param  string  $job
-	 * @param  string  $payload
+	 * @param  string  $data
 	 * @return \Illuminate\Queue\Jobs\SyncJob
 	 */
-	protected function resolveJob($payload)
+	protected function resolveJob($job, $data)
 	{
-		return new Jobs\SyncJob($this->container, $payload);
+		return new Jobs\SyncJob($this->container, $job, $data);
 	}
 
 }

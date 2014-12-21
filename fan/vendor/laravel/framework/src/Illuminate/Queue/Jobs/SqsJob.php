@@ -2,9 +2,8 @@
 
 use Aws\Sqs\SqsClient;
 use Illuminate\Container\Container;
-use Illuminate\Contracts\Queue\Job as JobContract;
 
-class SqsJob extends Job implements JobContract {
+class SqsJob extends Job {
 
 	/**
 	 * The Amazon SQS client instance.

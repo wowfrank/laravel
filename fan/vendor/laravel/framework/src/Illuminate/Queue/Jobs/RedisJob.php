@@ -2,9 +2,8 @@
 
 use Illuminate\Queue\RedisQueue;
 use Illuminate\Container\Container;
-use Illuminate\Contracts\Queue\Job as JobContract;
 
-class RedisJob extends Job implements JobContract {
+class RedisJob extends Job {
 
 	/**
 	 * The Redis queue instance.

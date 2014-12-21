@@ -1,7 +1,6 @@
 <?php namespace Illuminate\Session;
 
 use SessionHandlerInterface;
-use InvalidArgumentException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Session\SessionBagInterface;
 use Symfony\Component\HttpFoundation\Session\Storage\MetadataBag;
@@ -197,7 +196,9 @@ class Store implements SessionInterface {
 	{
 		$this->attributes = array();
 
-		return $this->migrate();
+		$this->migrate();
+
+		return true;
 	}
 
 	/**
@@ -209,9 +210,7 @@ class Store implements SessionInterface {
 
 		$this->setExists(false);
 
-		$this->id = $this->generateSessionId();
-
-		return true;
+		$this->id = $this->generateSessionId(); return true;
 	}
 
 	/**
@@ -456,7 +455,10 @@ class Store implements SessionInterface {
 	 */
 	public function replace(array $attributes)
 	{
-		$this->put($attributes);
+		foreach ($attributes as $key => $value)
+		{
+			$this->put($key, $value);
+		}
 	}
 
 	/**
@@ -524,7 +526,7 @@ class Store implements SessionInterface {
 	{
 		return array_get($this->bags, $name, function()
 		{
-			throw new InvalidArgumentException("Bag not registered.");
+			throw new \InvalidArgumentException("Bag not registered.");
 		});
 	}
 
@@ -575,27 +577,6 @@ class Store implements SessionInterface {
 	public function regenerateToken()
 	{
 		$this->put('_token', str_random(40));
-	}
-
-	/**
-	 * Get the previous URL from the session.
-	 *
-	 * @return string|null
-	 */
-	public function previousUrl()
-	{
-		return $this->get('_previous.url');
-	}
-
-	/**
-	 * Set the "previous" URL in the session.
-	 *
-	 * @param  string  $url
-	 * @return void
-	 */
-	public function setPreviousUrl($url)
-	{
-		return $this->put('_previous.url', $url);
 	}
 
 	/**

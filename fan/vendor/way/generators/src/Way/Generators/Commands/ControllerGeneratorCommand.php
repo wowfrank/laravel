@@ -2,7 +2,6 @@
 
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputArgument;
-use Way\Generators\Templates\Data\Controller as ControllerData;
 
 class ControllerGeneratorCommand extends GeneratorCommand {
 
@@ -21,27 +20,7 @@ class ControllerGeneratorCommand extends GeneratorCommand {
     protected $description = 'Generate a controller';
 
     /**
-     * Get the path to the template for the generator.
-     *
-     * @return mixed
-     */
-    protected function getTemplatePath()
-    {
-        return $this->getPathByOptionOrConfig('templatePath', 'controller_template_path');
-    }
-
-    /**
-     * Fetch the template data.
-     *
-     * @return array
-     */
-    protected function getTemplateData()
-    {
-        return (new ControllerData($this->argument('controllerName')))->fetch();
-    }
-
-    /**
-     * The path to where the file will be created.
+     * The path where the file will be created
      *
      * @return mixed
      */
@@ -50,6 +29,38 @@ class ControllerGeneratorCommand extends GeneratorCommand {
         $path = $this->getPathByOptionOrConfig('path', 'controller_target_path');
 
         return $path. '/' . $this->argument('controllerName') . '.php';
+    }
+
+    /**
+     * Fetch the template data
+     *
+     * @return array
+     */
+    protected function getTemplateData()
+    {
+        // LessonsController
+        $name = ucwords($this->argument('controllerName'));
+
+        // lessons
+        $collection = strtolower(str_replace('Controller', '', $name));
+
+        // lesson
+        $resource = str_singular($collection);
+
+        // Lesson
+        $model = ucwords($resource);
+
+        return compact('name', 'collection', 'resource', 'model');
+    }
+
+    /**
+     * Get path to the template for the generator
+     *
+     * @return mixed
+     */
+    protected function getTemplatePath()
+    {
+        return $this->getPathByOptionOrConfig('templatePath', 'controller_template_path');
     }
 
     /**

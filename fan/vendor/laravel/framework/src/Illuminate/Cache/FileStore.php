@@ -170,7 +170,7 @@ class FileStore implements StoreInterface {
 	 * Remove an item from the cache.
 	 *
 	 * @param  string  $key
-	 * @return bool
+	 * @return void
 	 */
 	public function forget($key)
 	{
@@ -178,10 +178,8 @@ class FileStore implements StoreInterface {
 
 		if ($this->files->exists($file))
 		{
-			return $this->files->delete($file);
+			$this->files->delete($file);
 		}
-
-		return false;
 	}
 
 	/**
@@ -191,12 +189,9 @@ class FileStore implements StoreInterface {
 	 */
 	public function flush()
 	{
-		if ($this->files->isDirectory($this->directory))
+		foreach ($this->files->directories($this->directory) as $directory)
 		{
-			foreach ($this->files->directories($this->directory) as $directory)
-			{
-				$this->files->deleteDirectory($directory);
-			}
+			$this->files->deleteDirectory($directory);
 		}
 	}
 

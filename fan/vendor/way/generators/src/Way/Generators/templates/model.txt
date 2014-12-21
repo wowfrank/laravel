@@ -1,9 +1,5 @@
-<?php namespace $NAMESPACE$;
+<?php
 
-use Illuminate\Database\Eloquent\Model;
-
-class $NAME$ extends Model {
-
+class $NAME$ extends \Eloquent {
 	protected $fillable = [];
-
 }

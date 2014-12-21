@@ -1,7 +1,5 @@
 <?php namespace Illuminate\Support\Facades;
 
-use Mockery;
-use RuntimeException;
 use Mockery\MockInterface;
 
 abstract class Facade {
@@ -83,7 +81,7 @@ abstract class Facade {
 	{
 		$class = static::getMockableClass($name);
 
-		return $class ? Mockery::mock($class) : Mockery::mock();
+		return $class ? \Mockery::mock($class) : \Mockery::mock();
 	}
 
 	/**
@@ -127,7 +125,7 @@ abstract class Facade {
 	 */
 	protected static function getFacadeAccessor()
 	{
-		throw new RuntimeException("Facade does not implement getFacadeAccessor method.");
+		throw new \RuntimeException("Facade does not implement getFacadeAccessor method.");
 	}
 
 	/**

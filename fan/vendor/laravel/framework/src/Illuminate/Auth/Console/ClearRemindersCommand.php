@@ -16,7 +16,7 @@ class ClearRemindersCommand extends Command {
 	 *
 	 * @var string
 	 */
-	protected $description = 'Flush expired password reminders';
+	protected $description = 'Flush expired reminders.';
 
 	/**
 	 * Execute the console command.
@@ -25,7 +25,7 @@ class ClearRemindersCommand extends Command {
 	 */
 	public function fire()
 	{
-		$this->laravel['auth.password.tokens']->deleteExpired();
+		$this->laravel['auth.reminder.repository']->deleteExpired();
 
 		$this->info('Expired reminders cleared!');
 	}

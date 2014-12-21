@@ -2,9 +2,8 @@
 
 use Illuminate\Queue\IronQueue;
 use Illuminate\Container\Container;
-use Illuminate\Contracts\Queue\Job as JobContract;
 
-class IronJob extends Job implements JobContract {
+class IronJob extends Job {
 
 	/**
 	 * The Iron queue instance.

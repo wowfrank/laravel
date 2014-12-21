@@ -30,17 +30,16 @@ abstract class Grammar {
 	{
 		if ($this->isExpression($table)) return $this->getValue($table);
 
-		return $this->wrap($this->tablePrefix.$table, true);
+		return $this->wrap($this->tablePrefix.$table);
 	}
 
 	/**
 	 * Wrap a value in keyword identifiers.
 	 *
 	 * @param  string  $value
-	 * @param  bool    $prefixAlias
 	 * @return string
 	 */
-	public function wrap($value, $prefixAlias = false)
+	public function wrap($value)
 	{
 		if ($this->isExpression($value)) return $this->getValue($value);
 
@@ -50,8 +49,6 @@ abstract class Grammar {
 		if (strpos(strtolower($value), ' as ') !== false)
 		{
 			$segments = explode(' ', $value);
-
-			if ($prefixAlias) $segments[2] = $this->tablePrefix.$segments[2];
 
 			return $this->wrap($segments[0]).' as '.$this->wrapValue($segments[2]);
 		}

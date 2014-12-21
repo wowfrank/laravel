@@ -7,6 +7,7 @@
  *
  * @example `php NonStopableProcess.php 42` will run the script for 42 seconds
  */
+
 function handleSignal($signal)
 {
     switch ($signal) {

@@ -85,15 +85,13 @@ class NativeSessionStorageTest extends \PHPUnit_Framework_TestCase
     public function testGetId()
     {
         $storage = $this->getStorage();
-        $this->assertSame('', $storage->getId(), 'Empty ID before starting session');
+        $this->assertEquals('', $storage->getId());
 
         $storage->start();
-        $id = $storage->getId();
-        $this->assertInternalType('string', $id);
-        $this->assertNotSame('', $id);
+        $this->assertNotEquals('', $storage->getId());
 
         $storage->save();
-        $this->assertSame($id, $storage->getId(), 'ID stays after saving session');
+        $this->assertNotEquals('', $storage->getId());
     }
 
     public function testRegenerate()
@@ -211,20 +209,18 @@ class NativeSessionStorageTest extends \PHPUnit_Framework_TestCase
     /**
      * @expectedException \RuntimeException
      */
-    public function testStartedOutside()
+    public function testStartedOutside53()
     {
+        if (PHP_VERSION_ID >= 50400) {
+            $this->markTestSkipped('Test skipped, for PHP 5.3 only.');
+        }
+
         $storage = $this->getStorage();
 
         $this->assertFalse(isset($_SESSION));
-        $this->assertFalse($storage->getSaveHandler()->isActive());
-        $this->assertFalse($storage->isStarted());
 
         session_start();
         $this->assertTrue(isset($_SESSION));
-        if (PHP_VERSION_ID >= 50400) {
-            // this only works in PHP >= 5.4 where session_status is available
-            $this->assertTrue($storage->getSaveHandler()->isActive());
-        }
         // PHP session might have started, but the storage driver has not, so false is correct here
         $this->assertFalse($storage->isStarted());
 
@@ -233,15 +229,29 @@ class NativeSessionStorageTest extends \PHPUnit_Framework_TestCase
         $storage->start();
     }
 
-    public function testRestart()
+    /**
+     * @expectedException \RuntimeException
+     */
+    public function testCanStartOutside54()
     {
+        if (PHP_VERSION_ID < 50400) {
+            $this->markTestSkipped('Test skipped, for PHP 5.4 only.');
+        }
+
         $storage = $this->getStorage();
+
+        $this->assertFalse(isset($_SESSION));
+        $this->assertFalse($storage->getSaveHandler()->isActive());
+        $this->assertFalse($storage->isStarted());
+
+        session_start();
+        $this->assertTrue(isset($_SESSION));
+        $this->assertTrue($storage->getSaveHandler()->isActive());
+        // PHP session might have started, but the storage driver has not, so false is correct here
+        $this->assertFalse($storage->isStarted());
+
+        $key = $storage->getMetadataBag()->getStorageKey();
+        $this->assertFalse(isset($_SESSION[$key]));
         $storage->start();
-        $id = $storage->getId();
-        $storage->getBag('attributes')->set('lucky', 7);
-        $storage->save();
-        $storage->start();
-        $this->assertSame($id, $storage->getId(), 'Same session ID after restarting');
-        $this->assertSame(7, $storage->getBag('attributes')->get('lucky'), 'Data still available');
     }
 }

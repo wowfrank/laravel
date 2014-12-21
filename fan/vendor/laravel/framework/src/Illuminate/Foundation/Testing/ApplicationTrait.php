@@ -1,7 +1,6 @@
 <?php namespace Illuminate\Foundation\Testing;
 
-use Illuminate\Http\Request;
-use Illuminate\Contracts\Auth\Authenticatable as UserContract;
+use Illuminate\Auth\UserInterface;
 
 trait ApplicationTrait {
 
@@ -13,6 +12,13 @@ trait ApplicationTrait {
 	protected $app;
 
 	/**
+	 * The HttpKernel client instance.
+	 *
+	 * @var \Illuminate\Foundation\Testing\Client
+	 */
+	protected $client;
+
+	/**
 	 * Refresh the application instance.
 	 *
 	 * @return void
@@ -21,7 +27,11 @@ trait ApplicationTrait {
 	{
 		$this->app = $this->createApplication();
 
-		putenv('APP_ENV=testing');
+		$this->client = $this->createClient();
+
+		$this->app->setRequestForConsoleEnvironment();
+
+		$this->app->boot();
 	}
 
 	/**
@@ -30,17 +40,17 @@ trait ApplicationTrait {
 	 * @param  string  $method
 	 * @param  string  $uri
 	 * @param  array   $parameters
-	 * @param  array   $cookies
 	 * @param  array   $files
 	 * @param  array   $server
 	 * @param  string  $content
+	 * @param  bool	$changeHistory
 	 * @return \Illuminate\Http\Response
 	 */
-	public function call($method, $uri, $parameters = [], $cookies = [], $files = [], $server = [], $content = null)
+	public function call($method, $uri, $parameters = [], $files = [], $server = [], $content = null, $changeHistory = true)
 	{
-		$request = Request::create($uri, $method, $parameters, $cookies, $files, $server, $content);
+		$this->client->request($method, $uri, $parameters, $files, $server, $content, $changeHistory);
 
-		return $this->app->make('Illuminate\Contracts\Http\Kernel')->handle($request);
+		return $this->client->getResponse();
 	}
 
 	/**
@@ -49,17 +59,17 @@ trait ApplicationTrait {
 	 * @param  string  $method
 	 * @param  string  $uri
 	 * @param  array   $parameters
-	 * @param  array   $cookies
 	 * @param  array   $files
 	 * @param  array   $server
 	 * @param  string  $content
+	 * @param  bool	$changeHistory
 	 * @return \Illuminate\Http\Response
 	 */
-	public function callSecure($method, $uri, $parameters = [], $cookies = [], $files = [], $server = [], $content = null)
+	public function callSecure($method, $uri, $parameters = [], $files = [], $server = [], $content = null, $changeHistory = true)
 	{
 		$uri = 'https://localhost/'.ltrim($uri, '/');
 
-		return $this->call($method, $uri, $parameters, $cookies, $files, $server, $content);
+		return $this->call($method, $uri, $parameters, $files, $server, $content, $changeHistory);
 	}
 
 	/**
@@ -69,17 +79,17 @@ trait ApplicationTrait {
 	 * @param  string  $action
 	 * @param  array   $wildcards
 	 * @param  array   $parameters
-	 * @param  array   $cookies
 	 * @param  array   $files
 	 * @param  array   $server
 	 * @param  string  $content
+	 * @param  bool	$changeHistory
 	 * @return \Illuminate\Http\Response
 	 */
-	public function action($method, $action, $wildcards = [], $parameters = [], $cookies = [], $files = [], $server = [], $content = null)
+	public function action($method, $action, $wildcards = array(), $parameters = array(), $files = array(), $server = array(), $content = null, $changeHistory = true)
 	{
 		$uri = $this->app['url']->action($action, $wildcards, true);
 
-		return $this->call($method, $uri, $parameters, $cookies, $files, $server, $content);
+		return $this->call($method, $uri, $parameters, $files, $server, $content, $changeHistory);
 	}
 
 	/**
@@ -89,17 +99,17 @@ trait ApplicationTrait {
 	 * @param  string  $name
 	 * @param  array   $routeParameters
 	 * @param  array   $parameters
-	 * @param  array   $cookies
 	 * @param  array   $files
 	 * @param  array   $server
 	 * @param  string  $content
+	 * @param  bool	$changeHistory
 	 * @return \Illuminate\Http\Response
 	 */
-	public function route($method, $name, $routeParameters = [], $parameters = [], $cookies = [], $files = [], $server = [], $content = null)
+	public function route($method, $name, $routeParameters = array(), $parameters = array(), $files = array(), $server = array(), $content = null, $changeHistory = true)
 	{
 		$uri = $this->app['url']->route($name, $routeParameters);
 
-		return $this->call($method, $uri, $parameters, $cookies, $files, $server, $content);
+		return $this->call($method, $uri, $parameters, $files, $server, $content, $changeHistory);
 	}
 
 	/**
@@ -146,11 +156,11 @@ trait ApplicationTrait {
 	/**
 	 * Set the currently logged in user for the application.
 	 *
-	 * @param  \Illuminate\Contracts\Auth\Authenticatable  $user
+	 * @param  \Illuminate\Auth\UserInterface  $user
 	 * @param  string  $driver
 	 * @return void
 	 */
-	public function be(UserContract $user, $driver = null)
+	public function be(UserInterface $user, $driver = null)
 	{
 		$this->app['auth']->driver($driver)->setUser($user);
 	}
@@ -163,7 +173,18 @@ trait ApplicationTrait {
 	 */
 	public function seed($class = 'DatabaseSeeder')
 	{
-		$this->app['Illuminate\Contracts\Console\Kernel']->call('db:seed', array('--class' => $class));
+		$this->app['artisan']->call('db:seed', array('--class' => $class));
+	}
+
+	/**
+	 * Create a new HttpKernel client instance.
+	 *
+	 * @param  array  $server
+	 * @return \Symfony\Component\HttpKernel\Client
+	 */
+	protected function createClient(array $server = array())
+	{
+		return new Client($this->app, $server);
 	}
 
 }

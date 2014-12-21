@@ -6,9 +6,7 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
-    'pigfly\\' => array($baseDir . '/app'),
-    'Predis\\' => array($vendorDir . '/predis/predis/src'),
     'Monolog\\' => array($vendorDir . '/monolog/monolog/src/Monolog'),
-    'League\\Flysystem\\' => array($vendorDir . '/league/flysystem/src'),
-    'Doctrine\\Instantiator\\' => array($vendorDir . '/doctrine/instantiator/src/Doctrine/Instantiator'),
+    'Codesleeve\\Stapler\\' => array($vendorDir . '/codesleeve/stapler/src'),
+    'Codesleeve\\LaravelStapler\\' => array($vendorDir . '/codesleeve/laravel-stapler/src'),
 );

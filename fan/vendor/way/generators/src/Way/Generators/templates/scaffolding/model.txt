@@ -1,9 +1,13 @@
-<?php namespace $NAMESPACE$;
+<?php
 
-use Illuminate\Database\Eloquent\Model;
+class $NAME$ extends \Eloquent {
 
-class $NAME$ extends Model {
+	// Add your validation rules here
+	public static $rules = [
+		// 'title' => 'required'
+	];
 
+	// Don't forget to fill this array
 	protected $fillable = [];
 
 }

@@ -1,11 +1,10 @@
 <?php namespace Illuminate\Http;
 
-use BadMethodCallException;
 use Illuminate\Support\MessageBag;
 use Illuminate\Support\ViewErrorBag;
 use Symfony\Component\HttpFoundation\Cookie;
 use Illuminate\Session\Store as SessionStore;
-use Illuminate\Contracts\Support\MessageProvider;
+use Illuminate\Support\Contracts\MessageProviderInterface;
 
 class RedirectResponse extends \Symfony\Component\HttpFoundation\RedirectResponse {
 
@@ -47,11 +46,13 @@ class RedirectResponse extends \Symfony\Component\HttpFoundation\RedirectRespons
 	 */
 	public function with($key, $value = null)
 	{
-		$key = is_array($key) ? $key : [$key => $value];
-
-		foreach ($key as $k => $v)
+		if (is_array($key))
 		{
-			$this->session->flash($k, $v);
+			foreach ($key as $k => $v) $this->with($k, $v);
+		}
+		else
+		{
+			$this->session->flash($key, $value);
 		}
 
 		return $this;
@@ -110,7 +111,7 @@ class RedirectResponse extends \Symfony\Component\HttpFoundation\RedirectRespons
 	/**
 	 * Flash a container of errors to the session.
 	 *
-	 * @param  \Illuminate\Contracts\Support\MessageProvider|array  $provider
+	 * @param  \Illuminate\Support\Contracts\MessageProviderInterface|array  $provider
 	 * @param  string  $key
 	 * @return $this
 	 */
@@ -128,12 +129,12 @@ class RedirectResponse extends \Symfony\Component\HttpFoundation\RedirectRespons
 	/**
 	 * Parse the given errors into an appropriate value.
 	 *
-	 * @param  \Illuminate\Contracts\Support\MessageProvider|array  $provider
+	 * @param  \Illuminate\Support\Contracts\MessageProviderInterface|array  $provider
 	 * @return \Illuminate\Support\MessageBag
 	 */
 	protected function parseErrors($provider)
 	{
-		if ($provider instanceof MessageProvider)
+		if ($provider instanceof MessageProviderInterface)
 		{
 			return $provider->getMessageBag();
 		}
@@ -144,7 +145,7 @@ class RedirectResponse extends \Symfony\Component\HttpFoundation\RedirectRespons
 	/**
 	 * Get the request instance.
 	 *
-	 * @return \Illuminate\Http\Request
+	 * @return  \Illuminate\Http\Request
 	 */
 	public function getRequest()
 	{
@@ -199,7 +200,7 @@ class RedirectResponse extends \Symfony\Component\HttpFoundation\RedirectRespons
 			return $this->with(snake_case(substr($method, 4)), $parameters[0]);
 		}
 
-		throw new BadMethodCallException("Method [$method] does not exist on Redirect.");
+		throw new \BadMethodCallException("Method [$method] does not exist on Redirect.");
 	}
 
 }

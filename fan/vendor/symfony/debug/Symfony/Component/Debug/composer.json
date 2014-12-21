@@ -16,11 +16,10 @@
         }
     ],
     "require": {
-        "php": ">=5.3.3",
-        "psr/log": "~1.0"
+        "php": ">=5.3.3"
     },
     "require-dev": {
-        "symfony/http-kernel": "~2.2",
+        "symfony/http-kernel": "~2.1",
         "symfony/http-foundation": "~2.1"
     },
     "suggest": {
@@ -34,7 +33,7 @@
     "minimum-stability": "dev",
     "extra": {
         "branch-alias": {
-            "dev-master": "2.6-dev"
+            "dev-master": "2.5-dev"
         }
     }
 }

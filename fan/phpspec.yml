@@ -1,5 +1,0 @@
-suites:
-    main:
-        namespace: pigfly
-        psr4_prefix: pigfly
-        src_path: app
