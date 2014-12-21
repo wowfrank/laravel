@@ -141,6 +141,8 @@ return [
 		'Illuminate\Validation\ValidationServiceProvider',
 		'Illuminate\View\ViewServiceProvider',
 
+		// 'Way\Generators\GeneratorsServiceProvider',
+
 	],
 
 	/*
