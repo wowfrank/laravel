@@ -14,4 +14,10 @@ class Category extends \Model {
     protected static $messages = [
         'category.required' => 'My custom message for :attribute required',
     ];
+
+    // DEFINE RELATIONSHIPS -----------------------
+    // each category HAS many products
+    public function product() {
+        return $this->hasMany('Product', 'id'); 
+    }
 }

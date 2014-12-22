@@ -25,4 +25,16 @@ class Product extends \Model {
         'suggest_price.required' => 'My custom message for :attribute required', 
         'retail_lowest.required' => 'My custom message for :attribute required', 
     ];
+
+    // DEFINE RELATIONSHIPS -----------------------
+    // each product HAS one category
+    public function category() {
+        return $this->belongsTo('Category', 'category_id'); 
+    }
+
+    // each product BELONGS to many orders
+    // define our pivot table also, define a many to many relationship
+    public function order() {
+        return $this->belongsToMany('Order', 'order_product', 'order_id', 'product_id');
+    }
 }
