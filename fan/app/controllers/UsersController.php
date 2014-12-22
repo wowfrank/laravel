@@ -6,19 +6,64 @@ class UsersController extends BaseController {
 
 	public function register() 
 	{
-		$this->layout->content = View::make('users.register');
+		return View::make('users.register');
 	}
 
-	public function postRegister()
+	public function login()
 	{
-		$validator = Validator::make(Input::all(), User::$rules);
+		return View::make('users.login');
+	}
 
-		if ($validator->passes()) {
-			// validation has passed, save user in DB
-		} else {
-			// validation has failed, display error messages    
+	public function postLogin()
+	{
+		$credentials = Input::only(['email', 'password']);
+
+		try
+		{
+			$user = Sentry::authenticate($credentials, false);
+			if($user){
+	        	Sentry::loginAndRemember($user);
+	            return Redirect::to('/');
+	        }
+
+        	return Redirect::route('login')->withInput();
+		}
+		catch (Cartalyst\Sentry\Users\LoginRequiredException $e)
+		{
+		    echo 'Login field is required.';
+		}
+		catch (Cartalyst\Sentry\Users\PasswordRequiredException $e)
+		{
+		    echo 'Password field is required.';
+		}
+		catch (Cartalyst\Sentry\Users\WrongPasswordException $e)
+		{
+		    echo 'Wrong password, try again.';
+		}
+		catch (Cartalyst\Sentry\Users\UserNotFoundException $e)
+		{
+		    echo 'User was not found.';
+		}
+		catch (Cartalyst\Sentry\Users\UserNotActivatedException $e)
+		{
+		    echo 'User is not activated.';
 		}
 
+		// The following is only required if the throttling is enabled
+		catch (Cartalyst\Sentry\Throttling\UserSuspendedException $e)
+		{
+		    echo 'User is suspended.';
+		}
+		catch (Cartalyst\Sentry\Throttling\UserBannedException $e)
+		{
+		    echo 'User is banned.';
+		}
+        
+	}
+
+	public function logout()
+	{
+		Sentry::logout();
 	}
 
 
@@ -57,7 +102,7 @@ class UsersController extends BaseController {
 	 */
 	public function create()
 	{
-		//
+		// 
 	}
 
 	/**
@@ -69,6 +114,50 @@ class UsersController extends BaseController {
 	public function store()
 	{
 		//
+		//
+		try
+		{
+			// Create the user
+			$user = Sentry::createUser(array(
+				'email'     => Input::get('email'),
+				'password'  => Input::get('password'),
+				'first_name'=> Input::get('fisrt_name'),
+				'last_name' => Input::get('last_name'),
+				'activated' => true,
+			));
+
+			// Find the group using the group id
+			$defaultGroup = Sentry::findGroupById(3);
+
+			if($user) 
+			{
+				// Assign the group to the user
+				$user->addGroup($defaultGroup);
+
+				// Login and Remember the user
+				Sentry::loginAndRemember($user);
+				return Redirect::route('register');
+			}
+
+			return Redirect::route('user.register')->withInput();
+			
+		}
+		catch (Cartalyst\Sentry\Users\LoginRequiredException $e)
+		{
+			echo 'Login field is required.';
+		}
+		catch (Cartalyst\Sentry\Users\PasswordRequiredException $e)
+		{
+			echo 'Password field is required.';
+		}
+		catch (Cartalyst\Sentry\Users\UserExistsException $e)
+		{
+			echo 'User with this login already exists.';
+		}
+		catch (Cartalyst\Sentry\Groups\GroupNotFoundException $e)
+		{
+			echo 'Group was not found.';
+		}
 	}
 
 	/**

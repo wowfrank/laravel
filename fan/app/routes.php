@@ -16,7 +16,29 @@ Route::get('/', function()
 	return View::make('hello');
 });
 
+Route::resource('users', 'UsersController');
+
+Route::resource('product', 'ProductController');
+
+/*
+
+Route::group(array('before' => 'guest'), function () 
+{
+    Route::get('login', array(
+        'as' => 'login', 
+        'uses' => 'UsersController@login'
+    ));
+
+    Route::post('login', array(
+        'before' => 'csrf',
+        'uses' => 'UsersController@postLogin'
+    ));
+});
+*/
 
 Route::get('register', array('as' => 'register', 'uses' => 'UsersController@register'));
 
 Route::get('login', array('as' => 'login', 'uses' => 'UsersController@login'));
+Route::post('/login', array('as' => 'login', 'uses' => 'UsersController@postLogin'));
+
+Route::get('/logout', array('as' => 'logout', 'uses' => 'UsersController@logout'));

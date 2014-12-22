@@ -3,6 +3,7 @@
         Options -MultiViews
     </IfModule>
 
+    Options +FollowSymLinks
     RewriteEngine On
 
     # Redirect Trailing Slashes...
@@ -11,5 +12,6 @@
     # Handle Front Controller...
     RewriteCond %{REQUEST_FILENAME} !-d
     RewriteCond %{REQUEST_FILENAME} !-f
-    RewriteRule ^ index.php [L]
+    # RewriteRule ^ index.php [L]
+    RewriteRule ^(.*)$ index.php/$1 [L]
 </IfModule>
