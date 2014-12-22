@@ -11,6 +11,12 @@ class ProductController extends \BaseController {
 	public function index()
 	{
 		//
+
+		$category 	= Category::all();
+		$product 	= Product::all();
+
+		return View::make('product.index', 
+						array('productList' => $product, 'categoryList'=>$category));
 	}
 
 	/**
@@ -36,13 +42,11 @@ class ProductController extends \BaseController {
 	public function store()
 	{
 		//
-		$productInfo 	= Input::only(['cname', 'ename', 'brand', 'unit',
-									'suggest_price', 'retail_lowest', 'gross_weight',
-									'note', 'item_no', 'status']);
+		$productInfo 	= Input::all();
 		$product 		= Product::create($productInfo);
 
 		if($product){
-            return Redirect::route('product.show');
+            return Redirect::route('product.list');
         }
 
         return Redirect::route('product.create')->withInput();
@@ -58,13 +62,10 @@ class ProductController extends \BaseController {
 	public function show($id)
 	{
 		//
-		$category 	= Category::all();
-		$product 	= Product::all();
-
-		return View::make('product.show', 
-						['productList' => $product, 'categoryList'=>$category]);
+		
 	}
 
+	
 	/**
 	 * Show the form for editing the specified resource.
 	 * GET /product/{id}/edit
@@ -75,6 +76,11 @@ class ProductController extends \BaseController {
 	public function edit($id)
 	{
 		//
+		$product 	= Product::find($id);
+		$category = Category::lists('category', 'id');
+
+		return View::make('product.edit', 
+					['product' => $product, 'categoryList'=>$category]);
 	}
 
 	/**
@@ -87,9 +93,7 @@ class ProductController extends \BaseController {
 	public function update($id)
 	{
 		//
-		$product = Product::find($id);
-
-		return View::make('product.update', ['product' => $product])
+		
 	}
 
 	/**

@@ -3,7 +3,7 @@
 class Product extends \Model {
 	protected $fillable = ['cname', 'ename', 'brand', 'unit',
                                     'suggest_price', 'retail_lowest', 'gross_weight',
-                                    'note', 'item_no', 'status'];
+                                    'note', 'item_no', 'status', 'description', 'category_id'];
 
 	protected $table = 'product';
 

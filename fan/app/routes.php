@@ -42,3 +42,8 @@ Route::get('login', array('as' => 'login', 'uses' => 'UsersController@login'));
 Route::post('/login', array('as' => 'login', 'uses' => 'UsersController@postLogin'));
 
 Route::get('/logout', array('as' => 'logout', 'uses' => 'UsersController@logout'));
+
+Route::get('product/update/{id}', function($id)
+{
+    return 'User '.$id;
+});

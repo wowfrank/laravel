@@ -7,7 +7,7 @@
         {{ Form::open(array('route' => array('product.store'), 'method' => 'post')) }}
         <div class="form-group">
             {{Form::label('category','Category')}}
-            {{Form::select('category', $categoryList, null, array('class' => 'form-control')) }}
+            {{Form::select('category_id', $categoryList, null, array('class' => 'form-control')) }}
             <!-- {{Form::text('first_name', null,array('class' => 'form-control'))}} -->
         </div>
         <div class="form-group">
@@ -33,6 +33,10 @@
         <div class="form-group">
             {{Form::label('retail_lowest','Retail Lowest')}}
             {{Form::text('retail_lowest', null, array('class' => 'form-control'))}}
+        </div>
+        <div class="form-group">
+            {{Form::label('description','Description')}}
+            {{Form::text('description', null, array('class' => 'form-control'))}}
         </div>
         <div class="form-group">
             {{Form::label('gross_weight','Gross Weight')}}
