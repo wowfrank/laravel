@@ -6,7 +6,7 @@
 @endif
 <div class="row">
     <div class="col-md-4 col-md-offset-4">
-        <h2>Update {{$product->id}} </h2>
+        <h2>Update Product {{$product->id}} </h2>
         {{ Form::model($product, array('method' => 'put', 'route' => array('product.update', $product->id))) }}
         <div class="form-group">
             {{Form::label('category','Category')}}

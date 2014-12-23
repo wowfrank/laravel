@@ -2,6 +2,15 @@
 
 class ProductController extends \BaseController {
 
+	public function __construct()
+	{
+		$this->beforeFilter(function()
+		{
+			if (!Sentry::check()) return Redirect::route('login');
+		});
+		
+	}
+
 	/**
 	 * Display a listing of the resource.
 	 * GET /product
@@ -13,7 +22,12 @@ class ProductController extends \BaseController {
 		//
 
 		$category 	= Category::all();
-		$product 	= Product::all();
+		$product 	= Product::orderBy('cname', 'ASC')
+    							->orderBy('brand', 'ASC')
+    							->orderBy('unit', 'ASC')
+    							->orderBy('ename', 'ASC')
+    							->orderBy('note', 'DESC')
+    							->get();
 
 		return View::make('product.index', 
 						array('productList' => $product, 'categoryList'=>$category));
@@ -46,7 +60,7 @@ class ProductController extends \BaseController {
 		$product 		= Product::create($productInfo);
 
 		if($product){
-            return Redirect::route('product');
+            return Redirect::route('product.index');
         }
 
         return Redirect::route('product.create')->withInput();

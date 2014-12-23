@@ -64,6 +64,8 @@ class UsersController extends BaseController {
 	public function logout()
 	{
 		Sentry::logout();
+
+		return Redirect::route('login');
 	}
 
 

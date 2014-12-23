@@ -1,6 +1,6 @@
 <?php
 
-class Order extends \Eloquent {
+class Order extends \Model {
 	protected $fillable = ['order_no', 'status'];
 
 	protected $table = 'order';

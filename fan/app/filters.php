@@ -10,18 +10,14 @@
 | application. Here you may also register your custom route filters.
 |
 */
-
 App::before(function($request)
 {
 	//
 });
-
-
 App::after(function($request, $response)
 {
 	//
 });
-
 /*
 |--------------------------------------------------------------------------
 | Authentication Filters
@@ -32,19 +28,36 @@ App::after(function($request, $response)
 | integrates HTTP Basic authentication for quick, simple checking.
 |
 */
-
 Route::filter('auth', function()
 {
-	if (Auth::guest())
-	{
-		if (Request::ajax())
-		{
-			return Response::make('Unauthorized', 401);
-		}
-		return Redirect::guest('login');
-	}
+	if (!Sentry::check()) return Redirect::guest('login');
 });
 
+// Route::filter('auth', function()
+// {
+// 	if (Auth::guest()) return Redirect::guest('login');
+// });
+
+Route::filter('admin', function()
+{
+	$user = Sentry::getUser();
+    $admin = Sentry::findGroupByName('Admins');
+    if (!$user->inGroup($admin))
+    {
+    	return Redirect::to('login');
+    }
+
+});
+
+Route::filter('standardUser', function()
+{
+	$user = Sentry::getUser();
+    $users = Sentry::findGroupByName('Users');
+    if (!$user->inGroup($users))
+    {
+    	return Redirect::to('login');
+    }
+});
 
 Route::filter('auth.basic', function()
 {
@@ -61,10 +74,41 @@ Route::filter('auth.basic', function()
 | response will be issued if they are, which you may freely change.
 |
 */
-
 Route::filter('guest', function()
 {
-	if (Auth::check()) return Redirect::to('/');
+	if (Sentry::check())
+	{
+		// Logged in successfully - redirect based on type of user
+		$user = Sentry::getUser();
+	    $admin = Sentry::findGroupByName('Admins');
+	    $users = Sentry::findGroupByName('Users');
+	    if ($user->inGroup($admin)) return Redirect::intended('admin');
+	    elseif ($user->inGroup($users)) return Redirect::intended('/');
+	}
+});
+
+// Route::filter('guest', function()
+// {
+// 	if (Auth::check()) return Redirect::to('/');
+// });
+
+Route::filter('redirectAdmin', function()
+{
+	if (Sentry::check())
+	{
+		$user = Sentry::getUser();
+	    $admin = Sentry::findGroupByName('Admins');
+	    if ($user->inGroup($admin)) return Redirect::intended('admin');
+	}
+});
+
+Route::filter('currentUser', function($route)
+{
+    if (!Sentry::check()) return Redirect::home();
+    if (Sentry::getUser()->id != $route->parameter('profiles'))
+    {
+        return Redirect::home();
+    }
 });
 
 /*

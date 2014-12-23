@@ -10,7 +10,7 @@
 @endif
 <div class="row">
     <div class="col-md-4 col-md-offset-4">
-        <h2>Register here</h2>
+        <h2>Create A Product</h2>
         {{ Form::open(array('route' => array('product.store'), 'method' => 'post')) }}
         <div class="form-group">
             {{Form::label('category','Category')}}

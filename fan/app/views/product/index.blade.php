@@ -6,54 +6,55 @@
   <div>{{ Session::get('message') }}</div>
 @endif
 @foreach ($categoryList as $category)
-	<!-- @if ($productList) -->
-		<div class="row">
-			<div class="col-md-1">
-		        {{$category->category}}
-		    </div>
+	@if (Product::where('category_id', '=', $category->id)->first())
+		<div class="list-group">
+			<a class="list-group-item active">
+				<h4 class="list-group-item-heading">{{$category->category}}</h4>
+			</a>
+		    <table class="table table-striped table-bordered table-hover">
+		    	<!-- <caption>Product Information in {{$category->category}}<caption> -->
+			    <thead>
+			        <tr>
+			            <th><input type="checkbox" class="checkAll" name="foo[]" /></th>
+			            <th>Chinese</th>
+			            <th>Brand</th>
+			            <th>Unit</th>
+			            <th>English</th>
+			            <th>Suggest</th>
+			            <th>Lowest</th>
+			            <th>Item No</th>
+			            <th>Description</th>
+			            <th>Note</th>
+			            <th>Operation</th>
+			        </tr>
+			    </thead>
+			    <tbody>
+					@foreach (Product::where('category_id', '=', $category->id)->get() as $product)
+						@if ($product->status )
+							<tr>
+						@else
+							<tr class="warning">
+						@endif
+							<td><input type="checkbox" name="foo[]" value="{{$product->id}}" class="checkbox-class" /></td>
+							<td>{{$product->cname}}</td>
+							<td>{{$product->brand}}</td>
+							<td>{{$product->unit}}</td>
+							<td>{{$product->ename}}</td>
+							<td>{{money_format('%(#3n', $product->suggest_price)}}</td>
+							<td>{{money_format('%(#3n', $product->retail_lowest)}}</td>
+							<td>{{$product->item_no}}</td>
+							<td>{{$product->description}}</td>
+							<td>{{$product->note}}</td>
+							<td>
+								{{ link_to_route('product.edit', 'Edit', array($product->id), array('class' => 'btn btn-info')) }}
+							    <a onclick="confirmDelete({{$product->id}});" class="btn btn-mini btn-danger">Delete</a>
+							</td>
+						</tr>
+					@endforeach
+				</tbody>
+			</table>
 		</div>
-	<!-- @endif -->
-	@foreach ($productList as $product)
-		@if ($product->category_id == $category->id)
-		    <div class="row">
-			    <div class="col-md-1">
-			        {{$product->cname}}
-			    </div>
-			    <div class="col-md-1">
-			        {{$product->ename}}
-			    </div>
-			    <div class="col-md-1">
-			        {{$product->brand}}
-			    </div>    
-			    <div class="col-md-1">
-			        {{$product->unit}}
-			    </div>
-			    <div class="col-md-1">
-			        {{$product->description}}
-			    </div> 
-			    <div class="col-md-1">
-			        {{$product->suggest_price}}
-			    </div> 
-			    <div class="col-md-1">
-			        {{$product->retail_lowest}}
-			    </div> 
-			    <div class="col-md-1">
-			        {{$product->item_no}}
-			    </div>
-			    <div class="col-md-1">
-			        {{$product->note}}
-			    </div>
-
-			    <div class="col-md-1">
-			        {{ link_to_route('product.edit', 'Edit', array($product->id), array('class' => 'btn btn-info')) }}
-			    </div>
-			    <div class="col-md-1">
-			        <!-- <a href="{{ URL::to('product/' . $product->id . '/destroy') }}" class="btn btn-mini btn-danger to-delete">Delete</a> -->
-			        <a onclick="confirmDelete({{$product->id}});" class="btn btn-mini btn-danger">Delete</a>
-			    </div> 
-			</div>
-		@endif
-	@endforeach
+	@endif
 @endforeach
 <script type="text/javascript">
 	function confirmDelete(id)
@@ -73,5 +74,19 @@
 		}
 		return false;
 	}
+
+	$(".checkAll").click(function(){
+	    $('input:checkbox').not(this).prop('checked', this.checked);
+	});
 </script>
+<style>
+
+	div > .row:nth-child(even) {
+	   background-color: #FFCCCC;
+	}
+
+	div > .row:nth-child(odd) {
+	   background-color: #CCE6FF;
+	}
+</style>
 @stop
