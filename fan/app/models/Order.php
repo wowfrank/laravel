@@ -5,12 +5,12 @@ class Order extends \Eloquent {
 
 	protected $table = 'order';
 
-	protected static $rules = [
+	public static $rules = [
         'order_no' => 'required',
     ];
 
     //Use this for custom messages
-    protected static $messages = [
+    public static $messages = [
         'order_no.required' => 'My custom message for :attribute required',
     ];
 

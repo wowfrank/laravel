@@ -6,12 +6,12 @@ class Category extends \Model {
 
 	protected $fillable = ['category'];
 
-	protected static $rules = [
+	public static $rules = [
         'category' => 'required',
     ];
 
     //Use this for custom messages
-    protected static $messages = [
+    public static $messages = [
         'category.required' => 'My custom message for :attribute required',
     ];
 

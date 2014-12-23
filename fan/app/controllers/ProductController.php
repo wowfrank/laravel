@@ -46,7 +46,7 @@ class ProductController extends \BaseController {
 		$product 		= Product::create($productInfo);
 
 		if($product){
-            return Redirect::route('product.list');
+            return Redirect::route('product');
         }
 
         return Redirect::route('product.create')->withInput();
@@ -93,7 +93,19 @@ class ProductController extends \BaseController {
 	public function update($id)
 	{
 		//
-		
+		$updateInfo	= Input::all();
+		$validation = Validator::make($updateInfo, Product::$rules);
+
+		if ($validation->passes())
+        {
+            $product 	= Product::find($id);
+            $product->update($updateInfo);
+            return Redirect::route('product.index');
+        }
+		return Redirect::route('product.edit', $id)
+            ->withInput()
+            ->withErrors($validation)
+            ->with('message', 'There were validation errors.');
 	}
 
 	/**
@@ -106,6 +118,7 @@ class ProductController extends \BaseController {
 	public function destroy($id)
 	{
 		//
+		echo Product::find($id)->delete() ?  true : false;
 	}
 
 }

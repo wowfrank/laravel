@@ -1,13 +1,16 @@
 @extends('layouts.product')
 
 @section('body')
+@if (Session::has('message'))
+  <div>{{ Session::get('message') }}</div>
+@endif
 <div class="row">
     <div class="col-md-4 col-md-offset-4">
-        <h2>Update {{$product->id}}</h2>
-        {{ Form::open(array('route' => array('product.update', $product->id), 'method' => 'post')) }}
+        <h2>Update {{$product->id}} </h2>
+        {{ Form::model($product, array('method' => 'put', 'route' => array('product.update', $product->id))) }}
         <div class="form-group">
             {{Form::label('category','Category')}}
-            {{Form::select('category_id', $categoryList, 'abc', array('class' => 'form-control')) }}
+            {{Form::select('category_id', $categoryList, $product->category->id, array('class' => 'form-control')) }}
         </div>
         <div class="form-group">
             {{Form::label('cname','Chinese Name')}}
@@ -47,7 +50,6 @@
         </div>
         <div class="form-group">
             {{Form::label('status','Status')}}
-            <!-- {{Form::text('status', null, array('class' => 'form-control'))}} -->
             {{ Form::radio('status', '1', $product->status == false ? false : true, array('class' => 'form-control')) }} Approved
             {{ Form::radio('status', '0', $product->status == false ? false : true, array('class' => 'form-control')) }} Appending
         </div>

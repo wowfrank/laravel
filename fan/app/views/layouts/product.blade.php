@@ -6,9 +6,10 @@
 
 		<title>Authentication App With Laravel 4</title>
 		{{ HTML::style('packages/bootstrap/css/bootstrap.min.css') }}
-		{{ HTML::style('assets/css/main.css')}}
+		{{ HTML::style(URL::to('/assets/main.css')) }}
+		{{ HTML::script(URL::to('/assets/jquery.min.js')) }}
 	</head>
- 
+
 	<body>
 	 
 		<div class="page">

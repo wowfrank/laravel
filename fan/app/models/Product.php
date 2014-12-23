@@ -7,7 +7,7 @@ class Product extends \Model {
 
 	protected $table = 'product';
 
-	protected static $rules = [
+	public static $rules = [
         'cname' => 'required',
         'ename' => 'required',
         'brand' => 'required',
@@ -17,7 +17,7 @@ class Product extends \Model {
     ];
 
     //Use this for custom messages
-    protected static $messages = [
+    public static $messages = [
         'cname.required' => 'My custom message for :attribute required',
         'ename.required' => 'My custom message for :attribute required', 
         'brand.required' => 'My custom message for :attribute required', 

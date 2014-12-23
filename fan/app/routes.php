@@ -36,14 +36,34 @@ Route::group(array('before' => 'guest'), function ()
 });
 */
 
-Route::get('register', array('as' => 'register', 'uses' => 'UsersController@register'));
+Route::get('register', [
+	'as' => 'register', 
+	'uses' => 'UsersController@register']);
 
-Route::get('login', array('as' => 'login', 'uses' => 'UsersController@login'));
-Route::post('/login', array('as' => 'login', 'uses' => 'UsersController@postLogin'));
+Route::get('login', [
+	'as' => 'login', 
+	'uses' => 'UsersController@login']);
 
-Route::get('/logout', array('as' => 'logout', 'uses' => 'UsersController@logout'));
+Route::post('login', [
+	'as' => 'login', 
+	'uses' => 'UsersController@postLogin']);
 
-Route::get('product/update/{id}', function($id)
-{
-    return 'User '.$id;
-});
+Route::get('logout', [
+	'as' => 'logout', 
+	'uses' => 'UsersController@logout']);
+
+Route::get('product/{id}/edit', [
+	'uses' => 'ProductController@edit',
+	'as' => 'product.edit']);
+
+Route::put('product/{id}', [
+	'uses' => 'ProductController@update',
+	'as' => 'product.update']);
+
+Route::get('product/{id}/delete', [
+	'uses' => 'ProductController@delete',
+	'as' => 'product.delete']);
+
+Route::delete('product/{id}', [
+	'uses' => 'ProductController@destroy',
+	'as' => 'product.destroy']);
