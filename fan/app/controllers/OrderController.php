@@ -2,6 +2,15 @@
 
 class OrderController extends \BaseController {
 
+	public function __construct()
+	{
+		$this->beforeFilter(function()
+		{
+			if (!Sentry::check()) return Redirect::route('login');
+		});
+		
+	}
+
 	/**
 	 * Display a listing of the resource.
 	 * GET /order
@@ -11,6 +20,10 @@ class OrderController extends \BaseController {
 	public function index()
 	{
 		//
+		$order = Order::all();
+
+		return View::make('order.index',
+			['order' => $order]);
 	}
 
 	/**
@@ -22,6 +35,11 @@ class OrderController extends \BaseController {
 	public function create()
 	{
 		//
+		// var_dump(Input::get('dataString')); die;
+		$data = json_decode(stripslashes(Input::get('dataString')), true);
+		$product_array = array_column($products, 'value');
+
+		return View::make('order.create');
 	}
 
 	/**

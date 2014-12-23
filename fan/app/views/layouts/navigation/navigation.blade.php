@@ -17,7 +17,7 @@
                     	<li>{{ HTML::link('product', 'Product', array('class'=>'btn btn-default')) }}</li>
                     	<li>{{ HTML::link('product/create', 'Create Product', array('class'=>'btn btn-default')) }}</li>
                         <li>{{ HTML::link('order', 'Order', array('class'=>'btn btn-default')) }}</li>
-                        <li>{{ HTML::link('order/create', 'Create Order', array('class'=>'btn btn-default')) }}</li>
+                        <li>{{ HTML::link('order/create', 'Create Order', array('class'=>'btn btn-default', 'id' => 'create-order')) }}</li>
                         <li>{{ HTML::link('logout', 'Log Out', array('class'=>'btn btn-default')) }}</li>
                     @else
                         <li>{{ HTML::link('login', 'Login', array('class'=>'btn btn-default')) }}</li>
@@ -29,3 +29,29 @@
         </div>
     </nav>
 </div>
+
+<script type="text/javascript">
+$(function()
+{
+    $('#create-order').click(function(e)
+    {
+        e.preventDefault();
+        if($(".checkbox-class").prop('checked') == false){
+            //if nothing has been checked, prompt error message
+            alert('Please choose products that you want to add to order!');
+        } else {
+            var dataString = JSON.stringify($('input[class="checkbox-class"]:checked').serializeArray());
+            
+            var f = jQuery("<form>", { action: "{{ URL::to('order/create') }}", method: 'post' });
+            f.append(
+                $("<input>", { type: "hidden", name: "dataString", value: dataString })
+            );
+            $(document.body).append(f);
+            f.submit();
+        }
+
+        return false;
+    });
+});
+
+</script>

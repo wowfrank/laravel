@@ -23,6 +23,8 @@ Route::resource('users', 'UsersController');
 
 Route::resource('product', 'ProductController');
 
+Route::resource('order', 'OrderController');
+
 /*
 
 Route::group(array('before' => 'guest'), function () 
@@ -71,6 +73,9 @@ Route::delete('product/{id}', [
 	'uses' => 'ProductController@destroy',
 	'as' => 'product.destroy']);
 
+Route::post('order/create', [
+	'as' => 'order.create',
+	'uses' => 'OrderController@create']);
 
 //Example use
 
