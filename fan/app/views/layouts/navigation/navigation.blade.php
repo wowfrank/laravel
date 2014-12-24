@@ -36,18 +36,20 @@ $(function()
     $('#create-order').click(function(e)
     {
         e.preventDefault();
-        if($(".checkbox-class").prop('checked') == false){
-            //if nothing has been checked, prompt error message
-            alert('Please choose products that you want to add to order!');
-        } else {
+
+        if( $('input[class="checkbox-class"]:checked').length > 0 ) 
+        {
             var dataString = JSON.stringify($('input[class="checkbox-class"]:checked').serializeArray());
-            
             var f = jQuery("<form>", { action: "{{ URL::to('order/create') }}", method: 'post' });
+
             f.append(
                 $("<input>", { type: "hidden", name: "dataString", value: dataString })
             );
             $(document.body).append(f);
             f.submit();
+        } else {
+            //if nothing has been checked, prompt error message
+            alert('Please choose products that you want to add to order!');
         }
 
         return false;

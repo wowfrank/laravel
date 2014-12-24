@@ -35,6 +35,26 @@ class Product extends \Model {
     // each product BELONGS to many orders
     // define our pivot table also, define a many to many relationship
     public function order() {
-        return $this->belongsToMany('Order', 'order_product', 'order_id', 'product_id');
+        return $this->belongsToMany('Order', 'order_product', 'order_id', 'product_id')
+                    ->withTimestamps()
+                    ->withPivot('quantity');
+    }
+
+    /*
+     * Check if a given category id that exists in the returned product object
+     * @params $id 
+     * @params $product
+     * @return boolean
+     */
+    public static function isCategoryInList($id, $product)
+    {
+        $exists = false;
+
+        foreach($product as $p)
+        {
+            if ($p->category_id == $id) $exists = true;
+        }
+
+        return $exists;
     }
 }

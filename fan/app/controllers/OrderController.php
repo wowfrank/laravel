@@ -14,7 +14,7 @@ class OrderController extends \BaseController {
 		$order = Order::all();
 
 		return View::make('order.index',
-			['order' => $order]);
+			['orderList' => $order]);
 	}
 
 	/**
@@ -27,10 +27,20 @@ class OrderController extends \BaseController {
 	{
 		//
 		// var_dump(Input::get('dataString')); die;
-		$data = json_decode(stripslashes(Input::get('dataString')), true);
-		$product_array = array_column($products, 'value');
+		$data 			= json_decode(stripslashes(Input::get('dataString')), true);
+		$product_array 	= array_column($data, 'value');
+		$category 		= Category::all();
+		$product 		= Product::whereIn( 'id', $product_array )
+									->orderBy('cname', 'ASC')
+	    							->orderBy('brand', 'ASC')
+	    							->orderBy('unit', 'ASC')
+	    							->orderBy('ename', 'ASC')
+	    							->orderBy('note', 'DESC')
+	    							->get();
 
-		return View::make('order.create');
+		// print_r($product_array); die;
+		return View::make('order.create', 
+					['categoryList' => $category, 'productList' => $product]);
 	}
 
 	/**
@@ -42,6 +52,27 @@ class OrderController extends \BaseController {
 	public function store()
 	{
 		//
+		$orderInfo 	= Input::all();
+		$order 		= Order::create($orderInfo);
+		$productIDs	= Input::only('product_id');
+		$quantities	= Input::only('quantity');
+		for($i = 0; $i < count($productIDs['product_id']); $i++)
+		{
+			$orderIDs['order_id'][$i] = $order->id;
+		}
+
+
+		// @TODO error handler!
+		if($order)
+		{
+			$pivotInfo = array_map(function($x, $y, $z) { return array('order_id'=> $z, 'product_id'=> $x, 'quantity' => $y); }, 
+									$productIDs['product_id'], $quantities['quantity'], $orderIDs['order_id']);
+
+			$order->product()->sync($pivotInfo);
+		} else {
+
+		}
+
 	}
 
 	/**

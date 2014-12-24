@@ -28,7 +28,12 @@
 			        </tr>
 			    </thead>
 			    <tbody>
-					@foreach (Product::where('category_id', '=', $category->id)->get() as $product)
+					@foreach (Product::where('category_id', '=', $category->id)->orderBy('cname', 'ASC')
+			    							->orderBy('brand', 'ASC')
+			    							->orderBy('unit', 'ASC')
+			    							->orderBy('ename', 'ASC')
+			    							->orderBy('note', 'DESC')
+			    							->get() as $product)
 						@if ($product->status )
 							<tr>
 						@else
