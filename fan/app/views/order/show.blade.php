@@ -7,8 +7,6 @@
 @endif
 
 <?php $index = 1; ?>
-{{ Form::open(array('route' => array('order.store'), 'method' => 'post')) }}
-	{{ Form::hidden('order_no', Order::generateRandomStr()) }}
 	@foreach ( $categoryList as $category )
 		@if ( Product::isCategoryInList($category->id, $productList) )
 			<div class="list-group">
@@ -19,15 +17,14 @@
 			    	<!-- <caption>Product Information in {{$category->category}}<caption> -->
 				    <thead>
 				        <tr>
-				            <th style="width: 2%"></th>
-				            <th style="width: 11%">Chinese</th>
-				            <th style="width: 10%">Brand</th>
-				            <th style="width: 10%">Unit</th>
-				            <th style="width: 10%">English</th>
-				            <th style="width: 10%">Item No</th>
-				            <th style="width: 30%">Description</th>
-				            <th style="width: 9%">Quantity</th>
-				            <th style="width: 8%">Operation</th>
+				            <th></th>
+				            <th>Chinese</th>
+				            <th>Brand</th>
+				            <th>Unit</th>
+				            <th>English</th>
+				            <th>Item No</th>
+				            <th>Description</th>
+				            <th>Quantity</th>
 				        </tr>
 				    </thead>
 				    <tbody>
@@ -38,7 +35,6 @@
 								@else
 								<tr class="warning">
 								@endif
-									{{ Form::hidden('product_id[]', $product->id) }}
 									<td>{{$index}}</td><?php $index++; ?>
 									<td>{{$product->cname}}</td>
 									<td>{{$product->brand}}</td>
@@ -46,10 +42,7 @@
 									<td>{{$product->ename}}</td>
 									<td>{{$product->item_no}}</td>
 									<td>{{$product->description}}</td>
-									<td>{{Form::text('quantity[]', null, array('class' => 'form-control'))}}</td>
-									<td>
-										<a class="btn btn-mini btn-danger pro-remove">Delete</a>
-									</td>
+									<td>{{$product->pivot->quantity}}</td>
 								</tr>
 							@endif
 						@endforeach
@@ -58,27 +51,9 @@
 			</div>
 		@endif
 	@endforeach
-{{Form::select('status', ['-1'=> 'INACTIVE', '0'=>'CLOSED', '1'=>'ACTIVE'], 0, array('class' => 'form-control')) }}
 
-{{ HTML::link('product', 'Return', array('class'=>'btn btn-info')) }}
-{{Form::submit('Generate Order', array('class' => 'btn btn-primary'))}}
-{{ Form::close() }}
+{{ HTML::link('order', 'Return', array('class'=>'btn btn-info')) }}
 
-<script type="text/javascript">
-$(function()
-{
-	$('.pro-remove').click(function(){
-		var answer = confirm('Are you sure you want to remove this product from order?');
-
-		if (answer===true) 
-		{
-			$(this).closest('tr').remove();
-		}
-		return false;
-	});
-})
-
-</script>
 <style>
 
 	div > .row:nth-child(even) {

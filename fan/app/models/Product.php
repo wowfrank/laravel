@@ -35,7 +35,7 @@ class Product extends \Model {
     // each product BELONGS to many orders
     // define our pivot table also, define a many to many relationship
     public function order() {
-        return $this->belongsToMany('Order', 'order_product', 'order_id', 'product_id')
+        return $this->belongsToMany('Order')
                     ->withTimestamps()
                     ->withPivot('quantity');
     }

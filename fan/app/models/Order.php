@@ -17,11 +17,11 @@ class Order extends \Model {
 
     // DEFINE RELATIONSHIPS -----------------------
    
-    // each order HAS many products
+    // each order HAS many products, $this->belongsToMany('Product', 'order_product', 'product_id', 'order_id')
     // define our pivot table also, define a many to many relationship
     public function product()
     {
-        return $this->belongsToMany('Product', 'order_product', 'product_id', 'order_id')
+        return $this->belongsToMany('Product')
                     ->withPivot('quantity')
                     ->withTimestamps();
     }

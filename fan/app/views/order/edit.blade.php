@@ -7,8 +7,8 @@
 @endif
 
 <?php $index = 1; ?>
-{{ Form::open(array('route' => array('order.store'), 'method' => 'post')) }}
-	{{ Form::hidden('order_no', Order::generateRandomStr()) }}
+{{ Form::model($order, array('method' => 'put', 'route' => array('order.update', $order->id))) }}
+	{{ Form::hidden('order_no', $order->order_no) }}
 	@foreach ( $categoryList as $category )
 		@if ( Product::isCategoryInList($category->id, $productList) )
 			<div class="list-group">
@@ -46,7 +46,7 @@
 									<td>{{$product->ename}}</td>
 									<td>{{$product->item_no}}</td>
 									<td>{{$product->description}}</td>
-									<td>{{Form::text('quantity[]', null, array('class' => 'form-control'))}}</td>
+									<td>{{Form::text('quantity[]', $product->pivot->quantity, array('class' => 'form-control'))}}</td>
 									<td>
 										<a class="btn btn-mini btn-danger pro-remove">Delete</a>
 									</td>
@@ -58,10 +58,8 @@
 			</div>
 		@endif
 	@endforeach
-{{Form::select('status', ['-1'=> 'INACTIVE', '0'=>'CLOSED', '1'=>'ACTIVE'], 0, array('class' => 'form-control')) }}
-
-{{ HTML::link('product', 'Return', array('class'=>'btn btn-info')) }}
-{{Form::submit('Generate Order', array('class' => 'btn btn-primary'))}}
+{{Form::select('status', ['-1'=> 'INACTIVE', '0'=>'CLOSED', '1'=>'ACTIVE'], $order->status, array('class' => 'form-control')) }}
+{{Form::submit('Update Order', array('class' => 'btn btn-primary'))}}
 {{ Form::close() }}
 
 <script type="text/javascript">

@@ -14,17 +14,17 @@
 		    	<!-- <caption>Product Information in {{$category->category}}<caption> -->
 			    <thead>
 			        <tr>
-			            <th><input type="checkbox" class="checkAll" name="foo[]" /></th>
-			            <th>Chinese</th>
-			            <th>Brand</th>
-			            <th>Unit</th>
-			            <th>English</th>
-			            <th>Suggest</th>
-			            <th>Lowest</th>
-			            <th>Item No</th>
-			            <th>Description</th>
-			            <th>Note</th>
-			            <th>Operation</th>
+			            <th style="width: 2%"><input type="checkbox" class="checkAll" name="foo[]" /></th>
+			            <th style="width: 11%">Chinese</th>
+			            <th style="width: 8%">Brand</th>
+			            <th style="width: 6%">Unit</th>
+			            <th style="width: 12%">English</th>
+			            <th style="width: 7%">Suggest</th>
+			            <th style="width: 7%">Lowest</th>
+			            <th style="width: 8%">Item No</th>
+			            <th style="width: 13%">Description</th>
+			            <th style="width: 14%">Note</th>
+			            <th style="width: 12%">Operation</th>
 			        </tr>
 			    </thead>
 			    <tbody>

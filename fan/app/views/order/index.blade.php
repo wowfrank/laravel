@@ -6,36 +6,54 @@
 @endif
 
 <?php $index = 1; ?>
-@foreach ($orderList as $order)
 	<div class="list-group">
 		<a class="list-group-item active">
 			<h4 class="list-group-item-heading">Order List</h4>
 		</a>
 	    <table class="table table-striped table-bordered table-hover">
-	    	<!-- <caption>Product Information in {{$order->order_no}}<caption> -->
 		    <thead>
 		        <tr>
-		            <th></th>
-		            <th>Order No</th>
-		            <th>Status</th>
-		            <th>Labor</th>
-		            <th>Transport</th>
-		            <th>Total</th>
-		            <th>Create Date</th>
-		            <th>Update Date</th>
-		            <th>Operation</th>
+		            <th style="width: 2%"></th>
+		            <th style="width: 10%">Order No</th>
+		            <th style="width: 10%">Status</th>
+		            <th style="width: 10%">Labor</th>
+		            <th style="width: 10%">Transport</th>
+		            <th style="width: 10%">Total</th>
+		            <th style="width: 18%">Create Date</th>
+		            <th style="width: 18%">Update Date</th>
+		            <th style="width: 12%">Operation</th>
 		        </tr>
 		    </thead>
 		    <tbody>
 				@foreach ($orderList as $order)
-					@if ($order->status )
-						<tr>
-					@else
-						<tr class="warning">
-					@endif
-						<td>{{$index}}</td>
+					<?php
+						switch ($order->status) {
+							case '0': echo'<tr class="info">';
+								break;
+							case '1': echo'<tr>';
+								break;
+							case '-1': echo'<tr class="warning">';
+								break;
+							default: echo'<tr>';
+								break;
+						}
+					?>
+						<td>{{$index}}</td><?php $index++; ?>	
 						<td>{{$order->order_no}}</td>
-						<td>{{$order->status}}</td>
+						<td>
+							<?php
+								switch ($order->status) {
+									case '0': echo'CLOSED';
+										break;
+									case '1': echo'ACTIVE';
+										break;
+									case '-1': echo'INACTIVE';
+										break;
+									default: echo'CLOSED';
+										break;
+								}
+							?>
+						</td>
 						<td>{{$order->labor}}</td>
 						<td>{{$order->transport}}</td>
 						<td>{{$order->sum}}</td>
@@ -50,8 +68,6 @@
 			</tbody>
 		</table>
 	</div>
-<?php $index++; ?>	
-@endforeach
 
 <style>
 

@@ -73,6 +73,8 @@ class OrderController extends \BaseController {
 
 		}
 
+		return Redirect::route('order.index');
+
 	}
 
 	/**
@@ -85,6 +87,11 @@ class OrderController extends \BaseController {
 	public function show($id)
 	{
 		//
+		$order 		= Order::find($id);
+		$category 	= Category::all();
+		$products 	= $order->product;
+
+		return View::make('order.show', ['productList' => $products, 'categoryList' => $category, 'status' => $order->status]);
 	}
 
 	/**
@@ -97,6 +104,11 @@ class OrderController extends \BaseController {
 	public function edit($id)
 	{
 		//
+		$order 		= Order::find($id);
+		$category 	= Category::all();
+		$products 	= $order->product;
+
+		return View::make('order.edit', ['productList' => $products, 'categoryList' => $category, 'order' => $order]);
 	}
 
 	/**
@@ -109,6 +121,32 @@ class OrderController extends \BaseController {
 	public function update($id)
 	{
 		//
+
+		$orderInfo 	= Input::all();
+		$order 		= Order::find($id);
+		$order->status = Input::get('status');
+		$productIDs	= Input::only('product_id');
+		$quantities	= Input::only('quantity');
+
+		for($i = 0; $i < count($productIDs['product_id']); $i++)
+		{
+			$orderIDs['order_id'][$i] = $order->id;
+		}
+
+
+		// @TODO error handler!
+		if($order->save())
+		{
+			$pivotInfo = array_map(function($x, $y, $z) { return array('order_id'=> $z, 'product_id'=> $x, 'quantity' => $y); }, 
+									$productIDs['product_id'], $quantities['quantity'], $orderIDs['order_id']);
+
+			$order->product()->detach();
+			$order->product()->sync($pivotInfo);
+		} else {
+
+		}
+
+		return Redirect::route('order.index');
 	}
 
 	/**
