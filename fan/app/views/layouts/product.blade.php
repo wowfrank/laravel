@@ -5,9 +5,10 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 		<title>Authentication App With Laravel 4</title>
+		{{ HTML::script(URL::to('/assets/jquery.min.js')) }}
 		{{ HTML::style('packages/bootstrap/css/bootstrap.min.css') }}
 		{{ HTML::style(URL::to('/assets/main.css')) }}
-		{{ HTML::script(URL::to('/assets/jquery.min.js')) }}
+		
 	</head>
 
 	<body>

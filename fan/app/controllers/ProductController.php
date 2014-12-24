@@ -2,15 +2,6 @@
 
 class ProductController extends \BaseController {
 
-	public function __construct()
-	{
-		$this->beforeFilter(function()
-		{
-			if (!Sentry::check()) return Redirect::route('login');
-		});
-		
-	}
-
 	/**
 	 * Display a listing of the resource.
 	 * GET /product

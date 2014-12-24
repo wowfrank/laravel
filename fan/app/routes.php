@@ -77,14 +77,22 @@ Route::post('order/create', [
 	'as' => 'order.create',
 	'uses' => 'OrderController@create']);
 
+# Standard User Routes
+Route::group(['before' => 'auth'], function()
+{
+	Route::resource('users', 'UsersController', ['only' => ['login', 'register']]);
+	Route::resource('order', 'OrderController');
+	Route::resource('product', 'ProductController');
+});
+
 //Example use
 
 # Registration
-Route::group(['before' => 'guest'], function()
-{
-	Route::get('register', 'UsersController@create');
-	Route::post('register', ['as' => 'users.store', 'uses' => 'UsersController@store']);
-});
+# Route::group(['before' => 'guest'], function()
+# {
+# 	Route::get('register', 'UsersController@create');
+# 	Route::post('register', ['as' => 'users.store', 'uses' => 'UsersController@store']);
+# });
 
 # Authentication
 # Route::get('login', ['as' => 'login', 'uses' => 'SessionsController@create'])->before('guest');

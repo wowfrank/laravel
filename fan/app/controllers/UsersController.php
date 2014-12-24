@@ -11,7 +11,10 @@ class UsersController extends BaseController {
 
 	public function login()
 	{
-		return View::make('users.login');
+		// if (Sentry::check()) 
+		// 	return Redirect::route('product.index');
+		// else 
+			return View::make('users.login');
 	}
 
 	public function postLogin()

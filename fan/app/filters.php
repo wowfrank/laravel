@@ -30,7 +30,7 @@ App::after(function($request, $response)
 */
 Route::filter('auth', function()
 {
-	if (!Sentry::check()) return Redirect::guest('login');
+	if (!Sentry::check()) return Redirect::route('login');
 });
 
 // Route::filter('auth', function()
@@ -74,7 +74,7 @@ Route::filter('auth.basic', function()
 | response will be issued if they are, which you may freely change.
 |
 */
-Route::filter('guest', function()
+/*Route::filter('guest', function()
 {
 	if (Sentry::check())
 	{
@@ -85,14 +85,14 @@ Route::filter('guest', function()
 	    if ($user->inGroup($admin)) return Redirect::intended('admin');
 	    elseif ($user->inGroup($users)) return Redirect::intended('/');
 	}
-});
+});*/
 
 // Route::filter('guest', function()
 // {
 // 	if (Auth::check()) return Redirect::to('/');
 // });
 
-Route::filter('redirectAdmin', function()
+/*Route::filter('redirectAdmin', function()
 {
 	if (Sentry::check())
 	{
@@ -100,7 +100,7 @@ Route::filter('redirectAdmin', function()
 	    $admin = Sentry::findGroupByName('Admins');
 	    if ($user->inGroup($admin)) return Redirect::intended('admin');
 	}
-});
+});*/
 
 Route::filter('currentUser', function($route)
 {
