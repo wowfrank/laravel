@@ -80,7 +80,6 @@ Route::post('order/create', [
 # Standard User Routes
 Route::group(['before' => 'auth'], function()
 {
-	Route::resource('/');
 	Route::resource('users', 'UsersController', ['only' => ['login', 'register']]);
 	Route::resource('order', 'OrderController');
 	Route::resource('product', 'ProductController');
