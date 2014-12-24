@@ -26,7 +26,7 @@ class UsersController extends BaseController {
 			$user = Sentry::authenticate($credentials, false);
 			if($user){
 	        	Sentry::loginAndRemember($user);
-	            return Redirect::to('/');
+	            return Redirect::route('product.index');
 	        }
 
         	return Redirect::route('login')->withInput();
