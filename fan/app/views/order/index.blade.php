@@ -5,6 +5,7 @@
   <div>{{ Session::get('message') }}</div>
 @endif
 
+<?php $index = 1; ?>
 @foreach ($orderList as $order)
 	<div class="list-group">
 		<a class="list-group-item active">
@@ -32,7 +33,7 @@
 					@else
 						<tr class="warning">
 					@endif
-						<td></td>
+						<td>{{$index}}</td>
 						<td>{{$order->order_no}}</td>
 						<td>{{$order->status}}</td>
 						<td>{{$order->labor}}</td>
@@ -41,13 +42,15 @@
 						<td>{{$order->created_at}}</td>
 						<td>{{$order->updated_at}}</td>
 						<td>
-							{{ link_to_route('order.edit', 'Update', array($order->id), array('class' => 'btn btn-info')) }}
+							{{ link_to_route('order.show', 'View', array($order->id), array('class' => 'btn btn-info')) }}
+							{{ link_to_route('order.edit', 'Update', array($order->id), array('class' => 'btn btn-primary')) }}
 						</td>
 					</tr>
 				@endforeach
 			</tbody>
 		</table>
 	</div>
+<?php $index++; ?>	
 @endforeach
 
 <style>
