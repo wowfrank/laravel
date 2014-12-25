@@ -127,6 +127,7 @@ class OrderController extends \BaseController {
 		$order->status = Input::get('status');
 		$productIDs	= Input::only('product_id');
 		$quantities	= Input::only('quantity');
+		$feedbacks 	= Input::only('feedback');
 
 		for($i = 0; $i < count($productIDs['product_id']); $i++)
 		{
@@ -137,8 +138,8 @@ class OrderController extends \BaseController {
 		// @TODO error handler!
 		if($order->save())
 		{
-			$pivotInfo = array_map(function($x, $y, $z) { return array('order_id'=> $z, 'product_id'=> $x, 'quantity' => $y); }, 
-									$productIDs['product_id'], $quantities['quantity'], $orderIDs['order_id']);
+			$pivotInfo = array_map(function($x, $y, $z, $w) { return array('order_id'=> $z, 'product_id'=> $x, 'quantity' => $y, 'feedback'=>$w); }, 
+									$productIDs['product_id'], $quantities['quantity'], $orderIDs['order_id'], $feedbacks['feedback']);
 
 			$order->product()->detach();
 			$order->product()->sync($pivotInfo);
@@ -160,5 +161,4 @@ class OrderController extends \BaseController {
 	{
 		//
 	}
-
 }

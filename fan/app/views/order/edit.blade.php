@@ -22,11 +22,12 @@
 				            <th style="width: 2%"></th>
 				            <th style="width: 11%">Chinese</th>
 				            <th style="width: 10%">Brand</th>
-				            <th style="width: 10%">Unit</th>
+				            <th style="width: 8%">Unit</th>
 				            <th style="width: 10%">English</th>
 				            <th style="width: 10%">Item No</th>
-				            <th style="width: 30%">Description</th>
-				            <th style="width: 9%">Quantity</th>
+				            <th style="width: 15%">Description</th>
+				            <th style="width: 7%">Quantity</th>
+				            <th style="width: 18%">Feedback</th>
 				            <th style="width: 8%">Operation</th>
 				        </tr>
 				    </thead>
@@ -47,6 +48,7 @@
 									<td>{{$product->item_no}}</td>
 									<td>{{$product->description}}</td>
 									<td>{{Form::text('quantity[]', $product->pivot->quantity, array('class' => 'form-control'))}}</td>
+									<td>{{Form::text('feedback[]', $product->pivot->feedback, array('class' => 'form-control'))}}</td>
 									<td>
 										<a class="btn btn-mini btn-danger pro-remove">Delete</a>
 									</td>
@@ -58,9 +60,19 @@
 			</div>
 		@endif
 	@endforeach
-{{Form::select('status', ['-1'=> 'INACTIVE', '0'=>'CLOSED', '1'=>'ACTIVE'], $order->status, array('class' => 'form-control')) }}
-{{Form::submit('Update Order', array('class' => 'btn btn-primary'))}}
+	<div class="row">
+		<div class="col-md-2">{{ Form::select('status', ['-1'=> 'INACTIVE', '0'=>'CLOSED', '1'=>'ACTIVE'], $order->status, array('class' => 'form-control', 'style' => 'width: 100px;')) }}</div>
+		<div class="col-md-2">{{ Form::submit('Update Order', array('class' => 'btn btn-primary')) }}</div>
+		<div class="col-md-2">{{ HTML::link('order', 'Return', array('class'=>'btn btn-info')) }}</div>
+	</div>
+
 {{ Form::close() }}
+
+{{ Form::open(array('url'=>'apply/multiple_upload','method'=>'POST', 'files'=>true, 'name' => 'frm-upload-image')) }}
+{{ Form::file('images[]', array('multiple'=>true)) }}
+{{ Form::submit('Attach Images', array('class' => 'btn btn-primary')) }}
+{{ Form::close() }}
+<div id="output"></div>
 
 <script type="text/javascript">
 $(function()
@@ -75,6 +87,33 @@ $(function()
 		return false;
 	});
 })
+
+// ajax upload imagen functions 
+var form = document.forms.namedItem("frm-upload-image");
+form.addEventListener('submit', function(ev) {
+
+	var oOutput = document.getElementById("output"),
+		oData = new FormData(document.forms.namedItem("fileinfo"));
+
+	oData.append("CustomField", "This is some extra data");
+
+	var oReq = new XMLHttpRequest();
+	oReq.open("POST", "{{ URL::to('order/uploadImage') }}", true);
+	oReq.onload = function(oEvent) {
+		if (oReq.status == 200) {
+			var jsonResponse = JSON.parse(oReq.responseText);
+			alert(jsonResponse.success);
+			oOutput.innerHTML = "Uploaded!";
+		} else {
+			oOutput.innerHTML = "Error " + oReq.status + " occurred uploading your file.<br \/>";
+		}
+	};
+
+	oReq.send(oData);
+
+	ev.preventDefault();
+	}, false
+);
 
 </script>
 <style>

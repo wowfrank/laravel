@@ -22,8 +22,13 @@ class Order extends \Model {
     public function product()
     {
         return $this->belongsToMany('Product')
-                    ->withPivot('quantity')
+                    ->withPivot('quantity', 'feedback')
                     ->withTimestamps();
+    }
+
+    public function image()
+    {
+        return $this->hasMany('Image', 'id'); 
     }
 
     public static function generateRandomStr()

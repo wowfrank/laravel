@@ -84,3 +84,8 @@ Route::group(['before' => 'auth'], function()
 	Route::resource('order', 'OrderController');
 	Route::resource('product', 'ProductController');
 });
+
+# Route Upload Images for Orders
+Route::post('order/uploadImage', function() { 
+	return Response::json(['success' => false]);
+});

@@ -28,32 +28,31 @@
             </div><!-- /.navbar-collapse -->
         </div>
     </nav>
-</div>
-
-<script type="text/javascript">
-$(function()
-{
-    $('#create-order').click(function(e)
-    {
-        e.preventDefault();
-
-        if( $('input[class="checkbox-class"]:checked').length > 0 ) 
+    <script type="text/javascript">
+        $(function()
         {
-            var dataString = JSON.stringify($('input[class="checkbox-class"]:checked').serializeArray());
-            var f = jQuery("<form>", { action: "{{ URL::to('order/create') }}", method: 'post' });
+            $('#create-order').click(function(e)
+            {
+                e.preventDefault();
 
-            f.append(
-                $("<input>", { type: "hidden", name: "dataString", value: dataString })
-            );
-            $(document.body).append(f);
-            f.submit();
-        } else {
-            //if nothing has been checked, prompt error message
-            alert('Please choose products that you want to add to order!');
-        }
+                if( $('input[class="checkbox-class"]:checked').length > 0 ) 
+                {
+                    var dataString = JSON.stringify($('input[class="checkbox-class"]:checked').serializeArray());
+                    var f = jQuery("<form>", { action: "{{ URL::to('order/create') }}", method: 'post' });
 
-        return false;
-    });
-});
+                    f.append(
+                        $("<input>", { type: "hidden", name: "dataString", value: dataString })
+                    );
+                    $(document.body).append(f);
+                    f.submit();
+                } else {
+                    //if nothing has been checked, prompt error message
+                    alert('Please choose products that you want to add to order!');
+                }
 
-</script>
+                return false;
+            });
+        });
+
+    </script>
+</div>

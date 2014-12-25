@@ -78,7 +78,7 @@ return array(
 	|
 	*/
 
-	'key' => 'YourSecretKey!!!',
+	'key' => '97rIsnAoVwnn1JxIlSEXgoKunsFAimFm',
 
 	'cipher' => MCRYPT_RIJNDAEL_128,
 
@@ -126,6 +126,7 @@ return array(
 		'Way\Generators\GeneratorsServiceProvider',
 		'Codesleeve\AssetPipeline\AssetPipelineServiceProvider',
 		'Codesleeve\LaravelStapler\LaravelStaplerServiceProvider',
+		'Intervention\Image\ImageServiceProvider',
 		
 
 
@@ -198,6 +199,7 @@ return array(
 
 		'Model' 			=> 'Way\Database\Model',
 		'Sentry' 			=> 'Cartalyst\Sentry\Facades\Laravel\Sentry',
+		'Image' 			=> 'Intervention\Image\Facades\Image'
 
 	),
 

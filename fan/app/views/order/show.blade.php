@@ -17,14 +17,15 @@
 			    	<!-- <caption>Product Information in {{$category->category}}<caption> -->
 				    <thead>
 				        <tr>
-				            <th></th>
-				            <th>Chinese</th>
-				            <th>Brand</th>
-				            <th>Unit</th>
-				            <th>English</th>
-				            <th>Item No</th>
-				            <th>Description</th>
-				            <th>Quantity</th>
+				            <th style="width: 2%"></th>
+				            <th style="width: 12%">Chinese</th>
+				            <th style="width: 10%">Brand</th>
+				            <th style="width: 8%">Unit</th>
+				            <th style="width: 12%">English</th>
+				            <th style="width: 10%">Item No</th>
+				            <th style="width: 15%">Description</th>
+				            <th style="width: 8%">Quantity</th>
+				            <th style="width: 23%">Feedback</th>
 				        </tr>
 				    </thead>
 				    <tbody>
@@ -43,6 +44,7 @@
 									<td>{{$product->item_no}}</td>
 									<td>{{$product->description}}</td>
 									<td>{{$product->pivot->quantity}}</td>
+									<td>{{$product->pivot->feedback}}</td>
 								</tr>
 							@endif
 						@endforeach
