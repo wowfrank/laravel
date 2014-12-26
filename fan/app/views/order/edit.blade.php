@@ -68,7 +68,7 @@
 
 {{ Form::close() }}
 
-{{ Form::open(array('url'=>'apply/multiple_upload','method'=>'POST', 'files'=>true, 'name' => 'frm-upload-image')) }}
+{{ Form::open(array('url'=>'apply/multiple_upload','method'=>'POST', 'files'=>true, 'name' => $order->id)) }}
 {{ Form::file('images[]', array('multiple'=>true)) }}
 {{ Form::submit('Attach Images', array('class' => 'btn btn-primary')) }}
 {{ Form::close() }}
@@ -89,7 +89,7 @@ $(function()
 })
 
 // ajax upload imagen functions 
-var form = document.forms.namedItem("frm-upload-image");
+var form = document.forms.namedItem("{{ $order->id }}");
 form.addEventListener('submit', function(ev) {
 
 	var oOutput = document.getElementById("output"),
