@@ -1,19 +1,21 @@
 <?php
 
-class Image extends \Model {
-	protected $fillable = ['filename', 'path'];
+class Images extends \Model {
+	protected $fillable = ['filename', 'path', 'order_id'];
 
 	protected $table = 'image';
 
 	public static $rules = [
         'filename' => 'required',
         'path' => 'required',
+        'order_id' => 'required',
     ];
 
     //Use this for custom messages
     public static $messages = [
         'filename.required' => 'My custom message for :attribute required',
         'path.required' => 'My custom message for :attribute required', 
+        'order_id.required' => 'My custom message for :attribute required', 
     ];
 
     // DEFINE RELATIONSHIPS -----------------------

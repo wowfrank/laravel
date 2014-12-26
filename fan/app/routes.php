@@ -88,6 +88,36 @@ Route::group(['before' => 'auth'], function()
 # Route Upload Images for Orders
 Route::post('order/uploadImage', function() {
 	
-	
-	return Response::json(['success' => false]);
+	// getting all of the post data
+	$files = Input::file('images');
+	$orderNo = Input::Input('order_no');
+	$orderId = Input::Input('order_id');
+	$result  = ['success' => false, 'message' => ''];
+	// path is root/uploads
+	$destinationPath = 'packages/uploads/images/';
+	$destinationTPath = 'packages/uploads/thumbnails/';
+
+
+	foreach($files as $file) {
+		// validating each file.
+		$rules = ['image' => 'required|image|mimes:jpeg,jpg,bmp,png,gif']; //'required|mimes:png,gif,jpeg,txt,pdf,doc'
+		$validator = Validator::make( ['image'=> $file], $rules);
+
+		if($validator->passes()){
+						$filename = $orderNo . '-' . $file->getClientOriginalName();
+			if ( $file->move($destinationPath, $filename) )
+			{
+				$newImage = Images::firstOrCreate(['order_id' => $orderId, 'filename'=> $filename, 'path' => $destinationPath]);
+
+				// resize the image to a height of 200 and constrain aspect ratio (auto width)
+				Image::make($destinationPath . $filename)
+								->resize(150, null, function ($constraint) { $constraint->aspectRatio(); })
+								->save($destinationTPath . 'thumb-' . $orderNo . '-' . $file->getClientOriginalName());
+				// flash message to show success.
+				// Session::flash('success', 'Upload successfully'); 
+				$result['success'] = true; 
+			} else $result['message'] = 'FAILED TO MOVE TO SERVER FOLDER! ';
+		} else $result['message'] = 'UNKNOW FILE TYPE or YOU DIDNT SELECT AN IMAGE! ';
+	}
+	return Response::json($result);
 });

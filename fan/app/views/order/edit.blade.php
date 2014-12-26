@@ -62,17 +62,32 @@
 	@endforeach
 	<div class="row">
 		<div class="col-md-2">{{ Form::select('status', ['-1'=> 'INACTIVE', '0'=>'CLOSED', '1'=>'ACTIVE'], $order->status, array('class' => 'form-control', 'style' => 'width: 100px;')) }}</div>
-		<div class="col-md-2">{{ Form::submit('Update Order', array('class' => 'btn btn-primary')) }}</div>
-		<div class="col-md-2">{{ HTML::link('order', 'Return', array('class'=>'btn btn-info')) }}</div>
+		<div class="col-md-2">{{ Form::submit('Update Order', ['class' => 'btn btn-primary']) }}</div>
+		<div class="col-md-2">{{ HTML::link('order', 'Return', ['class'=>'btn btn-info']) }}</div>
 	</div>
 
 {{ Form::close() }}
 
-{{ Form::open(array('url'=>'apply/multiple_upload','method'=>'POST', 'files'=>true, 'name' => $order->id)) }}
-{{ Form::file('images[]', array('multiple'=>true)) }}
-{{ Form::submit('Attach Images', array('class' => 'btn btn-primary')) }}
-{{ Form::close() }}
-<div id="output"></div>
+<div class="list-group">
+	<a class="list-group-item active">
+		<h4 class="list-group-item-heading">Attach Images to Order</h4>
+	</a>
+    <table class="table table-striped table-bordered table-hover">
+	    <tbody>
+	    	{{ Form::open(array('url'=>'apply/multiple_upload','method'=>'POST', 'files'=>true, 'name' => $order->id)) }}
+	    	<tr>
+	    		<td class="col-md-2">{{ Form::file('images[]', ['multiple'=>true]) }}</td>
+	    		<td class="col-md-3">
+	    			{{ Form::submit('Attach Images', ['class' => 'btn btn-primary']) }}
+	    			{{ Form::reset('Clear form', ['class' => 'btn btn-warning']) }}
+    			</td>
+	    		<td class="col-md-7 info" id="outputMsg"></td>
+	    	</tr>
+	    	{{ Form::close() }}
+	    </tbody>
+	</table>
+</div>
+
 
 <script type="text/javascript">
 $(function()
@@ -92,20 +107,26 @@ $(function()
 var form = document.forms.namedItem("{{ $order->id }}");
 form.addEventListener('submit', function(ev) {
 
-	var oOutput = document.getElementById("output"),
-		oData = new FormData(document.forms.namedItem("fileinfo"));
+	var oData = new FormData(document.forms.namedItem("{{ $order->id }}")),
+		oOutput = document.getElementById("outputMsg");
 
-	oData.append("CustomField", "This is some extra data");
+	oData.append("order_id", "{{ $order->id }}");
+	oData.append("order_no", "{{ $order->order_no }}");
 
 	var oReq = new XMLHttpRequest();
 	oReq.open("POST", "{{ URL::to('order/uploadImage') }}", true);
 	oReq.onload = function(oEvent) {
 		if (oReq.status == 200) {
 			var jsonResponse = JSON.parse(oReq.responseText);
-			alert(jsonResponse.success);
-			oOutput.innerHTML = "Uploaded!";
+			// alert(jsonResponse.success);
+			// oOutput.innerHTML = "Uploaded!";
+			if ( jsonResponse.success == true ) {
+				oOutput.innerHTML = "Congratulations, Image(s) have been uploaded successfully!";
+			} else {
+				oOutput.innerHTML = "Bad Experience: " + jsonResponse.message + " Try Again Please";
+			}
 		} else {
-			oOutput.innerHTML = "Error " + oReq.status + " occurred uploading your file.<br \/>";
+			oOutput.innerHTML = "Server Side Error " + oReq.status + " occurred uploading your file. CALL ADMIN!";
 		}
 	};
 

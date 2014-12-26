@@ -5,8 +5,8 @@
 @if (Session::has('message'))
   <div>{{ Session::get('message') }}</div>
 @endif
-
-<?php $index = 1; ?>
+<div class="content">
+	<?php $index = 1; ?>
 	@foreach ( $categoryList as $category )
 		@if ( Product::isCategoryInList($category->id, $productList) )
 			<div class="list-group">
@@ -53,7 +53,23 @@
 			</div>
 		@endif
 	@endforeach
-
+</div>
+<div class="imageContent">
+	<div class="list-group">
+		<a class="list-group-item active">
+			<h4 class="list-group-item-heading">Attachments</h4>
+		</a>
+	    <table class="table table-striped table-bordered table-hover">
+		    <tbody>
+		    	<tr>
+					@foreach ($images as $image)
+						<td  class="col-md-1">{{ HTML::image('packages/uploads/thumbnails/thumb-' . $image->filename, 'null', array('class' => 'img-rounded img-responsive')) }}</td>
+					@endforeach
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</div>
 {{ HTML::link('order', 'Return', array('class'=>'btn btn-info')) }}
 
 <style>

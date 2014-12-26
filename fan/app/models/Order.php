@@ -28,7 +28,7 @@ class Order extends \Model {
 
     public function image()
     {
-        return $this->hasMany('Image', 'id'); 
+        return $this->hasMany('Images', 'id'); 
     }
 
     public static function generateRandomStr()

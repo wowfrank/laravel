@@ -90,8 +90,10 @@ class OrderController extends \BaseController {
 		$order 		= Order::find($id);
 		$category 	= Category::all();
 		$products 	= $order->product;
+		$images 	= Images::where('order_id', '=', $id)->get();
 
-		return View::make('order.show', ['productList' => $products, 'categoryList' => $category, 'status' => $order->status]);
+		return View::make('order.show', ['productList' => $products, 'categoryList' => $category, 
+								'status' => $order->status, 'images' => $images]);
 	}
 
 	/**
