@@ -78,7 +78,7 @@ Route::post('order/create', [
 	'uses' => 'OrderController@create']);
 
 # Standard User Routes
-Route::group(['before' => 'auth'], function()
+Route::group(['before' => 'auth|admin'], function()
 {
 	Route::resource('users', 'UsersController', ['only' => ['login', 'register']]);
 	Route::resource('order', 'OrderController');
