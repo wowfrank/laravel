@@ -13,7 +13,11 @@ class BalanceController extends \BaseController {
 		//
 		$balance = Balance::orderBy('id', 'DESC')->get();
 
-		return View::make('balance.index', ['balanceList' => $balance]);
+		return View::make('balance.index', ['balanceList' => $balance, 
+						'totalSent' => Balance::sum('transfered'),
+						'totalReceived' => Balance::sum('received'),
+						'totalShopped' => Order::where('status', '=', '0')->sum('sum'),
+						'totalTransport' => Order::where('status', '=', '0')->sum('transport')]);
 	}
 
 	/**

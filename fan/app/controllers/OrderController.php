@@ -11,7 +11,7 @@ class OrderController extends \BaseController {
 	public function index()
 	{
 		//
-		$order = Order::all();
+		$order = Order::orderBy('id', 'DESC')->get();
 
 		return View::make('order.index',
 			['orderList' => $order]);

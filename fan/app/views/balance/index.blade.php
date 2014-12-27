@@ -46,6 +46,41 @@
 <div class="clearfix"></div>
 <hr />
 
+<div class="list-group">
+	<a class="list-group-item active">
+		<h4 class="list-group-item-heading">Balance Summary</h4>
+	</a>
+	<table class="table table-striped table-bordered table-hover">
+	    <thead>
+	        <tr>
+	            <th style="width: 2%"></th>
+	            <th style="width: 14%">Total Send</th>
+	            <th style="width: 14%">Total Received</th>
+	            <th style="width: 14%">Totoal Trans Fee</th>
+	            <th style="width: 14%">Total Shopped</th>
+	            <th style="width: 14%">Total Labor</th>
+	            <th style="width: 14%">Total Transport</th>
+	            <th style="width: 14%">Closed Balanced</th>
+	        </tr>
+	    </thead>
+
+	    <tbody>
+			<tr>
+				<td></td>			 	
+				<td> {{ $totalSent }} </td>	
+				<td> {{ $totalReceived }} </td>
+				<td> {{ $totalSent - $totalReceived }} </td>
+				<td> {{ $totalShopped }} </td>
+				<td> {{ $totalShopped * 0.12 }} </td>
+				<td> {{ $totalTransport }} </td>
+				<td> {{ $totalReceived - $totalShopped * 1.12 - $totalTransport }} </td>
+			</tr>
+		</tbody>
+	</table>
+</div>
+<div class="clearfix"></div>
+<hr />
+
 <?php $index = 1; ?>
 	<div class="list-group">
 		<a class="list-group-item active">
