@@ -74,7 +74,7 @@
 	</a>
     <table class="table table-striped table-bordered table-hover">
 	    <tbody>
-	    	{{ Form::open(array('url'=>'apply/multiple_upload','method'=>'POST', 'files'=>true, 'name' => $order->id)) }}
+	    	{{ Form::open(array('url'=>URL::to('order/uploadImage'),'method'=>'POST', 'files'=>true, 'name' => $order->id)) }}
 	    	<tr>
 	    		<td class="col-md-2">{{ Form::file('images[]', ['multiple'=>true]) }}</td>
 	    		<td class="col-md-3">

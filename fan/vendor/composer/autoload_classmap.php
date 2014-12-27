@@ -2134,6 +2134,8 @@ return array(
     'TestCase' => $baseDir . '/app/tests/TestCase.php',
     'UpdateImageTable' => $baseDir . '/app/database/migrations/2014_12_26_143404_update_image_table.php',
     'UpdateOrderProductTable' => $baseDir . '/app/database/migrations/2014_12_24_131321_update_order_product_table.php',
+    'UpdateOrderTable' => $baseDir . '/app/database/migrations/2014_12_27_121109_update_order_table.php',
+    'UpdateProductTable' => $baseDir . '/app/database/migrations/2014_12_27_142847_update_product_table.php',
     'User' => $baseDir . '/app/models/User.php',
     'UsersController' => $baseDir . '/app/controllers/UsersController.php',
     'Way\\Database\\DatabaseServiceProvider' => $vendorDir . '/way/database/src/Way/Database/DatabaseServiceProvider.php',

@@ -15,7 +15,7 @@
 	 
 		<div class="page">
 			<!-- navigation import -->
-		    @include('layouts.navigation.navigation')
+		    @include('includes.navigation')
 		    
 		    <div class="container-fluid">
 		        <div class="row">

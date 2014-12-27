@@ -1,6 +1,8 @@
 <?php
 
 class Product extends \Model {
+    public $timestamps = true;
+        
 	protected $fillable = ['cname', 'ename', 'brand', 'unit',
                                     'suggest_price', 'retail_lowest', 'gross_weight',
                                     'note', 'item_no', 'status', 'description', 'category_id'];

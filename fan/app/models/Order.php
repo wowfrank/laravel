@@ -1,7 +1,9 @@
 <?php
 
 class Order extends \Model {
-	protected $fillable = ['order_no', 'status'];
+    public $timestamps = true;
+    
+	protected $fillable = ['order_no', 'status', 'sum', 'labor', 'transport'];
 
 	protected $table = 'order';
 

@@ -1,6 +1,8 @@
 <?php
 
 class Images extends \Model {
+    public $timestamps = true;
+
 	protected $fillable = ['filename', 'path', 'order_id'];
 
 	protected $table = 'image';

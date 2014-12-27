@@ -16,16 +16,19 @@
 		            <th style="width: 2%"></th>
 		            <th style="width: 10%">Order No</th>
 		            <th style="width: 10%">Status</th>
-		            <th style="width: 10%">Labor</th>
-		            <th style="width: 10%">Transport</th>
-		            <th style="width: 10%">Total</th>
-		            <th style="width: 18%">Create Date</th>
-		            <th style="width: 18%">Update Date</th>
-		            <th style="width: 12%">Operation</th>
+		            <th style="width: 8%">Sum</th>
+		            <th style="width: 8%">Labor</th>
+		            <th style="width: 8%">Transport</th>
+		            <th style="width: 8%">Total</th>
+		            <th style="width: 14%">Create Date</th>
+		            <th style="width: 14%">Update Date</th>
+		            <th style="width: 20%">Operation</th>
 		        </tr>
 		    </thead>
+
 		    <tbody>
 				@foreach ($orderList as $order)
+					
 					<?php
 						switch ($order->status) {
 							case '0': echo'<tr class="info">';
@@ -38,37 +41,74 @@
 								break;
 						}
 					?>
-						<td>{{$index}}</td><?php $index++; ?>	
+					
+						<td>{{$index}}</td>	
 						<td>{{$order->order_no}}</td>
 						<td>
 							<?php
 								switch ($order->status) {
-									case '0': echo'CLOSED';
+									case '0': echo 'CLOSED';
 										break;
-									case '1': echo'ACTIVE';
+									case '1': echo 'ACTIVE';
 										break;
-									case '-1': echo'INACTIVE';
+									case '-1': echo 'INACTIVE';
 										break;
-									default: echo'CLOSED';
+									default: echo 'CLOSED';
 										break;
 								}
 							?>
 						</td>
-						<td>{{$order->labor}}</td>
-						<td>{{$order->transport}}</td>
-						<td>{{$order->sum}}</td>
-						<td>{{$order->created_at}}</td>
-						<td>{{$order->updated_at}}</td>
+						<td>{{ Form::text('sum', $order->sum, array('class' => 'form-control', 'id' => 'sum'. $order->id)) }}</td>
 						<td>
-							{{ link_to_route('order.show', 'View', array($order->id), array('class' => 'btn btn-info')) }}
-							{{ link_to_route('order.edit', 'Update', array($order->id), array('class' => 'btn btn-primary')) }}
+							{{ money_format('%(#3n',$order->sum*0.12) }} 
+							{{ Form::hidden('labor', money_format('%(#3n', $order->sum*0.12), array('id' => 'labor'. $order->id)) }}
+						</td>
+						<td>{{ Form::text('transport', $order->transport, array('class' => 'form-control', 'id' => 'transport'. $order->id)) }}</td>
+						<td>{{ money_format('%(#3n', ($order->sum*1.12 + $order->transport)) }}</td>
+						<td>{{ $order->created_at }}</td>
+						<td>{{ $order->updated_at }}</td>
+						<td>
+							{{ Form::submit('Save', ['class' => 'btn btn-warning saveSingleOrder', 'id' => $order->id]) }}
+							{{ link_to_route('order.show', 'View', [$order->id], ['class' => 'btn btn-info']) }}
+							{{ link_to_route('order.edit', 'Update', [$order->id], ['class' => 'btn btn-primary']) }}
 						</td>
 					</tr>
+					<?php $index++; ?>
 				@endforeach
 			</tbody>
 		</table>
 	</div>
+<script type="text/javascript">
+	// ajax upload imagen functions
+	$('.saveSingleOrder').click(function(ev) {
+		var oData = new FormData(),
+			orderId = $(this).attr('id');
 
+		oData.append("order_id", orderId);
+		oData.append("sum", $('#sum'+orderId).val());
+		oData.append("labor", $('#labor'+orderId).val());
+		oData.append("transport", $('#transport'+orderId).val());
+
+		var oReq = new XMLHttpRequest();
+		oReq.open("POST", "{{ URL::to('order/saveOrder') }}", true);
+		oReq.onload = function(oEvent) {
+			if (oReq.status == 200) {
+				var jsonResponse = JSON.parse(oReq.responseText);
+				if ( jsonResponse.success == true ) {
+					alert('Saved Successfully!');
+				} else {
+					alert(jsonResponse.message);
+				}
+			} else {
+				alert("Server Side Error " + oReq.status + " occurred uploading your file. CALL ADMIN!");
+			}
+		};
+
+		oReq.send(oData);
+
+		ev.preventDefault();
+	})
+</script>
 <style>
 
 	div > .row:nth-child(even) {

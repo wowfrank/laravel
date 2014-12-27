@@ -90,8 +90,8 @@ Route::post('order/uploadImage', function() {
 	
 	// getting all of the post data
 	$files = Input::file('images');
-	$orderNo = Input::Input('order_no');
-	$orderId = Input::Input('order_id');
+	$orderNo = Input::get('order_no');
+	$orderId = Input::get('order_id');
 	$result  = ['success' => false, 'message' => ''];
 	// path is root/uploads
 	$destinationPath = 'packages/uploads/images/';
@@ -104,7 +104,7 @@ Route::post('order/uploadImage', function() {
 		$validator = Validator::make( ['image'=> $file], $rules);
 
 		if($validator->passes()){
-						$filename = $orderNo . '-' . $file->getClientOriginalName();
+			$filename = $orderNo . '-' . $file->getClientOriginalName();
 			if ( $file->move($destinationPath, $filename) )
 			{
 				$newImage = Images::firstOrCreate(['order_id' => $orderId, 'filename'=> $filename, 'path' => $destinationPath]);
@@ -119,5 +119,22 @@ Route::post('order/uploadImage', function() {
 			} else $result['message'] = 'FAILED TO MOVE TO SERVER FOLDER! ';
 		} else $result['message'] = 'UNKNOW FILE TYPE or YOU DIDNT SELECT AN IMAGE! ';
 	}
+	return Response::json($result);
+});
+
+Route::post('order/saveOrder', function() {
+	$rules = ['sum' => 'required|numeric|min:0', 'transport' => 'required|numeric|min:0',];
+	$validator = Validator::make( ['sum' => Input::get('sum'), 'transport' => Input::get('transport')  ], $rules);
+	$result  = ['success' => false, 'message' => ''];
+
+	if( $validator->passes() ) {
+		$order = Order::find(Input::get('order_id'));
+		$order->sum = Input::get('sum');
+		$order->labor = Input::get('labor');
+		$order->transport = Input::get('transport');
+		$order->save();
+		$result['success'] = true;
+	} else $result['message'] = 'FAILED VALIDATION!';
+
 	return Response::json($result);
 });
