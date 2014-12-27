@@ -68,7 +68,7 @@
 		if (answer===true)
 		{
 			$.ajax({
-			    url: "{{ URL::to('product/' . $product->id) }}",
+			    url: "/product/"+id,
 			    type: 'DELETE',
 			    success: function(result) {
 			    	if (result == true) alert( 'ok' );

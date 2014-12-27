@@ -25,6 +25,8 @@ Route::resource('product', 'ProductController');
 
 Route::resource('order', 'OrderController');
 
+Route::resource('balance', 'BalanceController');
+
 /*
 
 Route::group(array('before' => 'guest'), function () 
@@ -137,4 +139,20 @@ Route::post('order/saveOrder', function() {
 	} else $result['message'] = 'FAILED VALIDATION!';
 
 	return Response::json($result);
+});
+
+Route::post('balance/updateBalance', function(){
+	$updateInfo =  Input::only('tran_date', 'transfered', 'rece_date', 'received');
+	$result  = ['success' => false, 'message' => ''];
+	
+	$balance = Balance::find(Input::get('id'));
+	$balance->tran_date = Input::get('tran_date');
+	$balance->transfered = Input::get('transfered');
+	$balance->rece_date = Input::get('rece_date');
+	$balance->received = Input::get('received');
+
+	if ( $balance->save() ) $result['success'] = true;
+	else $result['message'] = "UPDATEINFO FAILED!";
+	return Response::json($result);
+
 });
