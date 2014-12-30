@@ -112,6 +112,7 @@ form.addEventListener('submit', function(ev) {
 
 	oData.append("order_id", "{{ $order->id }}");
 	oData.append("order_no", "{{ $order->order_no }}");
+	oOutput.innerHTML = '';
 
 	var oReq = new XMLHttpRequest();
 	oReq.open("POST", "{{ URL::to('order/uploadImage') }}", true);

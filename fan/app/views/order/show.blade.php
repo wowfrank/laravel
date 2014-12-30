@@ -68,8 +68,8 @@
 					<td  class="col-md-1"><a href="/{{ $image->path . $image->filename}}">
 						{{ HTML::image('packages/uploads/thumbnails/thumb-' . $image->filename, 'null', array('class' => 'img-rounded img-responsive')) }}
 					</a></td>
-				<?php echo $imgItem%8 == 0 ? '' : '</tr>' ;?>
 				<?php $imgItem++; ?>
+				<?php echo $imgItem%8 == 0 ? '</tr>' : '' ;?>
 				@endforeach
 			</tbody>
 		</table>
