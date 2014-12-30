@@ -59,6 +59,7 @@
         </div>
 
         {{Form::submit('Update', array('class' => 'btn btn-primary'))}}
+        {{ HTML::link('product', 'Return', ['class'=>'btn btn-info']) }}
         {{ Form::close() }}
     </div>
 </div>
