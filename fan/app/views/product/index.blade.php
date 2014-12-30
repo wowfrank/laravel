@@ -22,9 +22,9 @@
 			            <th style="width: 7%">Suggest</th>
 			            <th style="width: 7%">Lowest</th>
 			            <th style="width: 8%">Item No</th>
-			            <th style="width: 13%">Description</th>
-			            <th style="width: 13%">Note</th>
-			            <th style="width: 14%">Operation</th>
+			            <th style="width: 12%">Description</th>
+			            <th style="width: 12%">Note</th>
+			            <th style="width: 16%">Operation</th>
 			        </tr>
 			    </thead>
 			    <tbody>
