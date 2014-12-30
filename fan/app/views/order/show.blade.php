@@ -54,7 +54,7 @@
 		@endif
 	@endforeach
 </div>
-{{ HTML::script(URL::to('/assets/jquery.popupoverlay.js')) }}
+
 <div class="imageContent">
 	<div class="list-group">
 		<a class="list-group-item active">
@@ -64,12 +64,12 @@
 		    <tbody>
 		    	<?php $imgItem = 0;?>
 				@foreach ($images as $image)
-				<?php echo $imgItem%8 == 0 ? '<tr>' : '' ;?>
+				<?php echo $imgItem%6 == 0 ? '<tr>' : '' ;?>
 					<td  class="col-md-1"><a href="/{{ $image->path . $image->filename}}">
 						{{ HTML::image('packages/uploads/thumbnails/thumb-' . $image->filename, 'null', array('class' => 'img-rounded img-responsive')) }}
 					</a></td>
 				<?php $imgItem++; ?>
-				<?php echo $imgItem%8 == 0 ? '</tr>' : '' ;?>
+				<?php echo $imgItem%6 == 0 ? '</tr>' : '' ;?>
 				@endforeach
 			</tbody>
 		</table>

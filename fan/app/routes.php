@@ -85,6 +85,7 @@ Route::group(['before' => 'auth|admin'], function()
 	Route::resource('users', 'UsersController', ['only' => ['login', 'register']]);
 	Route::resource('order', 'OrderController');
 	Route::resource('product', 'ProductController');
+	Route::resource('balance', 'BalanceController');
 });
 
 # Route Upload Images for Orders

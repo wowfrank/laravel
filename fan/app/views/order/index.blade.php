@@ -15,14 +15,14 @@
 		        <tr>
 		            <th style="width: 2%"></th>
 		            <th style="width: 10%">Order No</th>
-		            <th style="width: 10%">Status</th>
+		            <th style="width: 8%">Status</th>
 		            <th style="width: 8%">Sum</th>
 		            <th style="width: 8%">Labor</th>
 		            <th style="width: 8%">Transport</th>
 		            <th style="width: 8%">Total</th>
 		            <th style="width: 14%">Create Date</th>
 		            <th style="width: 14%">Update Date</th>
-		            <th style="width: 20%">Operation</th>
+		            <th style="width: 22%">Operation</th>
 		        </tr>
 		    </thead>
 
