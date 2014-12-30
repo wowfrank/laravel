@@ -64,11 +64,11 @@
 		    <tbody>
 		    	<?php $imgItem = 0;?>
 				@foreach ($images as $image)
-				<?php echo $imgItem%9 == 0 ? '<tr>' : '' ;?>
+				<?php echo $imgItem%8 == 0 ? '<tr>' : '' ;?>
 					<td  class="col-md-1"><a href="/{{ $image->path . $image->filename}}">
 						{{ HTML::image('packages/uploads/thumbnails/thumb-' . $image->filename, 'null', array('class' => 'img-rounded img-responsive')) }}
 					</a></td>
-				<?php echo $imgItem%9 == 0 ? '' : '</tr>' ;?>
+				<?php echo $imgItem%8 == 0 ? '' : '</tr>' ;?>
 				<?php $imgItem++; ?>
 				@endforeach
 			</tbody>
