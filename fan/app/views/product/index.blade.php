@@ -18,13 +18,13 @@
 			            <th style="width: 11%">Chinese</th>
 			            <th style="width: 8%">Brand</th>
 			            <th style="width: 6%">Unit</th>
-			            <th style="width: 12%">English</th>
+			            <th style="width: 11%">English</th>
 			            <th style="width: 7%">Suggest</th>
 			            <th style="width: 7%">Lowest</th>
 			            <th style="width: 8%">Item No</th>
 			            <th style="width: 13%">Description</th>
 			            <th style="width: 13%">Note</th>
-			            <th style="width: 13%">Operation</th>
+			            <th style="width: 14%">Operation</th>
 			        </tr>
 			    </thead>
 			    <tbody>
