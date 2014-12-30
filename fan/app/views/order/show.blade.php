@@ -62,7 +62,7 @@
 		</a>
 	    <table class="table table-striped table-bordered table-hover">
 		    <tbody>
-		    	<?php $imgItem = ;?>
+		    	<?php $imgItem = 0;?>
 				@foreach ($images as $image)
 				@if ($imgItem%5 == 0)
 	    		<tr>
