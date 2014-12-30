@@ -62,13 +62,19 @@
 		</a>
 	    <table class="table table-striped table-bordered table-hover">
 		    <tbody>
-		    	<tr>
-					@foreach ($images as $image)
-						<td  class="col-md-1"><a href="/{{ $image->path . $image->filename}}">
-							{{ HTML::image('packages/uploads/thumbnails/thumb-' . $image->filename, 'null', array('class' => 'img-rounded img-responsive')) }}
-						</a></td>
-					@endforeach
+		    	<?php $imgItem = ;?>
+				@foreach ($images as $image)
+				@if ($imgItem%5 == 0)
+	    		<tr>
+	    		@endif
+					<td  class="col-md-1"><a href="/{{ $image->path . $image->filename}}">
+						{{ HTML::image('packages/uploads/thumbnails/thumb-' . $image->filename, 'null', array('class' => 'img-rounded img-responsive')) }}
+					</a></td>
+				@if ($imgItem%5 == 0)
 				</tr>
+				@endif
+				<?php $imgItem++; ?>
+				@endforeach
 			</tbody>
 		</table>
 	</div>
