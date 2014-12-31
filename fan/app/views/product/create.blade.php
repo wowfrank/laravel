@@ -64,7 +64,7 @@
             {{Form::text('note', null,array('class' => 'form-control'))}}
         </div>
 
-        {{Form::submit('Save', array('class' => 'btn btn-primary'))}}
+        {{ Form::submit('Save', array('class' => 'btn btn-primary')) }}
         {{ HTML::link('product', 'Return', ['class'=>'btn btn-info']) }}
         {{ Form::close() }}
     </div>

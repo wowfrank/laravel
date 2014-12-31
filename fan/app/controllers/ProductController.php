@@ -48,10 +48,11 @@ class ProductController extends \BaseController {
 	{
 		//
 		$productInfo 	= Input::all();
-		$product 		= Product::create($productInfo);
-
+		$product 	= Product::create($productInfo);
+		
 		if($product){
-            return Redirect::route('product.index');
+            
+		return Redirect::route('product.index');
         }
 
         return Redirect::route('product.create')->withInput();
