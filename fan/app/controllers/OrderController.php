@@ -136,6 +136,14 @@ class OrderController extends \BaseController {
 			$orderIDs['order_id'][$i] = $order->id;
 		}
 
+		if ( count($productIDs['product_id']) == 0 ) 
+		{
+			$orderIDs['order_id'][0] = $id;
+			$productIDs['product_id'] = [];
+			$quantities['quantity'] = [];
+			$feedbacks['feedback'] = [];
+			
+		}
 
 		// @TODO error handler!
 		if($order->save())
@@ -144,7 +152,7 @@ class OrderController extends \BaseController {
 			$pivotInfo = array_map(function($x, $y, $z, $w) { return array('order_id'=> $z, 'product_id'=> $x, 'quantity' => $y, 'feedback'=>$w); }, 
 									$productIDs['product_id'], $quantities['quantity'], $orderIDs['order_id'], $feedbacks['feedback']);
 
-			$order->product()->detach();
+			// $order->product()->detach();
 			$order->product()->sync($pivotInfo);
 		} else {
 
