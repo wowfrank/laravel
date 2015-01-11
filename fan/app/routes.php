@@ -79,6 +79,10 @@ Route::post('order/create', [
 	'as' => 'order.create',
 	'uses' => 'OrderController@create']);
 
+Route::get('order/watermark/{id}',[
+	'as' => 'order.watermark',
+	'uses' => 'OrderController@watermark']);
+
 # Standard User Routes
 Route::group(['before' => 'auth|admin'], function()
 {

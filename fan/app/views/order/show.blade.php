@@ -67,7 +67,9 @@
 				<?php echo $imgItem%6 == 0 ? '<tr>' : '' ;?>
 					<td  class="col-md-1"><a href="/{{ $image->path . $image->filename}}">
 						{{ HTML::image('packages/uploads/thumbnails/thumb-' . $image->filename, 'null', array('class' => 'img-rounded img-responsive')) }}
-					</a></td>
+					</a>
+					<?php echo $image->watermark ? '' : HTML::link('order/watermark/'.$image->id, 'WaterMark', array('class'=>'btn btn-info')); ?>
+					</td>
 				<?php $imgItem++; ?>
 				<?php echo $imgItem%6 == 0 ? '</tr>' : '' ;?>
 				@endforeach

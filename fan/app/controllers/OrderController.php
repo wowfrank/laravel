@@ -172,4 +172,37 @@ class OrderController extends \BaseController {
 	{
 		//
 	}
+
+	/**
+	 * Water Mark Image
+	 * GET /order/watermark/{id}
+	 *
+	 * @param int $id
+	 * @return Response
+	 *
+	 */
+	public function watermark($id)
+	{
+		// if watermark.png is not existed, we create iterator_apply(iterator, function)	
+		if ( !file_exists('packages/uploads/thumbnails/watermark.png') )
+		{
+			$wm = Image::canvas(120, 25);
+			$wm->text('RECEIVED!', 60, 10, function($font) {
+				$font->color(array(255, 0, 0, 0.7));
+				$font->align('center');
+				$font->valign('center');
+			});
+			$wm->save('packages/uploads/thumbnails/watermark.png');
+		}
+
+		$images = Images::find($id);
+		$img = Image::make('packages/uploads/thumbnails/thumb-'. $images->filename);
+		$img->insert('packages/uploads/thumbnails/watermark.png', 'center');
+		$img->save();
+
+		$images->watermark = true;
+		$images->save();
+
+		return Redirect::to( URL::previous() );
+	}
 }
