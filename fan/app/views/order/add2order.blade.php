@@ -64,9 +64,11 @@
 	<div class="col-md-2">{{ Form::submit('Save 2 Order #'.$orderId, ['class' => 'btn btn-warning', 'id' => 'add-2-order']) }}{{ Form::close() }}</div>
 </div>
 <script type="text/javascript">
-	$(".checkAll").click(function(){
-	    $('input:checkbox').not(this).prop('checked', this.checked);
+	$(".checkAll").click(function(e){
+		var table = $(e.target).closest('table');
+	    $('input:checkbox', table).not(this).prop('checked', this.checked);
 	});
+	
     $(function()
     {
         $('#add-2-order').click(function(e)

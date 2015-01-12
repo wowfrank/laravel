@@ -82,9 +82,11 @@
 		return false;
 	}
 
-	$(".checkAll").click(function(){
-	    $('input:checkbox').not(this).prop('checked', this.checked);
+	$(".checkAll").click(function(e){
+		var table = $(e.target).closest('table');
+	    $('input:checkbox', table).not(this).prop('checked', this.checked);
 	});
+
     $(function()
     {
         $('#create-order').click(function(e)
