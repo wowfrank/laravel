@@ -75,6 +75,10 @@ Route::delete('product/{id}', [
 	'uses' => 'ProductController@destroy',
 	'as' => 'product.destroy']);
 
+Route::get('product/addToOrder/{id}', [
+	'as' => 'product.add2order',
+	'uses' => 'ProductController@addToOrder']);
+
 Route::post('order/create', [
 	'as' => 'order.create',
 	'uses' => 'OrderController@create']);
@@ -82,10 +86,6 @@ Route::post('order/create', [
 Route::get('order/watermark/{id}',[
 	'as' => 'order.watermark',
 	'uses' => 'OrderController@watermark']);
-
-Route::get('product/addToOrder/{id}', [
-	'as' => 'product.add2order',
-	'uses' => 'ProductController@addToOrder']);
 
 Route::post('order/saveToOrder/{id}', [
 	'as' => 'order.save2order',

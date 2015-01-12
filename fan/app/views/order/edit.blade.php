@@ -68,7 +68,7 @@
 	</div>
 
 {{ Form::close() }}
-
+<hr />
 <div class="list-group">
 	<a class="list-group-item active">
 		<h4 class="list-group-item-heading">Attach Images to Order</h4>

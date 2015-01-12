@@ -189,10 +189,12 @@ class OrderController extends \BaseController {
 
 		for($i = 0; $i < count($product_array); $i++)
 		{
-			$orderIDs['order_id'][$i] = $id;
-			$productIDs['product_id'][$i] = $product_array[$i];
-			$quantities['quantity'][$i] = 1;
-
+			if ( !$order->product->contains($product_array[$i]) )
+			{
+				$orderIDs['order_id'][$i] = $id;
+				$productIDs['product_id'][$i] = $product_array[$i];
+				$quantities['quantity'][$i] = 1;
+			}
 		}
 
 		// @TODO error handler!
@@ -201,12 +203,13 @@ class OrderController extends \BaseController {
 			$pivotInfo = array_map(function($x, $y, $z) { return array('order_id'=> $z, 'product_id'=> $x, 'quantity' => $y); }, 
 									$productIDs['product_id'], $quantities['quantity'], $orderIDs['order_id']);
 
+
 			$order->product()->sync($pivotInfo, false);
 		} else {
 
 		}
 
-		return Redirect::route('order.index');
+		return Redirect::route('order.edit', [$id]);
 	}
 	/**
 	 * Water Mark Image
