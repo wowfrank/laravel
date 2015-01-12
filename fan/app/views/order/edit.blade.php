@@ -63,6 +63,7 @@
 	<div class="row">
 		<div class="col-md-2">{{ Form::select('status', ['-1'=> 'INACTIVE', '0'=>'CLOSED', '1'=>'ACTIVE'], $order->status, array('class' => 'form-control', 'style' => 'width: 100px;')) }}</div>
 		<div class="col-md-2">{{ Form::submit('Update Order', ['class' => 'btn btn-primary']) }}</div>
+		<div class="col-md-2">{{ HTML::link('product/addToOrder/'.$order->id, 'Add Products', ['class' => 'btn btn-primary']) }}</div>
 		<div class="col-md-2">{{ HTML::link('order', 'Return', ['class'=>'btn btn-info']) }}</div>
 	</div>
 

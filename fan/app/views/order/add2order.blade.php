@@ -4,6 +4,7 @@
 @if (Session::has('message'))
   <div>{{ Session::get('message') }}</div>
 @endif
+{{ Form::open(array('route' => array('order.save2order'), 'method' => 'post')) }}
 @foreach ($categoryList as $category)
 	@if (Product::where('category_id', '=', $category->id)->first())
 		<div class="list-group">
@@ -15,8 +16,8 @@
 			    <thead>
 			        <tr>
 			            <th style="width: 2%"><input type="checkbox" class="checkAll" name="foo[]" /></th>
-			            <th style="width: 11%">Chinese</th>
-			            <th style="width: 8%">Brand</th>
+			            <th style="width: 15%">Chinese</th>
+			            <th style="width: 12%">Brand</th>
 			            <th style="width: 6%">Unit</th>
 			            <th style="width: 11%">English</th>
 			            <th style="width: 7%">Suggest</th>
@@ -24,7 +25,7 @@
 			            <th style="width: 8%">Item No</th>
 			            <th style="width: 12%">Description</th>
 			            <th style="width: 12%">Note</th>
-			            <th style="width: 16%">Operation</th>
+			            <th style="width: 8%">Operation</th>
 			        </tr>
 			    </thead>
 			    <tbody>
@@ -39,7 +40,7 @@
 						@else
 							<tr class="warning">
 						@endif
-							<td><input type="checkbox" name="foo[]" value="{{$product->id}}" class="checkbox-class" /></td>
+							<td>{{ Form::checkbox('foo[]', $product->id, false, ['class'=>'checkbox-class']) }}</td>
 							<td>{{$product->cname}}</td>
 							<td>{{$product->brand}}</td>
 							<td>{{$product->unit}}</td>
@@ -51,7 +52,6 @@
 							<td>{{$product->note}}</td>
 							<td>
 								{{ link_to_route('product.edit', 'Edit', array($product->id), array('class' => 'btn btn-info')) }}
-							    <a onclick="confirmDelete({{$product->id}});" class="btn btn-mini btn-danger">Delete</a>
 							</td>
 						</tr>
 					@endforeach
@@ -61,40 +61,22 @@
 	@endif
 @endforeach
 <div class="clearfix">
-	<div class="col-md-2">{{ HTML::link('order/create', 'Create Order', ['class'=>'btn btn-warning', 'id' => 'create-order']) }}</div>
+	<div class="col-md-2">{{ Form::submit('Save 2 Order #'.$orderId, ['class' => 'btn btn-warning', 'id' => 'add-2-order']) }}{{ Form::close() }}</div>
 </div>
 <script type="text/javascript">
-	function confirmDelete(id)
-	{
-		var answer = confirm('Are you sure you want to delete this product?');
-
-		if (answer===true)
-		{
-			$.ajax({
-			    url: "/product/"+id,
-			    type: 'DELETE',
-			    success: function(result) {
-			    	if (result == true) alert( 'ok' );
-			    	else alert('false') ;
-			    }
-			});
-		}
-		return false;
-	}
-
 	$(".checkAll").click(function(){
 	    $('input:checkbox').not(this).prop('checked', this.checked);
 	});
     $(function()
     {
-        $('#create-order').click(function(e)
+        $('#add-2-order').click(function(e)
         {
             e.preventDefault();
 
             if( $('input[class="checkbox-class"]:checked').length > 0 ) 
             {
                 var dataString = JSON.stringify($('input[class="checkbox-class"]:checked').serializeArray());
-                var f = jQuery("<form>", { action: "{{ URL::to('order/create') }}", method: 'post' });
+                var f = jQuery("<form>", { action: "{{ URL::to('order/saveToOrder/'.$orderId) }}", method: 'post' });
 
                 f.append(
                     $("<input>", { type: "hidden", name: "dataString", value: dataString })

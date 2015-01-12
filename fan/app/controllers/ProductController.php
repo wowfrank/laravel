@@ -127,4 +127,27 @@ class ProductController extends \BaseController {
 		echo Product::find($id)->delete() ?  true : false;
 	}
 
+
+	/**
+	 * Add Products to Order
+	 * GET /product/addto/{orderid}
+	 * 
+	 * @param int $orderId
+	 * @return Response
+	 *
+	 */
+	public function addToOrder($orderId)
+	{
+		$category 	= Category::all();
+		$product 	= Product::orderBy('cname', 'ASC')
+    							->orderBy('brand', 'ASC')
+    							->orderBy('unit', 'ASC')
+    							->orderBy('ename', 'ASC')
+    							->orderBy('note', 'DESC')
+    							->get();
+
+		return View::make('order.add2order', 
+						['productList' => $product, 'categoryList'=>$category, 'orderId' => $orderId]);
+	}
+
 }

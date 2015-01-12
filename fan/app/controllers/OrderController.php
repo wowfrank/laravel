@@ -173,6 +173,41 @@ class OrderController extends \BaseController {
 		//
 	}
 
+
+	/**
+	 * Save products to an order
+	 * Post /order/saveToOrder/{id}
+	 * 
+	 * @param int $id
+	 * @return Response
+	 */
+	public function saveToOrder($id)
+	{
+		$order 		= Order::find($id);
+		$data 			= json_decode(stripslashes(Input::get('dataString')), true);
+		$product_array 	= array_column($data, 'value');
+
+		for($i = 0; $i < count($product_array); $i++)
+		{
+			$orderIDs['order_id'][$i] = $id;
+			$productIDs['product_id'][$i] = $product_array[$i];
+			$quantities['quantity'][$i] = 1;
+
+		}
+
+		// @TODO error handler!
+		if($order)
+		{
+			$pivotInfo = array_map(function($x, $y, $z) { return array('order_id'=> $z, 'product_id'=> $x, 'quantity' => $y); }, 
+									$productIDs['product_id'], $quantities['quantity'], $orderIDs['order_id']);
+
+			$order->product()->sync($pivotInfo, false);
+		} else {
+
+		}
+
+		return Redirect::route('order.index');
+	}
 	/**
 	 * Water Mark Image
 	 * GET /order/watermark/{id}
