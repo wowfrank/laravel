@@ -148,11 +148,10 @@ class OrderController extends \BaseController {
 		// @TODO error handler!
 		if($order->save())
 		{
-			$order->touch();
 			$pivotInfo = array_map(function($x, $y, $z, $w) { return array('order_id'=> $z, 'product_id'=> $x, 'quantity' => $y, 'feedback'=>$w); }, 
 									$productIDs['product_id'], $quantities['quantity'], $orderIDs['order_id'], $feedbacks['feedback']);
 
-			// $order->product()->detach();
+			$order->product()->detach();
 			$order->product()->sync($pivotInfo);
 		} else {
 
