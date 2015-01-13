@@ -89,7 +89,13 @@ class OrderController extends \BaseController {
 		//
 		$order 		= Order::find($id);
 		$category 	= Category::all();
-		$products 	= $order->product;
+		$products 	= $order->product()
+								->orderBy('cname', 'ASC')
+    							->orderBy('brand', 'ASC')
+    							->orderBy('unit', 'ASC')
+    							->orderBy('ename', 'ASC')
+    							->orderBy('note', 'DESC')
+    							->get();
 		$images 	= Images::where('order_id', '=', $id)->get();
 
 		return View::make('order.show', ['productList' => $products, 'categoryList' => $category, 
