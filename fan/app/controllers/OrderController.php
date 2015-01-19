@@ -282,7 +282,7 @@ class OrderController extends \BaseController {
 		    							->get();
 
     			// first row styling and writing content
-    			$sheet->mergeCells('A1:O3');
+    			$sheet->mergeCells('A1:K3');
     			$sheet->row(1, function ($row) {
 		            $row->setFontFamily('Comic Sans MS');
 		            $row->setFontSize(30);
@@ -292,17 +292,33 @@ class OrderController extends \BaseController {
 
         		foreach($category as $c) {
         			if ( Product::isCategoryInList($c->id, $products) ) {
-        				// $sheet->row($sheet->getCurrentRow(), function ($row) {
-				        //     $row->setFontWeight('bold');
-				        // });
+        				// Append an empty row and a category row
 				        $sheet->appendRow(['']);
-        				$sheet->appendRow([$c->category]);
-        				$pHeader = ['Chinese Name', 'English Name', 'Brand', 'Unit', 'Description', 'Suggest Price', 'Retail Lowest', 'Gross Weight', 'Note', 'Item No', 'Status', 'Created At', 'Updated At'];
-        				$sheet->appendRow($pHeader);
+				        $sheet->appendRow([$c->category])
+				        		->mergeCells('A'.$sheet->getHighestRow(). ':K' .$sheet->getHighestRow())
+				        		->row($sheet->getHighestRow(), function ($row) {
+								            $row->setFontColor('#83D6CE');
+								            $row->setFontSize(12);
+		            						$row->setFontWeight('bold');
+								        });
 
+				        // Append a header row
+        				$pHeader = ['Chinese Name', 'English Name', 'Brand', 'Unit', 'Description', 'Suggest Price', 'Retail Lowest', 'Gross Weight', 'Note', 'Item No', 'Status'];
+        				$sheet->appendRow($pHeader)
+        						->row($sheet->getHighestRow(), function ($row) {
+        									$row->setFontSize(10);
+        									$row->setFontColor('#61696B');
+		            						$row->setFontWeight('italic');
+								        });
+
+        				// Append products rows
         				foreach($products as $product) {
         					if ($product->category_id == $c->id) {
-        						$sheet->appendRow(array_except($product->toArray(), ['id', 'category_id', 'pivot']));
+        						$sheet->appendRow(array_except($product->toArray(), ['id', 'category_id', 'pivot', 'created_at', 'updated_at']))
+        								->row($sheet->getHighestRow(), function ($row) {
+								            $row->setFontColor('#727877');
+								            $row->setFontSize(10);
+								        });
         					}
         				}
         			}
