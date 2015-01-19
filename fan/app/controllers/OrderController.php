@@ -141,6 +141,7 @@ class OrderController extends \BaseController {
 		$order->status = Input::get('status');
 		$productIDs	= Input::only('product_id');
 		$quantities	= Input::only('quantity');
+		$extras		= Input::only('extra');
 		$feedbacks 	= Input::only('feedback');
 
 		for($i = 0; $i < count($productIDs['product_id']); $i++)
@@ -153,6 +154,7 @@ class OrderController extends \BaseController {
 			$orderIDs['order_id'][0] = $id;
 			$productIDs['product_id'] = [];
 			$quantities['quantity'] = [];
+			$extras['extra'] = [];
 			$feedbacks['feedback'] = [];
 			
 		}
@@ -160,8 +162,8 @@ class OrderController extends \BaseController {
 		// @TODO error handler!
 		if($order->save())
 		{
-			$pivotInfo = array_map(function($x, $y, $z, $w) { return array('order_id'=> $z, 'product_id'=> $x, 'quantity' => $y, 'feedback'=>$w); }, 
-									$productIDs['product_id'], $quantities['quantity'], $orderIDs['order_id'], $feedbacks['feedback']);
+			$pivotInfo = array_map(function($x, $y, $z, $w, $v) { return array('order_id'=> $z, 'product_id'=> $x, 'quantity' => $y, 'feedback'=>$w, 'extra' => $v); }, 
+									$productIDs['product_id'], $quantities['quantity'], $orderIDs['order_id'], $feedbacks['feedback'], $extras['extra']);
 
 			$order->product()->detach();
 			$order->product()->sync($pivotInfo);

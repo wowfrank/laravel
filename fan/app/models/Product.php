@@ -39,7 +39,7 @@ class Product extends \Model {
     public function order() {
         return $this->belongsToMany('Order')
                     ->withTimestamps()
-                    ->withPivot('quantity', 'feedback');
+                    ->withPivot('quantity', 'feedback', 'extra');
     }
 
     /*

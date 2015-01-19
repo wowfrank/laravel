@@ -23,8 +23,8 @@
 				            <th style="width: 8%">Unit</th>
 				            <th style="width: 12%">English</th>
 				            <th style="width: 10%">Item No</th>
-				            <th style="width: 15%">Description</th>
 				            <th style="width: 8%">Quantity</th>
+				            <th style="width: 15%">Extra</th>
 				            <th style="width: 23%">Feedback</th>
 				        </tr>
 				    </thead>
@@ -42,8 +42,8 @@
 									<td>{{$product->unit}}</td>
 									<td>{{$product->ename}}</td>
 									<td>{{$product->item_no}}</td>
-									<td>{{$product->description}}</td>
 									<td>{{$product->pivot->quantity}}</td>
+									<td>{{$product->pivot->extra}}</td>
 									<td>{{$product->pivot->feedback}}</td>
 								</tr>
 							@endif

@@ -25,8 +25,8 @@
 				            <th style="width: 8%">Unit</th>
 				            <th style="width: 10%">English</th>
 				            <th style="width: 10%">Item No</th>
-				            <th style="width: 15%">Description</th>
 				            <th style="width: 7%">Quantity</th>
+				            <th style="width: 15%">Extra</th>
 				            <th style="width: 18%">Feedback</th>
 				            <th style="width: 8%">Operation</th>
 				        </tr>
@@ -46,8 +46,8 @@
 									<td>{{$product->unit}}</td>
 									<td>{{$product->ename}}</td>
 									<td>{{$product->item_no}}</td>
-									<td>{{$product->description}}</td>
 									<td>{{Form::text('quantity[]', $product->pivot->quantity, array('class' => 'form-control'))}}</td>
+									<td>{{Form::text('extra[]', $product->pivot->extra, array('class' => 'form-control'))}}</td>
 									<td>{{Form::text('feedback[]', $product->pivot->feedback, array('class' => 'form-control'))}}</td>
 									<td>
 										<a class="btn btn-mini btn-danger pro-remove">Delete</a>
