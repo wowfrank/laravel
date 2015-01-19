@@ -44,8 +44,8 @@
 							<td>{{$product->brand}}</td>
 							<td>{{$product->ename}}</td>
 							<td>{{$product->unit}}</td>
-							<td>{{money_format('%(#3n', $product->suggest_price)}}</td>
-							<td>{{money_format('%(#3n', $product->retail_lowest)}}</td>
+							<td>$ {{money_format('%(#3n', $product->suggest_price)}}</td>
+							<td>$ {{money_format('%(#3n', $product->retail_lowest)}}</td>
 							<td>{{$product->item_no}}</td>
 							<td>{{$product->description}}</td>
 							<td>{{$product->note}}</td>

@@ -60,11 +60,11 @@
 						</td>
 						<td>{{ Form::text('sum', $order->sum, array('class' => 'form-control', 'id' => 'sum'. $order->id)) }}</td>
 						<td>
-							{{ money_format('%(#3n',$order->sum*0.12) }} 
+							$ {{ money_format('%(#3n',$order->sum*0.12) }} 
 							{{ Form::hidden('labor', money_format('%(#3n', $order->sum*0.12), array('id' => 'labor'. $order->id)) }}
 						</td>
 						<td>{{ Form::text('transport', $order->transport, array('class' => 'form-control', 'id' => 'transport'. $order->id)) }}</td>
-						<td>{{ money_format('%(#3n', ($order->sum*1.12 + $order->transport)) }}</td>
+						<td>$ {{ money_format('%(#3n', ($order->sum*1.12 + $order->transport)) }}</td>
 						<td>{{ $order->created_at }}</td>
 						<td>{{ $order->updated_at }}</td>
 						<td>
