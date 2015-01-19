@@ -11,7 +11,8 @@
 		"way/database": "dev-master",
 		"codesleeve/asset-pipeline": "dev-master",
 		"codesleeve/laravel-stapler": "1.0.*",
-		"intervention/image": "~2.0"
+		"intervention/image": "~2.0",
+		"maatwebsite/excel": "1.*"
 	},
 	"autoload": {
 		"classmap": [

@@ -20,9 +20,9 @@
 		            <th style="width: 8%">Labor</th>
 		            <th style="width: 8%">Transport</th>
 		            <th style="width: 8%">Total</th>
-		            <th style="width: 13%">Create Date</th>
-		            <th style="width: 13%">Update Date</th>
-		            <th style="width: 24%">Operation</th>
+		            <th style="width: 10%">Create Date</th>
+		            <th style="width: 10%">Update Date</th>
+		            <th style="width: 30%">Operation</th>
 		        </tr>
 		    </thead>
 
@@ -31,13 +31,13 @@
 					
 					<?php
 						switch ($order->status) {
-							case '0': echo'<tr class="info">';
+							case '0': echo '<tr class="info">';
 								break;
-							case '1': echo'<tr>';
+							case '1': echo '<tr>';
 								break;
-							case '-1': echo'<tr class="warning">';
+							case '-1': echo '<tr class="warning">';
 								break;
-							default: echo'<tr>';
+							default: echo '<tr>';
 								break;
 						}
 					?>
@@ -71,6 +71,7 @@
 							{{ Form::submit('Save', ['class' => 'btn btn-warning saveSingleOrder', 'id' => $order->id]) }}
 							{{ link_to_route('order.show', 'View', [$order->id], ['class' => 'btn btn-info']) }}
 							{{ link_to_route('order.edit', 'Update', [$order->id], ['class' => 'btn btn-primary']) }}
+							{{ link_to_route('order.download', 'Download', [$order->id], ['class' => 'btn btn-danger']) }}
 						</td>
 					</tr>
 					<?php $index++; ?>

@@ -127,6 +127,7 @@ return array(
 		'Codesleeve\AssetPipeline\AssetPipelineServiceProvider',
 		'Codesleeve\LaravelStapler\LaravelStaplerServiceProvider',
 		'Intervention\Image\ImageServiceProvider',
+		'Maatwebsite\Excel\ExcelServiceProvider',
 		
 
 
@@ -199,7 +200,8 @@ return array(
 
 		'Model' 			=> 'Way\Database\Model',
 		'Sentry' 			=> 'Cartalyst\Sentry\Facades\Laravel\Sentry',
-		'Image' 			=> 'Intervention\Image\Facades\Image'
+		'Image' 			=> 'Intervention\Image\Facades\Image',
+		'Excel'				=> 'Maatwebsite\Excel\Facades\Excel',
 
 	),
 

@@ -91,6 +91,10 @@ Route::post('order/saveToOrder/{id}', [
 	'as' => 'order.save2order',
 	'uses' => 'OrderController@saveToOrder']);
 
+Route::get('order/download/{id}', [
+	'as' => 'order.download',
+	'uses' => 'OrderController@download']);
+
 # Standard User Routes
 Route::group(['before' => 'auth|admin'], function()
 {

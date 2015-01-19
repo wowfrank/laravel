@@ -257,4 +257,60 @@ class OrderController extends \BaseController {
 
 		return Redirect::to( URL::previous() );
 	}
+
+	/**
+	 * Export Order to Excel and Download it
+	 * GET /order/download/{id}
+	 * 
+	 * @param int $id
+	 * @return Response
+	 */
+	public function download($id)
+	{
+		$order 		= Order::find($id);
+		
+		// export & download order
+    	Excel::create($order->order_no, function($excel) use($order) {
+    		$excel->sheet($order->order_no, function($sheet) use ($order) {
+    			$category 	= Category::all();
+				$products 	= $order->product()
+										->orderBy('cname', 'ASC')
+		    							->orderBy('brand', 'ASC')
+		    							->orderBy('ename', 'ASC')
+		    							->orderBy('unit', 'ASC')
+		    							->orderBy('note', 'DESC')
+		    							->get();
+
+    			// first row styling and writing content
+    			$sheet->mergeCells('A1:O3');
+    			$sheet->row(1, function ($row) {
+		            $row->setFontFamily('Comic Sans MS');
+		            $row->setFontSize(30);
+		            $row->setFontWeight('bold');
+        		});
+        		$sheet->row(1, array('Order#'.$order->order_no.' Product List'));
+
+        		foreach($category as $c) {
+        			if ( Product::isCategoryInList($c->id, $products) ) {
+        				// $sheet->row($sheet->getCurrentRow(), function ($row) {
+				        //     $row->setFontWeight('bold');
+				        // });
+				        $sheet->appendRow(['']);
+        				$sheet->appendRow([$c->category]);
+        				$pHeader = ['Chinese Name', 'English Name', 'Brand', 'Unit', 'Description', 'Suggest Price', 'Retail Lowest', 'Gross Weight', 'Note', 'Item No', 'Status', 'Created At', 'Updated At'];
+        				$sheet->appendRow($pHeader);
+
+        				foreach($products as $product) {
+        					if ($product->category_id == $c->id) {
+        						$sheet->appendRow(array_except($product->toArray(), ['id', 'category_id', 'pivot']));
+        					}
+        				}
+        			}
+        		}
+		        
+			});
+    	})->export('xlsx');
+
+		return Redirect::to( URL::previous() );
+	}
 }
