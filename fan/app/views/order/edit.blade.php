@@ -24,9 +24,9 @@
 				            <th style="width: 10%">Brand</th>
 				            <th style="width: 8%">Unit</th>
 				            <th style="width: 10%">English</th>
-				            <th style="width: 10%">Item No</th>
+				            <th style="width: 8%">Item No</th>
 				            <th style="width: 7%">Quantity</th>
-				            <th style="width: 15%">Extra</th>
+				            <th style="width: 17%">Extra</th>
 				            <th style="width: 18%">Feedback</th>
 				            <th style="width: 8%">Operation</th>
 				        </tr>

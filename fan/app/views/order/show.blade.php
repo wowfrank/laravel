@@ -22,10 +22,10 @@
 				            <th style="width: 10%">Brand</th>
 				            <th style="width: 8%">Unit</th>
 				            <th style="width: 12%">English</th>
-				            <th style="width: 10%">Item No</th>
+				            <th style="width: 8%">Item No</th>
 				            <th style="width: 8%">Quantity</th>
-				            <th style="width: 15%">Extra</th>
-				            <th style="width: 23%">Feedback</th>
+				            <th style="width: 20%">Extra</th>
+				            <th style="width: 20%">Feedback</th>
 				        </tr>
 				    </thead>
 				    <tbody>
