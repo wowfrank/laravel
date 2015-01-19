@@ -114,7 +114,13 @@ class OrderController extends \BaseController {
 		//
 		$order 		= Order::find($id);
 		$category 	= Category::all();
-		$products 	= $order->product;
+		$products 	= $order->product()
+								->orderBy('cname', 'ASC')
+    							->orderBy('brand', 'ASC')
+    							->orderBy('unit', 'ASC')
+    							->orderBy('ename', 'ASC')
+    							->orderBy('note', 'DESC')
+    							->get();
 
 		return View::make('order.edit', ['productList' => $products, 'categoryList' => $category, 'order' => $order]);
 	}
@@ -196,6 +202,7 @@ class OrderController extends \BaseController {
 		{
 			if ( !$order->product->contains($product_array[$i]) )
 			{
+
 				$orderIDs['order_id'][$i] = $id;
 				$productIDs['product_id'][$i] = $product_array[$i];
 				$quantities['quantity'][$i] = 1;
@@ -203,7 +210,7 @@ class OrderController extends \BaseController {
 		}
 
 		// @TODO error handler!
-		if($order)
+		if($order && !empty($productIDs))
 		{
 			$pivotInfo = array_map(function($x, $y, $z) { return array('order_id'=> $z, 'product_id'=> $x, 'quantity' => $y); }, 
 									$productIDs['product_id'], $quantities['quantity'], $orderIDs['order_id']);
