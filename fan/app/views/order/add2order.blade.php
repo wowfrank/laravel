@@ -18,8 +18,8 @@
 			            <th style="width: 2%"><input type="checkbox" class="checkAll" name="foo[]" /></th>
 			            <th style="width: 15%">Chinese</th>
 			            <th style="width: 12%">Brand</th>
-			            <th style="width: 6%">Unit</th>
 			            <th style="width: 11%">English</th>
+			            <th style="width: 6%">Unit</th>
 			            <th style="width: 7%">Suggest</th>
 			            <th style="width: 7%">Lowest</th>
 			            <th style="width: 8%">Item No</th>
@@ -31,8 +31,8 @@
 			    <tbody>
 					@foreach (Product::where('category_id', '=', $category->id)->orderBy('cname', 'ASC')
 			    							->orderBy('brand', 'ASC')
-			    							->orderBy('unit', 'ASC')
 			    							->orderBy('ename', 'ASC')
+			    							->orderBy('unit', 'ASC')
 			    							->orderBy('note', 'DESC')
 			    							->get() as $product)
 						@if ($product->status )
@@ -43,8 +43,8 @@
 							<td>{{ Form::checkbox('foo[]', $product->id, false, ['class'=>'checkbox-class']) }}</td>
 							<td>{{$product->cname}}</td>
 							<td>{{$product->brand}}</td>
-							<td>{{$product->unit}}</td>
 							<td>{{$product->ename}}</td>
+							<td>{{$product->unit}}</td>
 							<td>{{money_format('%(#3n', $product->suggest_price)}}</td>
 							<td>{{money_format('%(#3n', $product->retail_lowest)}}</td>
 							<td>{{$product->item_no}}</td>

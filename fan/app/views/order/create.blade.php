@@ -22,8 +22,8 @@
 				            <th style="width: 2%"></th>
 				            <th style="width: 11%">Chinese</th>
 				            <th style="width: 10%">Brand</th>
-				            <th style="width: 10%">Unit</th>
 				            <th style="width: 10%">English</th>
+				            <th style="width: 10%">Unit</th>
 				            <th style="width: 10%">Item No</th>
 				            <th style="width: 30%">Description</th>
 				            <th style="width: 9%">Quantity</th>
@@ -42,8 +42,8 @@
 									<td>{{$index}}</td><?php $index++; ?>
 									<td>{{$product->cname}}</td>
 									<td>{{$product->brand}}</td>
-									<td>{{$product->unit}}</td>
 									<td>{{$product->ename}}</td>
+									<td>{{$product->unit}}</td>
 									<td>{{$product->item_no}}</td>
 									<td>{{$product->description}}</td>
 									<td>{{Form::text('quantity[]', null, array('class' => 'form-control'))}}</td>

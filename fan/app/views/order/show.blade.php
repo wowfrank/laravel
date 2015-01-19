@@ -20,8 +20,8 @@
 				            <th style="width: 2%"></th>
 				            <th style="width: 12%">Chinese</th>
 				            <th style="width: 10%">Brand</th>
-				            <th style="width: 8%">Unit</th>
 				            <th style="width: 12%">English</th>
+				            <th style="width: 8%">Unit</th>
 				            <th style="width: 8%">Item No</th>
 				            <th style="width: 8%">Quantity</th>
 				            <th style="width: 20%">Extra</th>
@@ -39,8 +39,8 @@
 									<td>{{$index}}</td><?php $index++; ?>
 									<td>{{$product->cname}}</td>
 									<td>{{$product->brand}}</td>
-									<td>{{$product->unit}}</td>
 									<td>{{$product->ename}}</td>
+									<td>{{$product->unit}}</td>
 									<td>{{$product->item_no}}</td>
 									<td>{{$product->pivot->quantity}}</td>
 									<td>{{$product->pivot->extra}}</td>
