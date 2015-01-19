@@ -33,8 +33,8 @@ class OrderController extends \BaseController {
 		$product 		= Product::whereIn( 'id', $product_array )
 									->orderBy('cname', 'ASC')
 	    							->orderBy('brand', 'ASC')
-	    							->orderBy('unit', 'ASC')
 	    							->orderBy('ename', 'ASC')
+	    							->orderBy('unit', 'ASC')
 	    							->orderBy('note', 'DESC')
 	    							->get();
 
@@ -92,8 +92,8 @@ class OrderController extends \BaseController {
 		$products 	= $order->product()
 								->orderBy('cname', 'ASC')
     							->orderBy('brand', 'ASC')
-    							->orderBy('unit', 'ASC')
     							->orderBy('ename', 'ASC')
+    							->orderBy('unit', 'ASC')
     							->orderBy('note', 'DESC')
     							->get();
 		$images 	= Images::where('order_id', '=', $id)->get();
@@ -117,8 +117,8 @@ class OrderController extends \BaseController {
 		$products 	= $order->product()
 								->orderBy('cname', 'ASC')
     							->orderBy('brand', 'ASC')
-    							->orderBy('unit', 'ASC')
     							->orderBy('ename', 'ASC')
+    							->orderBy('unit', 'ASC')
     							->orderBy('note', 'DESC')
     							->get();
 

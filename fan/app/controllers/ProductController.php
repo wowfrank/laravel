@@ -15,8 +15,8 @@ class ProductController extends \BaseController {
 		$category 	= Category::all();
 		$product 	= Product::orderBy('cname', 'ASC')
     							->orderBy('brand', 'ASC')
-    							->orderBy('unit', 'ASC')
     							->orderBy('ename', 'ASC')
+    							->orderBy('unit', 'ASC')
     							->orderBy('note', 'DESC')
     							->get();
 
@@ -141,8 +141,8 @@ class ProductController extends \BaseController {
 		$category 	= Category::all();
 		$product 	= Product::orderBy('cname', 'ASC')
     							->orderBy('brand', 'ASC')
-    							->orderBy('unit', 'ASC')
     							->orderBy('ename', 'ASC')
+    							->orderBy('unit', 'ASC')
     							->orderBy('note', 'DESC')
     							->get();
 
