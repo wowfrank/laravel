@@ -282,7 +282,7 @@ class OrderController extends \BaseController {
 		    							->get();
 
     			// first row styling and writing content
-    			$sheet->mergeCells('A1:J3');
+    			$sheet->mergeCells('A1:L3');
     			$sheet->row(1, function ($row) {
 		            $row->setFontFamily('Comic Sans MS');
 		            $row->setFontSize(30);
@@ -295,7 +295,7 @@ class OrderController extends \BaseController {
         				// Append an empty row and a category row
 				        $sheet->appendRow(['']);
 				        $sheet->appendRow([$c->category])
-				        		->mergeCells('A'.$sheet->getHighestRow(). ':J' .$sheet->getHighestRow())
+				        		->mergeCells('A'.$sheet->getHighestRow(). ':L' .$sheet->getHighestRow())
 				        		->row($sheet->getHighestRow(), function ($row) {
 								            $row->setFontColor('#83D6CE');
 								            $row->setFontSize(12);
@@ -303,7 +303,7 @@ class OrderController extends \BaseController {
 								        });
 
 				        // Append a header row
-        				$pHeader = ['Chinese Name', 'English Name', 'Brand', 'Unit', 'Description', 'Suggest Price', 'Retail Lowest', 'Gross Weight', 'Note', 'Item No'];
+        				$pHeader = ['Chinese Name', 'English Name', 'Brand', 'Unit', 'Description', 'Suggest Price', 'Retail Lowest', 'Gross Weight', 'Note', 'Item No', 'Quantity', 'Extra Info'];
         				$sheet->appendRow($pHeader)
         						->row($sheet->getHighestRow(), function ($row) {
         									$row->setFontSize(10);
@@ -314,7 +314,10 @@ class OrderController extends \BaseController {
         				// Append products rows
         				foreach($products as $product) {
         					if ($product->category_id == $c->id) {
-        						$sheet->appendRow(array_except($product->toArray(), ['id', 'category_id', 'pivot', 'created_at', 'updated_at', 'status']))
+        						$pData = array_except($product->toArray(), ['id', 'category_id', 'pivot', 'created_at', 'updated_at', 'status']);
+        						$pData = array_add($pData, 'quantity', $product->pivot->quantity);
+        						$pData = array_add($pData, 'extra', $product->pivot->extra);
+        						$sheet->appendRow($pData)
         								->row($sheet->getHighestRow(), function ($row) {
 								            $row->setFontColor('#727877');
 								            $row->setFontSize(10);
