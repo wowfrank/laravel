@@ -303,7 +303,7 @@ class OrderController extends \BaseController {
 								        });
 
 				        // Append a header row
-        				$pHeader = ['Chinese Name', 'English Name', 'Brand', 'Unit', 'Description', 'Suggest Price', 'Retail Lowest', 'Gross Weight', 'Note', 'Item No', 'Status'];
+        				$pHeader = ['Chinese Name', 'English Name', 'Brand', 'Unit', 'Description', 'Suggest Price', 'Retail Lowest', 'Gross Weight', 'Note', 'Item No'];
         				$sheet->appendRow($pHeader)
         						->row($sheet->getHighestRow(), function ($row) {
         									$row->setFontSize(10);
@@ -314,7 +314,7 @@ class OrderController extends \BaseController {
         				// Append products rows
         				foreach($products as $product) {
         					if ($product->category_id == $c->id) {
-        						$sheet->appendRow(array_except($product->toArray(), ['id', 'category_id', 'pivot', 'created_at', 'updated_at']))
+        						$sheet->appendRow(array_except($product->toArray(), ['id', 'category_id', 'pivot', 'created_at', 'updated_at', 'status']))
         								->row($sheet->getHighestRow(), function ($row) {
 								            $row->setFontColor('#727877');
 								            $row->setFontSize(10);
