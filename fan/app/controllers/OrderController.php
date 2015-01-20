@@ -282,7 +282,7 @@ class OrderController extends \BaseController {
 		    							->get();
 
     			// first row styling and writing content
-    			$sheet->mergeCells('A1:K3');
+    			$sheet->mergeCells('A1:J3');
     			$sheet->row(1, function ($row) {
 		            $row->setFontFamily('Comic Sans MS');
 		            $row->setFontSize(30);
@@ -295,7 +295,7 @@ class OrderController extends \BaseController {
         				// Append an empty row and a category row
 				        $sheet->appendRow(['']);
 				        $sheet->appendRow([$c->category])
-				        		->mergeCells('A'.$sheet->getHighestRow(). ':K' .$sheet->getHighestRow())
+				        		->mergeCells('A'.$sheet->getHighestRow(). ':J' .$sheet->getHighestRow())
 				        		->row($sheet->getHighestRow(), function ($row) {
 								            $row->setFontColor('#83D6CE');
 								            $row->setFontSize(12);
