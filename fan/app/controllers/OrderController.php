@@ -303,7 +303,7 @@ class OrderController extends \BaseController {
 								        });
 
 				        // Append a header row
-        				$pHeader = ['Chinese Name', 'English Name', 'Brand', 'Unit', 'Description', 'Suggest Price', 'Retail Lowest', 'Gross Weight', 'Note', 'Item No', 'Quantity', 'Extra Info'];
+        				$pHeader = ['Chinese Name', 'English Name', 'Brand', 'Unit', 'Description', 'Suggest Price', 'Retail Lowest', 'Gross Weight', 'Note', 'Quantity', 'Extra Info'];
         				$sheet->appendRow($pHeader)
         						->row($sheet->getHighestRow(), function ($row) {
         									$row->setFontSize(10);

@@ -16,12 +16,12 @@
 			        <tr>
 			            <th style="width: 2%"><input type="checkbox" class="checkAll" name="foo[]" /></th>
 			            <th style="width: 11%">Chinese</th>
-			            <th style="width: 8%">Brand</th>
-			            <th style="width: 11%">English</th>
+			            <th style="width: 12%">Brand</th>
+			            <th style="width: 15%">English</th>
 			            <th style="width: 6%">Unit</th>
 			            <th style="width: 7%">Suggest</th>
 			            <th style="width: 7%">Lowest</th>
-			            <th style="width: 8%">Item No</th>
+			            <!-- <th style="width: 8%">Item No</th> -->
 			            <th style="width: 12%">Description</th>
 			            <th style="width: 12%">Note</th>
 			            <th style="width: 16%">Operation</th>
@@ -46,7 +46,7 @@
 							<td>{{$product->unit}}</td>
 							<td>$ {{money_format('%(#3n', $product->suggest_price)}}</td>
 							<td>$ {{money_format('%(#3n', $product->retail_lowest)}}</td>
-							<td>{{$product->item_no}}</td>
+							<!-- <td>{{$product->item_no}}</td> -->
 							<td>{{$product->description}}</td>
 							<td>{{$product->note}}</td>
 							<td>

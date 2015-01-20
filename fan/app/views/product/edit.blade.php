@@ -44,18 +44,18 @@
             {{Form::label('gross_weight','Gross Weight')}}
             {{Form::text('gross_weight', $product->gross_weight, array('class' => 'form-control'))}}
         </div>
-        <div class="form-group">
+        <!-- <div class="form-group">
             {{Form::label('item_no','item_no')}}
             {{Form::text('item_no', $product->item_no, array('class' => 'form-control'))}}
+        </div> -->
+        <div class="form-group">
+            {{Form::label('note','Notes')}}
+            {{Form::text('note', $product->note,array('class' => 'form-control'))}}
         </div>
         <div class="form-group">
             {{Form::label('status','Status')}}
             {{ Form::radio('status', '1', $product->status == false ? false : true, array('class' => 'form-control')) }} Approved
             {{ Form::radio('status', '0', $product->status == false ? false : true, array('class' => 'form-control')) }} Appending
-        </div>
-        <div class="form-group">
-            {{Form::label('note','Notes')}}
-            {{Form::text('note', $product->note,array('class' => 'form-control'))}}
         </div>
 
         {{Form::submit('Update', array('class' => 'btn btn-primary'))}}
