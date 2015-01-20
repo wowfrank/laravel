@@ -67,13 +67,13 @@
 	    <tbody>
 			<tr>
 				<td></td>			 	
-				<td> {{ $totalSent }} </td>	
-				<td> {{ $totalReceived }} </td>
-				<td> {{ $totalSent - $totalReceived }} </td>
-				<td> {{ $totalShopped }} </td>
-				<td> {{ $totalShopped * 0.12 }} </td>
-				<td> {{ $totalTransport }} </td>
-				<td> {{ $totalReceived - $totalShopped * 1.12 - $totalTransport }} </td>
+				<td> $ {{money_format('%(#3n', $totalSent)}} </td>	
+				<td> $ {{money_format('%(#3n', $totalReceived)}} </td>
+				<td> $ {{money_format('%(#3n', ($totalSent - $totalReceived))}} </td>
+				<td> $ {{money_format('%(#3n', $totalShopped)}} </td>
+				<td> $ {{money_format('%(#3n', ($totalShopped * 0.12))}} </td>
+				<td> $ {{money_format('%(#3n', $totalTransport)}} </td>
+				<td> $ {{money_format('%(#3n', ($totalReceived - $totalShopped * 1.12 - $totalTransport))}} </td>
 			</tr>
 		</tbody>
 	</table>
