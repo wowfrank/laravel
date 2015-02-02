@@ -38,6 +38,13 @@ class Html extends PHPExcel_Reader_HTML {
      */
     protected $styles = array();
 
+    protected $_dataArray    = [];
+    protected $_nestedColumn = ['A'];
+    /**
+     * @var int
+     */
+    protected $_tableLevel   = 0;
+
     /**
      * Input encoding
      * @var string
@@ -744,6 +751,8 @@ class Html extends PHPExcel_Reader_HTML {
         $drawing->setWorksheet($sheet);
         $drawing->setCoordinates($column . $row);
         $drawing->setResizeProportional();
+        $drawing->setOffsetX($drawing->getWidth() - $drawing->getWidth() / 5);
+        $drawing->setOffsetY(10);
 
         // Set height and width
         if ($width > 0)
@@ -753,7 +762,7 @@ class Html extends PHPExcel_Reader_HTML {
             $drawing->setHeight($height);
 
         // Set cell width based on image
-        $this->parseWidth($sheet, $column, $row, $drawing->getWidth());
+        $this->parseWidth($sheet, $column, $row, $drawing->getWidth() / 3);
         $this->parseHeight($sheet, $column, $row, $drawing->getHeight());
     }
 

@@ -128,6 +128,7 @@ return array(
 		'Codesleeve\LaravelStapler\LaravelStaplerServiceProvider',
 		'Intervention\Image\ImageServiceProvider',
 		'Maatwebsite\Excel\ExcelServiceProvider',
+		'SimpleSoftwareIO\QrCode\QrCodeServiceProvider',
 		
 
 
@@ -202,7 +203,7 @@ return array(
 		'Sentry' 			=> 'Cartalyst\Sentry\Facades\Laravel\Sentry',
 		'Image' 			=> 'Intervention\Image\Facades\Image',
 		'Excel'				=> 'Maatwebsite\Excel\Facades\Excel',
-
+		'QrCode'			=> 'SimpleSoftwareIO\QrCode\Facades\QrCode',
 	),
 
 );

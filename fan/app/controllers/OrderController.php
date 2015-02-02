@@ -12,7 +12,7 @@ class OrderController extends \BaseController {
 	{
 		//
 		$order = Order::orderBy('id', 'DESC')->get();
-
+		
 		return View::make('order.index',
 			['orderList' => $order]);
 	}

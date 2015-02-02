@@ -8,14 +8,15 @@
             <div class="collapse navbar-collapse">
                 <ul class="nav navbar-nav navbar-right">
                     @if (Sentry::check())
-                        <li>{{ HTML::link('balance', 'Balance', array()) }}</li>
-                    	<li>{{ HTML::link('product', 'Product', array()) }}</li>
-                    	<li>{{ HTML::link('product/create', 'Create Product', array()) }}</li>
-                        <li>{{ HTML::link('order', 'Order', array()) }}</li>
-                        <li>{{ HTML::link('logout', 'Log Out', array()) }}</li>
+                        <li> {{ HTML::link('balance', 'Balance', []) }} </li>
+                    	<li> {{ HTML::link('product', 'Product', []) }} </li>
+                    	<li> {{ HTML::link('product/create', 'Create Product', []) }} </li>
+                        <li> {{ HTML::link('order', 'Order', []) }} </li>
+                        <li> {{ HTML::link('qrcodes', 'QrCode', [] ) }}
+                        <li> {{ HTML::link('logout', 'Log Out', []) }} </li>
                     @else
-                        <li>{{ HTML::link('login', 'Login', array()) }}</li>
-                        <li>{{ HTML::link('register', 'Register', array()) }}</li>
+                        <li> {{ HTML::link('login', 'Login', []) }} </li>
+                        <li> {{ HTML::link('register', 'Register', []) }} </li>
                     @endif
                 </ul>
 

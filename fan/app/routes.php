@@ -27,6 +27,8 @@ Route::resource('order', 'OrderController');
 
 Route::resource('balance', 'BalanceController');
 
+Route::resource('qrcodes', 'QrcodesController');
+
 /*
 
 Route::group(array('before' => 'guest'), function () 
@@ -94,6 +96,10 @@ Route::post('order/saveToOrder/{id}', [
 Route::get('order/download/{id}', [
 	'as' => 'order.download',
 	'uses' => 'OrderController@download']);
+
+Route::post('qrcodes/check/', [
+	'as' => 'qrcodes.check',
+	'uses' => 'QrcodesController@checkQrcode']);
 
 # Standard User Routes
 Route::group(['before' => 'auth|admin'], function()
