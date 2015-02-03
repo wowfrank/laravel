@@ -60,8 +60,8 @@
         <div class="form-group">
             {{ Form::label('status', trans('message.Status')) }}
             <!-- {{Form::text('status', null, array('class' => 'form-control'))}} -->
-            {{ Form::radio('status', '1', false, array('class' => 'form-control')) }} Approved
-            {{ Form::radio('status', '0', true, array('class' => 'form-control')) }} Appending
+            {{ Form::radio('status', '1', false, array('class' => 'form-control')) }} {{ trans('message.Approved') }}
+            {{ Form::radio('status', '0', true, array('class' => 'form-control')) }} {{ trans('message.Appending') }}
         </div>
 
         {{ Form::submit(trans('message.Save'), array('class' => 'btn btn-primary')) }}

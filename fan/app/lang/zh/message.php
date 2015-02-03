@@ -14,6 +14,7 @@
 		'Create Order' => '创建订单',
 		'Generate Order' => '生成订单',
 		'Category' => '类别',
+		'Chinese Name' => '中文名',
 		'Chinese' => '中文名',
 		'English Name' => '英文名',
 		'Brand Name' => '品牌',

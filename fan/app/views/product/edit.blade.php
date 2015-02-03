@@ -54,8 +54,8 @@
         </div>
         <div class="form-group">
             {{ Form::label('status',trans('message.Status')) }}
-            {{ Form::radio('status', '1', $product->status == false ? false : true, array('class' => 'form-control')) }} Approved
-            {{ Form::radio('status', '0', $product->status == false ? false : true, array('class' => 'form-control')) }} Appending
+            {{ Form::radio('status', '1', $product->status == false ? false : true, array('class' => 'form-control')) }} {{ trans('message.Approved') }}
+            {{ Form::radio('status', '0', $product->status == false ? false : true, array('class' => 'form-control')) }} {{ trans('message.Appending') }}
         </div>
 
         {{ Form::submit(trans('message.Update'), array('class' => 'btn btn-primary')) }}
