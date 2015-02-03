@@ -20,14 +20,14 @@
 				    <thead>
 				        <tr>
 				            <th style="width: 2%"></th>
-				            <th style="width: 11%">Chinese</th>
-				            <th style="width: 15%">Brand</th>
-				            <th style="width: 15%">English</th>
-				            <th style="width: 10%">Unit</th>
-				            <!-- <th style="width: 10%">Item No</th> -->
-				            <th style="width: 30%">Description</th>
-				            <th style="width: 9%">Quantity</th>
-				            <th style="width: 8%">Operation</th>
+				            <th style="width: 11%">{{ trans('message.Chinese') }}</th>
+				            <th style="width: 15%">{{ trans('message.Brand') }}</th>
+				            <th style="width: 15%">{{ trans('message.English') }}</th>
+				            <th style="width: 10%">{{ trans('message.Unit') }}</th>
+				            <!-- <th style="width: 10%">{{ trans('message.Item No') }}</th> -->
+				            <th style="width: 30%">{{ trans('message.Description') }}</th>
+				            <th style="width: 9%">{{ trans('message.Quantity') }}</th>
+				            <th style="width: 8%">{{ trans('message.Operation') }}</th>
 				        </tr>
 				    </thead>
 				    <tbody>
@@ -48,7 +48,7 @@
 									<td>{{$product->description}}</td>
 									<td>{{Form::text('quantity[]', null, array('class' => 'form-control'))}}</td>
 									<td>
-										<a class="btn btn-mini btn-danger pro-remove">Delete</a>
+										<a class="btn btn-mini btn-danger pro-remove">{{ trans('message.Delete') }}</a>
 									</td>
 								</tr>
 							@endif
@@ -60,8 +60,8 @@
 	@endforeach
 {{Form::select('status', ['-1'=> 'INACTIVE', '0'=>'CLOSED', '1'=>'ACTIVE'], 0, array('class' => 'form-control')) }}
 
-{{ HTML::link('product', 'Return', array('class'=>'btn btn-info')) }}
-{{Form::submit('Generate Order', array('class' => 'btn btn-primary'))}}
+{{ HTML::link('product', trans('message.Return'), array('class'=>'btn btn-info')) }}
+{{Form::submit(trans('message.Generate Order'), array('class' => 'btn btn-primary'))}}
 {{ Form::close() }}
 
 <script type="text/javascript">

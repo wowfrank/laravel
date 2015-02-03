@@ -18,14 +18,14 @@
 				    <thead>
 				        <tr>
 				            <th style="width: 2%"></th>
-				            <th style="width: 12%">Chinese</th>
-				            <th style="width: 14%">Brand</th>
-				            <th style="width: 16%">English</th>
-				            <th style="width: 8%">Unit</th>
-				            <!-- <th style="width: 8%">Item No</th> -->
-				            <th style="width: 8%">Quantity</th>
-				            <th style="width: 20%">Extra</th>
-				            <th style="width: 20%">Feedback</th>
+				            <th style="width: 12%">{{ trans('message.Chinese') }}</th>
+				            <th style="width: 14%">{{ trans('message.Brand') }}</th>
+				            <th style="width: 16%">{{ trans('message.English') }}</th>
+				            <th style="width: 8%">{{ trans('message.Unit') }}</th>
+				            <!-- <th style="width: 8%">{{ trans('message.Item No') }}</th> -->
+				            <th style="width: 8%">{{ trans('message.Quantity') }}</th>
+				            <th style="width: 20%">{{ trans('message.Extra') }}</th>
+				            <th style="width: 20%">{{ trans('message.Feedback') }}</th>
 				        </tr>
 				    </thead>
 				    <tbody>
@@ -77,7 +77,7 @@
 		</table>
 	</div>
 </div>
-{{ HTML::link('order', 'Return', array('class'=>'btn btn-info')) }}
+{{ HTML::link('order', trans('message.Return'), array('class'=>'btn btn-info')) }}
 
 <style>
 

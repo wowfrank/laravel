@@ -14,15 +14,15 @@
 		    <thead>
 		        <tr>
 		            <th style="width: 2%"></th>
-		            <th style="width: 8%">Order No</th>
-		            <th style="width: 8%">Status</th>
-		            <th style="width: 8%">Sum</th>
-		            <th style="width: 8%">Labor</th>
-		            <th style="width: 8%">Transport</th>
-		            <th style="width: 8%">Total</th>
-		            <th style="width: 10%">Create Date</th>
-		            <th style="width: 10%">Update Date</th>
-		            <th style="width: 30%">Operation</th>
+		            <th style="width: 8%">{{ trans('message.Order No') }}</th>
+		            <th style="width: 8%">{{ trans('message.Status') }}</th>
+		            <th style="width: 8%">{{ trans('message.Sum') }}</th>
+		            <th style="width: 8%">{{ trans('message.Labor') }}</th>
+		            <th style="width: 8%">{{ trans('message.Transport') }}</th>
+		            <th style="width: 8%">{{ trans('message.Total') }}</th>
+		            <th style="width: 10%">{{ trans('message.Create Date') }}</th>
+		            <th style="width: 10%">{{ trans('message.Update Date') }}</th>
+		            <th style="width: 30%">{{ trans('message.Operation') }}</th>
 		        </tr>
 		    </thead>
 
@@ -68,10 +68,10 @@
 						<td>{{ $order->created_at }}</td>
 						<td>{{ $order->updated_at }}</td>
 						<td>
-							{{ Form::submit('Save', ['class' => 'btn btn-warning saveSingleOrder', 'id' => $order->id]) }}
-							{{ link_to_route('order.show', 'View', [$order->id], ['class' => 'btn btn-info']) }}
-							{{ link_to_route('order.edit', 'Update', [$order->id], ['class' => 'btn btn-primary']) }}
-							{{ link_to_route('order.download', 'Download', [$order->id], ['class' => 'btn btn-danger']) }}
+							{{ Form::submit(trans('message.Save'), ['class' => 'btn btn-warning saveSingleOrder', 'id' => $order->id]) }}
+							{{ link_to_route('order.show', trans('message.View'), [$order->id], ['class' => 'btn btn-info']) }}
+							{{ link_to_route('order.edit', trans('message.Update'), [$order->id], ['class' => 'btn btn-primary']) }}
+							{{ link_to_route('order.download', trans('message.Download'), [$order->id], ['class' => 'btn btn-danger']) }}
 						</td>
 					</tr>
 					<?php $index++; ?>

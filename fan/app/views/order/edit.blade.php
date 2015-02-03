@@ -20,15 +20,15 @@
 				    <thead>
 				        <tr>
 				            <th style="width: 2%"></th>
-				            <th style="width: 11%">Chinese</th>
-				            <th style="width: 14%">Brand</th>
-				            <th style="width: 14%">English</th>
-				            <th style="width: 8%">Unit</th>
-				            <!-- <th style="width: 8%">Item No</th> -->
-				            <th style="width: 7%">Quantity</th>
-				            <th style="width: 17%">Extra</th>
-				            <th style="width: 18%">Feedback</th>
-				            <th style="width: 8%">Operation</th>
+				            <th style="width: 11%">{{ trans('message.Chinese') }}</th>
+				            <th style="width: 14%">{{ trans('message.Brand') }}</th>
+				            <th style="width: 14%">{{ trans('message.English') }}</th>
+				            <th style="width: 8%">{{ trans('message.Unit') }}</th>
+				            <!-- <th style="width: 8%">{{ trans('message.Item No') }}</th> -->
+				            <th style="width: 7%">{{ trans('message.Quantity') }}</th>
+				            <th style="width: 17%">{{ trans('message.Extra') }}</th>
+				            <th style="width: 18%">{{ trans('message.Feedback') }}</th>
+				            <th style="width: 8%">{{ trans('message.Operation') }}</th>
 				        </tr>
 				    </thead>
 				    <tbody>
@@ -50,7 +50,7 @@
 									<td>{{Form::text('extra[]', $product->pivot->extra, array('class' => 'form-control'))}}</td>
 									<td>{{Form::text('feedback[]', $product->pivot->feedback, array('class' => 'form-control'))}}</td>
 									<td>
-										<a class="btn btn-mini btn-danger pro-remove">Delete</a>
+										<a class="btn btn-mini btn-danger pro-remove">{{ trans('message.Delete') }}</a>
 									</td>
 								</tr>
 							@endif
@@ -62,9 +62,9 @@
 	@endforeach
 	<div class="row">
 		<div class="col-md-2">{{ Form::select('status', ['-1'=> 'INACTIVE', '0'=>'CLOSED', '1'=>'ACTIVE'], $order->status, array('class' => 'form-control', 'style' => 'width: 100px;')) }}</div>
-		<div class="col-md-2">{{ Form::submit('Update Order', ['class' => 'btn btn-primary']) }}</div>
-		<div class="col-md-2">{{ HTML::link('product/addToOrder/'.$order->id, 'Add Products', ['class' => 'btn btn-primary']) }}</div>
-		<div class="col-md-2">{{ HTML::link('order', 'Return', ['class'=>'btn btn-info']) }}</div>
+		<div class="col-md-2">{{ Form::submit(trans('message.Update Order'), ['class' => 'btn btn-primary']) }}</div>
+		<div class="col-md-2">{{ HTML::link('product/addToOrder/'.$order->id, trans('message.Add Products'), ['class' => 'btn btn-primary']) }}</div>
+		<div class="col-md-2">{{ HTML::link('order', trans('message.Return'), ['class'=>'btn btn-info']) }}</div>
 	</div>
 
 {{ Form::close() }}
@@ -79,8 +79,8 @@
 	    	<tr>
 	    		<td class="col-md-2">{{ Form::file('images[]', ['multiple'=>true]) }}</td>
 	    		<td class="col-md-3">
-	    			{{ Form::submit('Attach Images', ['class' => 'btn btn-primary']) }}
-	    			{{ Form::reset('Clear form', ['class' => 'btn btn-warning']) }}
+	    			{{ Form::submit(trans('message.Attach Images'), ['class' => 'btn btn-primary']) }}
+	    			{{ Form::reset(trans('message.Clear Form'), ['class' => 'btn btn-warning']) }}
     			</td>
 	    		<td class="col-md-7 info" id="outputMsg"></td>
 	    	</tr>

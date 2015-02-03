@@ -14,17 +14,18 @@ class QrcodesController extends \BaseController {
 			return Response::json(['msg' => 'unAuthorized Access is denied!']);
 		}
 
+		// Decrypt string with the secret key
 		$encryptStr = Input::get('encrypted_str');
-		$encryptStr = base64_decode($encryptStr);
+		$encryptStr = base64_decode(urldecode($encryptStr));
 
-		$iv_size = mcrypt_get_iv_size(MCRYPT_BLOWFISH, MCRYPT_MODE_ECB);
+		$iv_size = mcrypt_get_iv_size(MCRYPT_RIJNDAEL_256, MCRYPT_MODE_ECB);
 		$iv = mcrypt_create_iv($iv_size, MCRYPT_RAND);
-		$decryptStr = mcrypt_decrypt(MCRYPT_BLOWFISH, Config::get('app.key'), $encryptStr, MCRYPT_MODE_ECB, $iv);
+		$decryptStr = mcrypt_decrypt(MCRYPT_RIJNDAEL_256, Config::get('app.key'), $encryptStr, MCRYPT_MODE_ECB, $iv);
+
 
 		$pattern = '/(\d{2})-(\d{2})-(\d{4}) (\d{2}):(\d{2}):(\d{2})([ap])(m) ([A-Z]{3})(\d{6})/';
-
 		if( !preg_match($pattern, $decryptStr) ) $decryptStr = 'Wrong QrCode!';
-
+		
 		return Response::json(['msg' => $decryptStr]);
 
 		// return Redirect::route('qrcodes.index')->withInput();
@@ -38,17 +39,17 @@ class QrcodesController extends \BaseController {
 	 */
 	public function index()
 	{
-		//
-
-		$qrStr = date('d-m-Y h:i:sa') . ' ' . Order::generateRandomStr();
-		$iv_size = mcrypt_get_iv_size(MCRYPT_BLOWFISH, MCRYPT_MODE_ECB);
-	    $iv = mcrypt_create_iv($iv_size, MCRYPT_RAND);
-	    $encryptStr = mcrypt_encrypt(MCRYPT_BLOWFISH, Config::get('app.key'), utf8_encode($qrStr), MCRYPT_MODE_ECB, $iv);
-
-	    $decryptStr = Session::has('checkResult') ? Session::get('checkResult') : null;
-
+		// Encrypt String with a secret key
+		for($i = 0; $i < 10; $i++) {
+			$qrStr = date('d-m-Y h:i:sa') . ' ' . Order::generateRandomStr();
+			$iv_size = mcrypt_get_iv_size(MCRYPT_RIJNDAEL_256, MCRYPT_MODE_ECB);
+		    $iv = mcrypt_create_iv($iv_size, MCRYPT_RAND);
+		    $encryptStr = mcrypt_encrypt(MCRYPT_RIJNDAEL_256, Config::get('app.key'), utf8_encode($qrStr), MCRYPT_MODE_ECB, $iv);
+		    $encryptStr = trim(base64_encode($encryptStr));
+		    $result[] = $encryptStr;
+		}
 		return View::make('qrcodes.index', 
-						['qrStr'=>base64_encode($encryptStr), 'decryptStr'=>$decryptStr]
+						['qrStrs'=>$result]
 					);
 	}
 

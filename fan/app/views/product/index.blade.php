@@ -15,16 +15,16 @@
 			    <thead>
 			        <tr>
 			            <th style="width: 2%"><input type="checkbox" class="checkAll" name="foo[]" /></th>
-			            <th style="width: 11%">Chinese</th>
-			            <th style="width: 12%">Brand</th>
-			            <th style="width: 15%">English</th>
-			            <th style="width: 6%">Unit</th>
-			            <th style="width: 7%">Suggest</th>
-			            <th style="width: 7%">Lowest</th>
-			            <!-- <th style="width: 8%">Item No</th> -->
-			            <th style="width: 12%">Description</th>
-			            <th style="width: 12%">Note</th>
-			            <th style="width: 16%">Operation</th>
+			            <th style="width: 11%">{{ trans('message.Chinese') }}</th>
+			            <th style="width: 12%">{{ trans('message.Brand') }}</th>
+			            <th style="width: 15%">{{ trans('message.English') }}</th>
+			            <th style="width: 6%">{{ trans('message.Unit') }}</th>
+			            <th style="width: 7%">{{ trans('message.Suggest') }}</th>
+			            <th style="width: 7%">{{ trans('message.Lowest') }}</th>
+			            <!-- <th style="width: 8%">{{ trans('message.Item No') }}</th> -->
+			            <th style="width: 12%">{{ trans('message.Description') }}</th>
+			            <th style="width: 12%">{{ trans('message.Notes') }}</th>
+			            <th style="width: 16%">{{ trans('message.Operation') }}</th>
 			        </tr>
 			    </thead>
 			    <tbody>
@@ -50,8 +50,8 @@
 							<td>{{$product->description}}</td>
 							<td>{{$product->note}}</td>
 							<td>
-								{{ link_to_route('product.edit', 'Edit', array($product->id), array('class' => 'btn btn-info')) }}
-							    <a onclick="confirmDelete({{$product->id}});" class="btn btn-mini btn-danger">Delete</a>
+								{{ link_to_route('product.edit', trans('message.Edit'), array($product->id), array('class' => 'btn btn-info')) }}
+							    <a onclick="confirmDelete({{$product->id}});" class="btn btn-mini btn-danger">{{ trans('message.Delete') }}</a>
 							</td>
 						</tr>
 					@endforeach
@@ -61,7 +61,7 @@
 	@endif
 @endforeach
 <div class="clearfix">
-	<div class="col-md-2">{{ HTML::link('order/create', 'Create Order', ['class'=>'btn btn-warning', 'id' => 'create-order']) }}</div>
+	<div class="col-md-2">{{ HTML::link('order/create', trans('message.Create Order'), ['class'=>'btn btn-warning', 'id' => 'create-order']) }}</div>
 </div>
 <script type="text/javascript">
 	function confirmDelete(id)

@@ -16,16 +16,16 @@
 			    <thead>
 			        <tr>
 			            <th style="width: 2%"><input type="checkbox" class="checkAll" name="foo[]" /></th>
-			            <th style="width: 15%">Chinese</th>
-			            <th style="width: 15%">Brand</th>
-			            <th style="width: 16%">English</th>
-			            <th style="width: 6%">Unit</th>
-			            <th style="width: 7%">Suggest</th>
-			            <th style="width: 7%">Lowest</th>
-			            <!-- <th style="width: 8%">Item No</th> -->
-			            <th style="width: 12%">Description</th>
-			            <th style="width: 12%">Note</th>
-			            <th style="width: 8%">Operation</th>
+			            <th style="width: 15%">{{ trans('message.Chinese') }}</th>
+			            <th style="width: 15%">{{ trans('message.Brand') }}</th>
+			            <th style="width: 16%">{{ trans('message.English') }}</th>
+			            <th style="width: 6%">{{ trans('message.Unit') }}</th>
+			            <th style="width: 7%">{{ trans('message.Suggest') }}</th>
+			            <th style="width: 7%">{{ trans('message.Lowest') }}</th>
+			            <!-- <th style="width: 8%">{{ trans('message.Item No') }}</th> -->
+			            <th style="width: 12%">{{ trans('message.Description') }}</th>
+			            <th style="width: 12%">{{ trans('message.Notes') }}</th>
+			            <th style="width: 8%">{{ trans('message.Operation') }}</th>
 			        </tr>
 			    </thead>
 			    <tbody>
@@ -51,7 +51,7 @@
 							<td>{{$product->description}}</td>
 							<td>{{$product->note}}</td>
 							<td>
-								{{ link_to_route('product.edit', 'Edit', array($product->id), array('class' => 'btn btn-info')) }}
+								{{ link_to_route('product.edit', trans('message.Edit'), array($product->id), array('class' => 'btn btn-info')) }}
 							</td>
 						</tr>
 					@endforeach
@@ -61,7 +61,7 @@
 	@endif
 @endforeach
 <div class="clearfix">
-	<div class="col-md-2">{{ Form::submit('Save 2 Order #'.$orderId, ['class' => 'btn btn-warning', 'id' => 'add-2-order']) }}{{ Form::close() }}</div>
+	<div class="col-md-2">{{ Form::submit(trans('message.Save 2 Order') .' #'.$orderId, ['class' => 'btn btn-warning', 'id' => 'add-2-order']) }}{{ Form::close() }}</div>
 </div>
 <script type="text/javascript">
 	$(".checkAll").click(function(e){

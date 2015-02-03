@@ -37,7 +37,7 @@
 		{{ Form::file('rece_screenshot', null, array('id'=>'', 'class'=>'form-control')) }}
 	</div>
 	<div class="form-group col-md-1">
-		{{ Form::label('operation','Operation') }}
+		{{ Form::label('operation', 'Operation') }}
 		{{ Form::submit('Save', ['class' => 'btn btn-warning']) }}
 	</div>
 

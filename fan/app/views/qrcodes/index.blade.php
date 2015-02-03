@@ -13,16 +13,18 @@
             {{ Form::text('encrypted_str', null, array('class' => 'form-control')) }}
             <!-- {{Form::text('first_name', null,array('class' => 'form-control'))}} -->
         </div>
-        {{ Form::submit('Decrypt QrCode', ['class' => 'btn btn-primary']) }}
+        {{ Form::submit(trans('message.Decrypt QrCode'), ['class' => 'btn btn-primary']) }}
         {{ Form::close() }}
-        
+
 		<a class="list-group-item active">
 			<h4 class="list-group-item-heading">QrCode List</h4>
 		</a>
 		<div class="row">
-			<img src="data:image/png;base64, {{ base64_encode(QrCode::format('png')->errorCorrection('H')->encoding('UTF-8')->size(100)->generate($qrStr)); }}" />
+		@foreach ($qrStrs as $qrStr)
+			<!-- {{ $qrStr }} -->
+			<img src="data:image/png;base64, {{ base64_encode(QrCode::format('png')->errorCorrection('H')->encoding('UTF-8')->size(100)->generate($qrStr)); }}" />	
+		@endforeach
 		</div>
-		
 	</div>
 	<div class="clearfix"></div>
 
@@ -34,13 +36,16 @@
 	        	if($("input[name='encrypted_str']").val() == '') alert('Please enter code you get');
 	        	else
 		        	$.post(
-		        		$(this).prop('action'),
-		        		{
+		        		$(this).prop('action'), {
 		        			'_token': $(this).find("input[name='_token']").val(),
-		        			'encrypted_str': $("input[name='encrypted_str']").val()
-		        		},
-		        		function(data)
-		        		{
+		        			'encrypted_str': encodeURIComponent($(this).find("input[name='encrypted_str']").val())
+		        										.replace(/!/g, '%21')
+														.replace(/'/g, '%27')
+														.replace(/\(/g, '%28')
+														.replace(/\)/g, '%29')
+														.replace(/\*/g, '%2A')
+														.replace(/%20/g, '+')
+		        		}, function(data) {
 		        			alert(data.msg);
 		        		}
 		        	);
