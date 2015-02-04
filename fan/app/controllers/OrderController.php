@@ -27,6 +27,7 @@ class OrderController extends \BaseController {
 	{
 		//
 		// var_dump(Input::get('dataString')); die;
+		$orderNo 		= Order::generateRandomStr();
 		$data 			= json_decode(stripslashes(Input::get('dataString')), true);
 		$product_array 	= array_column($data, 'value');
 		$category 		= Category::all();
@@ -37,10 +38,12 @@ class OrderController extends \BaseController {
 	    							->orderBy('unit', 'ASC')
 	    							->orderBy('note', 'DESC')
 	    							->get();
+		// Generate QrCode Path
+	    $filename = 'packages/uploads/qrcodes/'.$orderNo .'.png';
 
 		// print_r($product_array); die;
 		return View::make('order.create', 
-					['categoryList' => $category, 'productList' => $product]);
+					['categoryList' => $category, 'productList' => $product, 'qrPath' => $filename, 'orderNo' => $orderNo]);
 	}
 
 	/**
@@ -51,9 +54,18 @@ class OrderController extends \BaseController {
 	 */
 	public function store()
 	{
-		//
+		// save order and create qrcode
 		$orderInfo 	= Input::all();
 		$order 		= Order::create($orderInfo);
+
+		// Generate a QrCode
+		$qrStr = date('d-m-Y h:i:sa') . ' ' . $order->order_no;
+		$iv_size = mcrypt_get_iv_size(MCRYPT_RIJNDAEL_256, MCRYPT_MODE_ECB);
+	    $iv = mcrypt_create_iv($iv_size, MCRYPT_RAND);
+	    $encryptStr = mcrypt_encrypt(MCRYPT_RIJNDAEL_256, Config::get('app.key'), utf8_encode($qrStr), MCRYPT_MODE_ECB, $iv);
+	    $encryptStr = trim(base64_encode($encryptStr));
+		QrCode::format('png')->errorCorrection('H')->encoding('UTF-8')->size(100)->generate($encryptStr, $order->qrcode);
+
 		$productIDs	= Input::only('product_id');
 		$quantities	= Input::only('quantity');
 		for($i = 0; $i < count($productIDs['product_id']); $i++)
@@ -99,7 +111,7 @@ class OrderController extends \BaseController {
 		$images 	= Images::where('order_id', '=', $id)->get();
 
 		return View::make('order.show', ['productList' => $products, 'categoryList' => $category, 
-								'status' => $order->status, 'images' => $images]);
+								'status' => $order->status, 'qrcodePath'=>$order->qrcode, 'images' => $images]);
 	}
 
 	/**
@@ -271,7 +283,9 @@ class OrderController extends \BaseController {
 		
 		// export & download order
     	Excel::create($order->order_no, function($excel) use($order) {
+
     		$excel->sheet($order->order_no, function($sheet) use ($order) {
+			    // Retrieve data from DB
     			$category 	= Category::all();
 				$products 	= $order->product()
 										->orderBy('cname', 'ASC')
@@ -282,20 +296,33 @@ class OrderController extends \BaseController {
 		    							->get();
 
     			// first row styling and writing content
-    			$sheet->mergeCells('A1:L3');
+    			$sheet->mergeCells('A1:K3');
     			$sheet->row(1, function ($row) {
 		            $row->setFontFamily('Comic Sans MS');
 		            $row->setFontSize(30);
 		            $row->setFontWeight('bold');
         		});
-        		$sheet->row(1, array('Order#'.$order->order_no.' Product List'));
+        		$sheet->row(1, array(date('Y-m-d'). ' Order#'.$order->order_no.' Product List'));
+
+        		 // init drawing
+        		$sheet->mergeCells('A4:A9');
+		        $drawing = new PHPExcel_Worksheet_Drawing();
+		        // Set image
+		        $drawing->setPath($order->qrcode);
+		        $drawing->setName('abc');
+		        $drawing->setWorksheet($sheet);
+		        $drawing->setCoordinates('A4');
+		        $drawing->setResizeProportional();
+		        // $drawing->setOffsetX($drawing->getWidth() - $drawing->getWidth() / 5);
+		        $drawing->setOffsetX(10);
+		        $drawing->setOffsetY(10);
 
         		foreach($category as $c) {
         			if ( Product::isCategoryInList($c->id, $products) ) {
         				// Append an empty row and a category row
 				        $sheet->appendRow(['']);
 				        $sheet->appendRow([$c->category])
-				        		->mergeCells('A'.$sheet->getHighestRow(). ':L' .$sheet->getHighestRow())
+				        		->mergeCells('A'.$sheet->getHighestRow(). ':K' .$sheet->getHighestRow())
 				        		->row($sheet->getHighestRow(), function ($row) {
 								            $row->setFontColor('#83D6CE');
 								            $row->setFontSize(12);

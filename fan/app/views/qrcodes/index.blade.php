@@ -19,12 +19,14 @@
 		<a class="list-group-item active">
 			<h4 class="list-group-item-heading">QrCode List</h4>
 		</a>
-		<div class="row">
-		@foreach ($qrStrs as $qrStr)
-			<!-- {{ $qrStr }} -->
-			<img src="data:image/png;base64, {{ base64_encode(QrCode::format('png')->errorCorrection('H')->encoding('UTF-8')->size(100)->generate($qrStr)); }}" />	
-		@endforeach
-		</div>
+		
+		<!-- @foreach ($qrStrs as $qrStr) -->
+			<!-- <div class="col-md-1 col-md-offset-1"> -->
+				<!-- {{ $qrStr }} -->
+				<!-- <img src="data:image/png;base64, {{ base64_encode(QrCode::format('png')->errorCorrection('H')->encoding('UTF-8')->size(100)->generate($qrStr)); }}" /> -->
+			<!-- </div> -->
+		<!-- @endforeach -->
+		
 	</div>
 	<div class="clearfix"></div>
 

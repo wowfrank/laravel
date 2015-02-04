@@ -108,6 +108,7 @@ Route::group(['before' => 'auth|admin'], function()
 	Route::resource('order', 'OrderController');
 	Route::resource('product', 'ProductController');
 	Route::resource('balance', 'BalanceController');
+	Route::resource('qrcodes', 'QrcodesController');
 });
 
 # Route Upload Images for Orders

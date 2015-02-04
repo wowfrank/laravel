@@ -77,6 +77,16 @@
 		</table>
 	</div>
 </div>
+
+<div class="imageContent">
+	<div class="list-group">
+		<a class="list-group-item active">
+			<h4 class="list-group-item-heading">Order QrCode</h4>
+		</a>
+			{{ HTML::image( $qrcodePath, 'null', array('class' => 'img-rounded img-responsive')) }}
+		
+	</div>
+</div>
 {{ HTML::link('order', trans('message.Return'), array('class'=>'btn btn-info')) }}
 
 <style>

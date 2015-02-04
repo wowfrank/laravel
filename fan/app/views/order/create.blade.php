@@ -8,7 +8,7 @@
 
 <?php $index = 1; ?>
 {{ Form::open(array('route' => array('order.store'), 'method' => 'post')) }}
-	{{ Form::hidden('order_no', Order::generateRandomStr()) }}
+	{{ Form::hidden('order_no', $orderNo) }}
 	@foreach ( $categoryList as $category )
 		@if ( Product::isCategoryInList($category->id, $productList) )
 			<div class="list-group">
@@ -58,7 +58,8 @@
 			</div>
 		@endif
 	@endforeach
-{{Form::select('status', ['-1'=> 'INACTIVE', '0'=>'CLOSED', '1'=>'ACTIVE'], 0, array('class' => 'form-control')) }}
+{{ Form::hidden('qrcode', $qrPath) }}
+{{ Form::select('status', ['-1'=> 'INACTIVE', '0'=>'CLOSED', '1'=>'ACTIVE'], 1, array('class' => 'form-control')) }}
 
 {{ HTML::link('product', trans('message.Return'), array('class'=>'btn btn-info')) }}
 {{Form::submit(trans('message.Generate Order'), array('class' => 'btn btn-primary'))}}

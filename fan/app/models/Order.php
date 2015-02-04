@@ -3,7 +3,7 @@
 class Order extends \Model {
     public $timestamps = true;
     
-	protected $fillable = ['order_no', 'status', 'sum', 'labor', 'transport'];
+	protected $fillable = ['order_no', 'status', 'sum', 'labor', 'transport', 'qrcode'];
 
 	protected $table = 'order';
 
