@@ -58,7 +58,7 @@ class OrderController extends \BaseController {
 		$orderInfo 	= Input::all();
 		$order 		= Order::create($orderInfo);
 
-		// Generate a QrCode
+		// Generate a QrCode & save it locally
 		$qrStr = date('d-m-Y h:i:sa') . ' ' . $order->order_no;
 		$iv_size = mcrypt_get_iv_size(MCRYPT_RIJNDAEL_256, MCRYPT_MODE_ECB);
 	    $iv = mcrypt_create_iv($iv_size, MCRYPT_RAND);
@@ -304,18 +304,20 @@ class OrderController extends \BaseController {
         		});
         		$sheet->row(1, array(date('Y-m-d'). ' Order#'.$order->order_no.' Product List'));
 
-        		 // init drawing
-        		$sheet->mergeCells('A4:A9');
-		        $drawing = new PHPExcel_Worksheet_Drawing();
-		        // Set image
-		        $drawing->setPath($order->qrcode);
-		        $drawing->setName('abc');
-		        $drawing->setWorksheet($sheet);
-		        $drawing->setCoordinates('A4');
-		        $drawing->setResizeProportional();
-		        // $drawing->setOffsetX($drawing->getWidth() - $drawing->getWidth() / 5);
-		        $drawing->setOffsetX(10);
-		        $drawing->setOffsetY(10);
+        		if(file_exists($order->qrcode)) {
+	        		 // init drawing
+	        		$sheet->mergeCells('A4:A9');
+			        $drawing = new PHPExcel_Worksheet_Drawing();
+			        // Set image
+			        $drawing->setPath($order->qrcode);
+			        $drawing->setName('abc');
+			        $drawing->setWorksheet($sheet);
+			        $drawing->setCoordinates('A4');
+			        $drawing->setResizeProportional();
+			        // $drawing->setOffsetX($drawing->getWidth() - $drawing->getWidth() / 5);
+			        $drawing->setOffsetX(10);
+			        $drawing->setOffsetY(10);
+        		}
 
         		foreach($category as $c) {
         			if ( Product::isCategoryInList($c->id, $products) ) {
