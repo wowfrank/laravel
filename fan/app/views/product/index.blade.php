@@ -61,7 +61,10 @@
 	@endif
 @endforeach
 <div class="clearfix">
-	<div class="col-md-2">{{ HTML::link('order/create', trans('message.Create Order'), ['class'=>'btn btn-warning', 'id' => 'create-order']) }}</div>
+	<div class="col-md-4">
+		{{ HTML::link('order/create', trans('message.Create Order'), ['class'=>'btn btn-warning', 'id' => 'create-order']) }}
+		{{ HTML::link('product/download/1', trans('message.Download'), ['class'=>'btn btn-danger']) }}
+	</div>
 </div>
 <script type="text/javascript">
 	function confirmDelete(id)

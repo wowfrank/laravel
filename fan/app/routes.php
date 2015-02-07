@@ -81,6 +81,11 @@ Route::get('product/addToOrder/{id}', [
 	'as' => 'product.add2order',
 	'uses' => 'ProductController@addToOrder']);
 
+Route::get('product/download/{id}', [
+	'uses' => 'ProductController@downloadExp',
+	'as' => 'product.download']);
+
+
 Route::post('order/create', [
 	'as' => 'order.create',
 	'uses' => 'OrderController@create']);
@@ -148,6 +153,7 @@ Route::post('order/uploadImage', function() {
 	return Response::json($result);
 });
 
+# Route to save order ajax
 Route::post('order/saveOrder', function() {
 	$rules = ['sum' => 'required|numeric|min:0', 'transport' => 'required|numeric|min:0',];
 	$validator = Validator::make( ['sum' => Input::get('sum'), 'transport' => Input::get('transport')  ], $rules);
@@ -165,6 +171,7 @@ Route::post('order/saveOrder', function() {
 	return Response::json($result);
 });
 
+# Route to ajax update balance
 Route::post('balance/updateBalance', function(){
 	$updateInfo =  Input::only('tran_date', 'transfered', 'rece_date', 'received');
 	$result  = ['success' => false, 'message' => ''];
