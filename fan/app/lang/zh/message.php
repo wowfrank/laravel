@@ -52,4 +52,7 @@
 		'Decrypt QrCode' => '解析二维码',
 		'Save 2 Order' => '保存到订单',
 
+		'Batch Process' => '批处理',
+		'Upload/Process' => '上传并处理',
+		'Upload & Process Successfully' => '成功上传并处理',
 	];

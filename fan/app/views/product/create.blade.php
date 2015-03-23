@@ -35,11 +35,11 @@
         </div>
         <div class="form-group">
             {{ Form::label('suggest_price', trans('message.Suggest Price')) }}
-            {{ Form::text('suggest_price', null, array('class' => 'form-control')) }}
+            {{ Form::text('suggest_price', 0, array('class' => 'form-control')) }}
         </div>
         <div class="form-group">
             {{ Form::label('retail_lowest', trans('message.Retail Lowest')) }}
-            {{ Form::text('retail_lowest', null, array('class' => 'form-control')) }}
+            {{ Form::text('retail_lowest', 0, array('class' => 'form-control')) }}
         </div>
         <div class="form-group">
             {{ Form::label('description',trans('message.Description')) }}
@@ -66,6 +66,25 @@
 
         {{ Form::submit(trans('message.Save'), array('class' => 'btn btn-primary')) }}
         {{ HTML::link('product', trans('message.Return'), ['class'=>'btn btn-info']) }}
+        {{ Form::close() }}
+    </div>
+</div>
+<hr />
+<div class="row">
+    <div class="col-md-4 col-md-offset-4">
+        <div class="form-group">
+            {{ Form::label('Batch Process', trans('message.Batch Process')) }}
+            {{ Form::open(array('route'=>'product.batchprocess', 'method'=>'POST', 'files'=>true)) }}
+        </div>
+        
+        <div class="controls">
+            {{ Form::file('batch-process', null, array('class' => 'form-control')) }}
+            <p class="errors">{{$errors->first('batch-process')}}</p>
+            @if(Session::has('error'))
+            <p class="errors">{{ Session::get('error') }}</p>
+            @endif
+        </div>
+        {{ Form::submit(trans('message.Upload/Process'), array('class' => 'btn btn-primary')) }}
         {{ Form::close() }}
     </div>
 </div>

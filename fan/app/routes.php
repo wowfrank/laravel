@@ -85,6 +85,11 @@ Route::get('product/download/{id}', [
 	'uses' => 'ProductController@downloadExp',
 	'as' => 'product.download']);
 
+Route::post('product/batchprocess', [
+	'uses' => 'ProductController@batchprocess',
+	'as' => 'product.batchprocess',
+	]);
+
 
 Route::post('order/create', [
 	'as' => 'order.create',

@@ -48,6 +48,7 @@ class ProductController extends \BaseController {
 	{
 		//
 		$productInfo 	= Input::all();
+		// dd($productInfo); die;
 		$product 	= Product::create($productInfo);
 		
 		if($product){
@@ -212,6 +213,47 @@ class ProductController extends \BaseController {
     	})->export('xls');
 
 		return Redirect::to( URL::previous() );
+	}
+
+	public function batchprocess()
+	{
+		// getting all of the post data
+		$file = ['uploadFile' => Input::file('batch-process')];
+		// setting up rules
+		$rules = ['uploadFile' => 'required',]; 
+		// doing the validation, passing post data, rules and the messages
+		$validator = Validator::make($file, $rules);
+		if ($validator->fails()) {
+			// send back to the page with the input data and errors
+			return Redirect::route('product.create')->withInput()->withErrors($validator);
+		} else {
+			// checking file is valid.
+			if (Input::file('batch-process')->isValid()) {
+				// batch processing
+				Excel::load(Input::file('batch-process'), function($reader) {
+				    // reader methods
+				    // $reader->dd();
+			    	// loop through all rows
+			    	$reader->each(function($row) {
+			    		$product = Product::firstOrCreate(['cname' => $row->name, 'ename' => $row->english, 'brand' => $row->brand, 'unit' => $row->unit]);
+			    		$product->category_id = Category::where('category', '=', $row->category)->firstOrFail()->id;
+			    		$product->suggest_price = $row->price-out;
+			    		$product->retail_lowest = $row->price-in;
+			    		$product->description = $row->description;
+			    		$product->status = 1;
+			    		$product->save();
+			    	});
+				}, 'UTF-8');
+				
+				// sending back with message
+				Session::flash('success', trans('message.Upload & Process Successfully')); 
+				return Redirect::route('product.create');
+			} else {
+				// sending back with error message.
+				Session::flash('error', 'uploaded file is not valid');
+				return Redirect::route('product.create');
+			}
+		}
 	}
 
 }
