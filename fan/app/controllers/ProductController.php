@@ -233,15 +233,30 @@ class ProductController extends \BaseController {
 				Excel::load(Input::file('batch-process'), function($reader) {
 				    // reader methods
 				    // $reader->dd();
-			    	// loop through all rows
+																																																																																																																																																																																											    	// loop through all rows
 			    	$reader->each(function($row) {
-			    		$product = Product::firstOrCreate(['cname' => $row->name, 'ename' => $row->english, 'brand' => $row->brand, 'unit' => $row->unit]);
-			    		$product->category_id = Category::where('category', '=', $row->category)->firstOrFail()->id;
-			    		// if ($row->price-out != '') $product->suggest_price = $row->price-out;
-			    		// if ($row->price-in != '')$product->retail_lowest = $row->price-in;
-			    		if ($row->description != '')$product->description = $row->description;
-			    		$product->status = 1;
-			    		$product->save();
+			    		$proCate = Category::where('category', '=', trim($row->category))->first();
+			    		if(!is_null($proCate)){
+			    			$product = Product::where('cname', '=', trim($row->name))
+			    							->where('ename', '=', trim($row->english))
+			    							->where('brand', '=', trim($row->brand))
+			    							->where('unit', '=', trim($row->unit))->first();
+			    			if(is_null($product)) {
+			    				$product = new Product;
+			    				$product->cname = $row->name;
+			    				$product->ename = $row->english;
+			    				$product->brand = $row->brand;
+			    				$product->unit = $row->unit;
+			    				$product->suggest_price = 0;
+			    				$product->retail_lowest = 0;
+			    				$product->gross_weight = 0;
+			    				$product->note = '';
+			    			}
+			    			$product->category_id = $proCate->id;
+				    		if ($row->description != '') $product->description = $row->description;
+				    		$product->status = 1;
+				    		$product->save();
+			    		}
 			    	});
 				}, 'UTF-8');
 				
