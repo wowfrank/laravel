@@ -237,8 +237,8 @@ class ProductController extends \BaseController {
 			    	$reader->each(function($row) {
 			    		$product = Product::firstOrCreate(['cname' => $row->name, 'ename' => $row->english, 'brand' => $row->brand, 'unit' => $row->unit]);
 			    		$product->category_id = Category::where('category', '=', $row->category)->firstOrFail()->id;
-			    		if ($row->price-out != '') $product->suggest_price = $row->price-out;
-			    		if ($row->price-in != '')$product->retail_lowest = $row->price-in;
+			    		// if ($row->price-out != '') $product->suggest_price = $row->price-out;
+			    		// if ($row->price-in != '')$product->retail_lowest = $row->price-in;
 			    		if ($row->description != '')$product->description = $row->description;
 			    		$product->status = 1;
 			    		$product->save();
