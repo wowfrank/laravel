@@ -184,7 +184,7 @@ class ProductController extends \BaseController {
     			// Insert products
     			foreach($products as $product) {
     				$pData = [];
-    				$pData = array_add($pData, 'name', $product->cname.'='.$product->brand.'='.$product->ename);
+    				$pData = array_add($pData, 'name', $product->cname.' - '.$product->brand.' - '.$product->ename);
     				$pData = array_add($pData, 'category', $product->category->category);
     				$pData = array_add($pData, 'barcode', '');
     				$pData = array_add($pData, 'inventory', '0');
