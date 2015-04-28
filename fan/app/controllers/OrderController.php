@@ -267,7 +267,8 @@ class OrderController extends \BaseController {
 		$images->watermark = true;
 		$images->save();
 
-		return Redirect::to( URL::previous() );
+		// return Redirect::to( URL::previous() );
+		return Response::json(['msg'=> true]);
 	}
 
 	/**

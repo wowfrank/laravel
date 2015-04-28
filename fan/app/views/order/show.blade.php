@@ -66,9 +66,9 @@
 				@foreach ($images as $image)
 				<?php echo $imgItem%6 == 0 ? '<tr>' : '' ;?>
 					<td  class="col-md-1"><a href="/{{ $image->path . $image->filename}}">
-						{{ HTML::image('packages/uploads/thumbnails/thumb-' . $image->filename, 'null', array('class' => 'img-rounded img-responsive')) }}
+						{{ HTML::image('packages/uploads/thumbnails/thumb-' . $image->filename, 'null', array('class' => 'img-rounded img-responsive watermarkThumb')) }}
 					</a>
-					<?php echo $image->watermark ? '' : HTML::link('order/watermark/'.$image->id, 'WaterMark', array('class'=>'btn btn-info')); ?>
+					<?php echo $image->watermark ? '' : HTML::link('order/watermark/'.$image->id, 'WaterMark', array('class'=>'btn btn-info watermarkLink')); ?>
 					</td>
 				<?php $imgItem++; ?>
 				<?php echo $imgItem%6 == 0 ? '</tr>' : '' ;?>
@@ -99,4 +99,30 @@
 	   background-color: #CCE6FF;
 	}
 </style>
+
+<script type="text/javascript">
+	$(function(){
+		$('.watermarkLink').click(function(e){
+			e.preventDefault();
+			$(this).addClass('current');
+			$.ajax({ 
+				type: "get", 
+				url: $(this).attr('href'), 
+				dataType: "json", 
+				success: function () {
+					var d = new Date();
+					$('.current').prev('a').find('img').attr('src', $('.current').prev('a').find('img').attr('src')+ '?'+d.getTime());
+					$('.current').hide();
+					$('.current').removeClass('current');
+				}, 
+				error: function (XMLHttpRequest, textStatus, errorThrown) { 
+					alert(errorThrown); 
+					$('.current').removeClass('current');
+				} 
+	        });
+		});
+		
+	});
+
+</script>
 @stop
