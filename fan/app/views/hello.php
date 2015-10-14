@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
+	<meta property="wb:webmaster" content="409ba7cb81fcf0b0" />
 	<title>Laravel PHP Framework</title>
 	<style>
 		@import url(//fonts.googleapis.com/css?family=Lato:700);
