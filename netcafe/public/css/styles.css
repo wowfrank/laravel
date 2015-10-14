@@ -1,0 +1,254 @@
+.topspace {
+  margin-top: 40px;
+}
+
+/*********************************************************************
+
+
+                                TYPOGRAPHY
+
+
+**********************************************************************/
+p {
+  line-height: 1.6em;
+  margin: 0 0 30px 0;
+}
+ul,
+ol {
+  line-height: 1.6em;
+  margin: 0 0 30px 0;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.h1,
+.h2,
+.h3,
+.h4,
+.h5,
+.h6 {
+  font-family: "Open sans", Helvetica, Arial, sans-serif;
+  font-weight: 400;
+  color: #333333;
+}
+h1 {
+  font-size: 40px;
+  font-size: 2.5rem;
+}
+h2 {
+  font-size: 36px;
+  font-size: 2.25rem;
+}
+h3 {
+  font-size: 30px;
+  font-size: 1.875rem;
+}
+h4 {
+  font-size: 24px;
+  font-size: 1.5rem;
+}
+h5 {
+  font-size: 20px;
+  font-size: 1.25rem;
+}
+a {
+  color: #FF6600;
+}
+a:hover {
+  color: #FF3030;
+}
+.lead {
+  font-weight: 300;
+  font-size: 21px;
+  font-size: 1.3125rem;
+}
+.text-msg {
+  line-height: 1.7em;
+  color: #b3b3b3;
+  font-weight: 300;
+  text-transform: capitalize;
+  margin-top: -0.23em;
+}
+.size-auto,
+.size-full,
+.size-large,
+.size-medium,
+.size-thumbnail {
+  max-width: 100%;
+  height: auto;
+}
+/*********************************************************************
+
+
+                                HEADER
+
+
+**********************************************************************/
+#head {
+  background: #f4f4f4 url(../images/uploads/blog/head_background.jpg) top center;
+  background-size: cover;
+  color: #7C7C7C;
+  padding: 30px 0 35px 0;
+  margin-bottom: 40px;
+  height: 300px;
+}
+#head img.img-circle {
+  display: block;
+  width: 140px;
+  height: 140px;
+  overflow: hidden;
+  border: 9px solid rgba(239, 213, 194, 0.46);
+  margin: 0 auto;
+}
+#head .title {
+  font-family: Alice, Georgia, serif;
+  font-size: 49px;
+  font-size: 3.0625rem;
+}
+#head .title a {
+  text-decoration: none;
+  color: white;
+}
+#head .tagline {
+  display: block;
+  font-size: 14px;
+  font-size: 0.875rem;
+  line-height: 1.2em;
+  color: rgb(245, 149, 0);
+  margin: 5px 0 0;
+  text-decoration: underline;
+}
+#head .tagline b {
+  font-weight: normal;
+}
+#head .tagline a {
+  color: #5E5E5E;
+}
+.home #head {
+  padding: 90px 0;
+}
+.home #head .title {
+  font-size: 49px;
+  font-size: 3.0625rem;
+}
+.home #head .tagline {
+  font-size: 16px;
+  font-size: 1rem;
+  margin: 15px 0 0;
+}
+/*********************************************************************
+
+
+                                 BLOG
+
+
+**********************************************************************/
+.section-title,
+.entry-title {
+  display: block;
+  width: 100%;
+  overflow: hidden;
+  margin: 0px 0 25px;
+  text-align: center;
+  font-weight: 300;
+  text-transform: uppercase;
+  font-size: 36px;
+  font-size: 2.25rem;
+  letter-spacing: 1px;
+}
+.section-title a,
+.entry-title a {
+  color: #333333;
+}
+.section-title span,
+.entry-title span {
+  display: inline-block;
+  position: relative;
+}
+.section-title span:before,
+.entry-title span:before,
+.section-title span:after,
+.entry-title span:after {
+  content: "";
+  position: absolute;
+  height: 4px;
+  top: .53em;
+  width: 400%;
+  border-bottom: 1px solid #ccc;
+  border-top: 1px solid #ccc;
+}
+.section-title span:before,
+.entry-title span:before {
+  right: 100%;
+  margin-right: 45px;
+}
+.section-title span:after,
+.entry-title span:after {
+  left: 100%;
+  margin-left: 45px;
+}
+.entry-header .entry-meta {
+  text-align: center;
+  font-family: Georgia, serif;
+  font-size: 18px;
+  font-size: 1.125rem;
+  font-style: italic;
+  font-weight: normal;
+  color: #a5a5a5;
+  margin: 0 0 15px 0;
+}
+.entry-header .entry-meta a {
+  color: #a5a5a5;
+}
+.entry-content {
+  margin: 0 0 60px 0;
+}
+.entry-content h2 {
+  line-height: 1.2;
+  font-size: 30px;
+  font-size: 1.875rem;
+  padding-top: 20px;
+  margin-bottom: 20px;
+}
+.meta-nav,
+.more-link {
+  font-family: Georgia, serif;
+  font-style: italic;
+  font-weight: bold;
+  color: #666666;
+  text-decoration: none;
+}
+.meta-nav:hover,
+.more-link:hover {
+  color: #333333;
+  text-decoration: underline;
+}
+.more-link {
+  display: block;
+  width: 100%;
+  text-align: right;
+}
+.page-header {
+  padding-bottom: 0;
+  margin: 0;
+  border-bottom: none;
+  text-align: left;
+}
+.page-header .page-title {
+  margin-top: 0;
+  margin-bottom: 30px;
+}
+
+.post .entry-content img{
+  border-radius:6px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+article .entry-content p {
+  line-height: 1.75;
+}

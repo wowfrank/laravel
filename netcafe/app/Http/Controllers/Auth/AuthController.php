@@ -1,0 +1,110 @@
+<?php
+
+namespace Netcafe\Http\Controllers\Auth;
+
+use Validator;
+use Netcafe\Http\Controllers\Controller;
+use Illuminate\Foundation\Auth\ThrottlesLogins;
+use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
+
+//Add These three required namespace for Socialite
+use Laravel\Socialite\Facades\Socialite;
+use Illuminate\Support\Facades\Auth;
+use Netcafe\User;
+
+class AuthController extends Controller
+{
+    /*
+    |--------------------------------------------------------------------------
+    | Registration & Login Controller
+    |--------------------------------------------------------------------------
+    |
+    | This controller handles the registration of new users, as well as the
+    | authentication of existing users. By default, this controller uses
+    | a simple trait to add these behaviors. Why don't you explore it?
+    |
+    */
+
+    // use AuthenticatesAndRegistersUsers, ThrottlesLogins;
+    // User registration is not allowed!
+    use AuthenticatesUsers;
+    protected $redirectAfterLogout = '/auth/login';
+    protected $redirectTo = '/admin/post';
+    protected $redirectPath = null;
+
+    /**
+     * Create a new authentication controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('guest', ['except' => 'getLogout']);
+        $this->redirectPath = route('message.list');
+    }
+
+    /**
+     * Get a validator for an incoming registration request.
+     *
+     * @param  array  $data
+     * @return \Illuminate\Contracts\Validation\Validator
+     */
+    protected function validator(array $data)
+    {
+        return Validator::make($data, [
+            'name' => 'required|max:255',
+            'email' => 'required|email|max:255|unique:users',
+            'password' => 'required|confirmed|min:6',
+        ]);
+    }
+
+    /**
+     * Create a new user instance after a valid registration.
+     *
+     * @param  array  $data
+     * @return User
+     */
+    protected function create(array $data)
+    {
+        return User::create([
+            'name' => $data['name'],
+            'email' => $data['email'],
+            'password' => bcrypt($data['password']),
+        ]);
+    }
+
+    /**
+     * Login With OAuth2.0.
+     *
+     * @param  $authenticateUser $request $provider
+     * @return response
+     */
+    // public function login(AuthenticateUser $authenticateUser, Request $request, $provider = null)
+    // {
+    //    return $authenticateUser->execute($request->all(), $this, $provider);
+    // }
+    public function redirectToProvider($provider)
+    {
+        return Socialite::driver($provider)->redirect();
+    }
+    
+    public function handleProviderCallback($provider)
+    {
+     //notice we are not doing any validation, you should do it
+
+        $user = Socialite::driver($provider)->user();
+         
+        // stroing data to our use table and logging them in
+        $data = [
+            'name' => $user->getName(),
+            'email' => $user->getEmail()
+        ];
+     
+        Auth::login(User::firstOrCreate($data));
+
+        //after login redirecting to home page
+        return redirect($this->redirectPath());
+    }
+
+}
