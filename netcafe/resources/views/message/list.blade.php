@@ -15,7 +15,6 @@
 	        	<h2>Login Using Social Sites</h2>
 	            <a class="btn btn-primary" href="{{ route('social.login', ['baidu']) }}">Baidu</a>
 	            <a class="btn btn-primary" href="{{ route('social.login', ['qq']) }}">QQ</a>
-	            <a class="btn btn-primary" href="{{ route('social.login', ['weixinweb']) }}">Weixin</a>
 	            <a class="btn btn-primary" href="{{ route('social.login', ['weibo']) }}">Weibo</a>
 	        </div>
 	    </div>
