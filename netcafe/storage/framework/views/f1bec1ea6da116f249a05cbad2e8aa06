@@ -1,0 +1,10 @@
+<?php $__env->startSection('content'); ?>
+
+<?php echo $__env->make('include.activities', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+<?php echo $__env->make('include.blog', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+<?php echo $__env->make('include.team', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+<?php echo $__env->make('include.messages', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+<?php echo $__env->make('include.contact', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('layouts.master', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

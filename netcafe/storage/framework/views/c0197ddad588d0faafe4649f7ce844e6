@@ -1,0 +1,55 @@
+<?php $__env->startSection('content'); ?>
+
+	<?php /* The Post */ ?>
+	<main id="main">
+		<div class="container">
+			<div class="row topspace">
+				<div class="col-sm-8 col-sm-offset-2">	
+	 				<article class="post">
+						<header class="entry-header">
+	 						<h1 class="entry-title"><a href='#' style='text-decoration: none;' class='disabled'><?php echo e($post->subtitle); ?></a></h1>
+	 						<div class="entry-meta"> 
+	 							<span class="posted-on"><time class="entry-date published"><?php echo e($post->published_at->format('Y-m-d')); ?> 
+	 							<?php if($post->tags->count()): ?>
+									<?php echo e(trans('messages.in')); ?>:
+									<?php echo join(', ', $post->tagLinks()); ?>
+
+								<?php endif; ?>
+								</time></span>			
+	 						</div> 
+						</header> 
+						<div class="entry-content"> 
+							<?php echo $post->content_html; ?>
+
+						</div> 
+					</article><!-- #post-## -->
+
+				</div> 
+			</div> <!-- /row post  -->
+			<div class="row">
+				<div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+					<span class="meta">
+						<a href="#" onclick="window.history.back();" class="btn btn-info" role="button"><?php echo e(trans('messages.Return')); ?> </a>
+					</span>
+				</div>
+			</div>
+
+			<div class="clearfix"></div>
+
+		</div>	<!-- /container -->
+	</main>
+	
+	<hr>
+	<div class="container">
+	    <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+	        <?php echo $__env->make('blog.partials.disqus', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+	    </div>
+	</div>
+
+<?php $__env->stopSection(); ?>
+
+
+<?php echo $__env->make('layouts.blog', [
+	'title' => $post->subtitle,
+	'meta_description' => $post->meta_description ? $post->meta_description : config('blog.description'),
+], array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

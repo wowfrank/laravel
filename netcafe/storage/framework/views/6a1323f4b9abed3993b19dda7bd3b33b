@@ -1,0 +1,33 @@
+<div class="content-section" id="services">
+    <div class="container">
+        <div class="row">
+            <div class="heading-section col-md-12 text-center">
+                <h2><a href="#" class="expend disabled"><?php echo e(trans('messages.Our Activities')); ?></a></h2>
+                <p><?php echo e(trans("messages.Check out what's going on here")); ?></p>
+            </div> <!-- /.heading-section -->
+        </div> <!-- /.row -->
+
+        <div class="row">
+            <?php foreach($activities as $key => $activity): ?>
+                <div class="col-md-3 col-sm-6">
+                    <div class="service-item" id="service-<?php echo e(getTheRandNum(++$key, $activityRand)); ?>">
+                        <div class="service-icon">
+                            <i <?php if($key%4 == 1): ?> class="fa fa-file-code-o"
+                                <?php elseif($key%4 == 2): ?> class="fa fa-paper-plane-o"
+                                <?php elseif($key%4 == 3): ?> class="fa fa-institution"
+                                <?php elseif($key%4 == 0): ?> class="fa fa-flask"
+                                <?php endif; ?>></i>
+                        </div> <!-- /.service-icon -->
+                        <div class="service-content">
+                            <div class="inner-service">
+                               <h3><?php echo e($activity->title); ?> | <i><?php echo e($activity->status == '0' ? trans('messages.ONGOING') : trans('messages.COMPLETED')); ?></i></h3>
+                               <p><?php echo $activity->description; ?></p> 
+                            </div>
+                        </div> <!-- /.service-content -->
+                    </div> <!-- /#service-1 -->
+                </div> <!-- /.col-md-3 -->
+            <?php endforeach; ?>
+            
+        </div> <!-- /.row -->
+    </div> <!-- /.container -->
+</div> <!-- /#services -->

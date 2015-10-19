@@ -1,0 +1,22 @@
+<div class="site-slider">
+    <div class="slider">
+        <div class="flexslider">
+            <ul class="slides">
+                <?php foreach($covers as $cover): ?>
+                <li>
+                    <div class="overlay"></div>
+                    <img src="images/uploads/slider/<?php echo e($cover->name); ?>" alt="">
+                    <div class="slider-caption visible-md visible-lg">
+                        <h2> <?php echo e($cover->title); ?> </h2>
+                        <p> <?php echo e($cover->subtitle); ?></p>
+                        <?php if($cover->linktitle != ''): ?>
+                            <a href="<?php echo e($cover->link); ?>" class="slider-btn" target="_blank"> <?php echo e($cover->linktitle); ?></a>
+                        <?php endif; ?>
+                    </div>
+                </li>
+                <?php endforeach; ?>
+                
+            </ul>
+        </div> <!-- /.flexslider -->
+    </div> <!-- /.slider -->
+</div> <!-- /.site-slider -->
