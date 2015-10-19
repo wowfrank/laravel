@@ -10,12 +10,12 @@
                     </div> <!-- /.logo-wrapper -->
                     <div class="col-md-8 col-sm-10 col-xs-4 main-menu text-right">
                         <ul class="menu-first hidden-sm hidden-xs">
-                            <li class="active"><a href="#">{{ trans('messages.Home') }}</a></li>
-                            <li><a href="#services">{{ trans('messages.Activity') }}</a></li>
-                            <li><a href="#portfolio">{{ trans('messages.Blog') }}</a></li>
-                            <li><a href="#our-team">{{ trans('messages.Team') }}</a></li>
-                            <li><a href="#our-messages">{{ trans('messages.Messages') }}</a></li>
-                            <li><a href="#contact">{{ trans('messages.Contact') }}</a></li>
+                            <li><a href="/">{{ trans('messages.Home') }}</a></li>
+                            <li><a href="{{ route('blog.index') }}">{{ trans('messages.Blog') }}</a></li>
+                            <li class="active"><a href="#">{{ trans('messages.Messages') }}</a></li>
+                            @if(Auth::check())
+                                <li><img src="{{ Auth::user()->avatar }}" />{{ Auth::user()->name }}<a href="{{ route('user.logout') }}">{{ trans('messages.Logout') }}</a></li>
+                            @endif
                         </ul>
                         <a href="#" class="toggle-menu visible-sm visible-xs"><i class="fa fa-bars"></i></a>
                     </div> <!-- /.main-menu -->
@@ -23,12 +23,12 @@
             </div> <!-- /#menu-wrapper -->
             <div class="menu-responsive hidden-md hidden-lg">
                 <ul>
-                    <li class="active"><a href="#">{{ trans('messages.Home') }}</a></li>
-                    <li><a href="#services">{{ trans('messages.Activity') }}</a></li>
-                    <li><a href="#portfolio">{{ trans('messages.Blog') }}</a></li>
-                    <li><a href="#our-team">{{ trans('messages.Team') }}</a></li>
-                    <li><a href="#our-messages">{{ trans('messages.Messages') }}</a></li>
-                    <li><a href="#contact">{{ trans('messages.Contact') }}</a></li>
+                    <li><a href="#">{{ trans('messages.Home') }}</a></li>
+                    <li><a href="{{ route('blog.index') }}">{{ trans('messages.Blog') }}</a></li>
+                    <li class="active"><a href="#our-messages">{{ trans('messages.Messages') }}</a></li>
+                    @if(Auth::check())
+                        <li><img src="{{ Auth::user()->avatar }}" />{{ Auth::user()->name }}<a href="{{ route('user.logout') }}">{{ trans('messages.Logout') }}</a></li>
+                    @endif
                 </ul>
             </div> <!-- /.menu-responsive -->
         </div> <!-- /.container -->

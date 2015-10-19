@@ -6,7 +6,7 @@
 <body>
 
 @yield('page-header')
-{{-- @include('message.partials.header') --}}
+@include('message.partials.nav')
 @yield('content')
 
 @include('include.footer')
