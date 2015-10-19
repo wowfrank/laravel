@@ -12,7 +12,7 @@
                         <ul class="menu-first hidden-sm hidden-xs">
                             <li><a href="/">{{ trans('messages.Home') }}</a></li>
                             <li class="active"><a href="#">{{ trans('messages.Blog') }}</a></li>
-                            <li><a href="{{ route('message') }}">{{ trans('messages.Messages') }}</a></li>
+                            <li><a href="{{ route('message.list') }}">{{ trans('messages.Messages') }}</a></li>
                             @if(Auth::check())
                                 <li><img src="{{ Auth::user()->avatar }}" />{{ Auth::user()->name }}<a href="{{ route('user.logout') }}">{{ trans('messages.Logout') }}</a></li>
                             @endif
@@ -25,7 +25,7 @@
                 <ul>
                     <li><a href="/">{{ trans('messages.Home') }}</a></li>
                     <li class="active"><a href="#">{{ trans('messages.Blog') }}</a></li>
-                    <li><a href="route('message')">{{ trans('messages.Messages') }}</a></li>
+                    <li><a href="route('message.list')">{{ trans('messages.Messages') }}</a></li>
                     @if(Auth::check())
                         <li><img src="{{ Auth::user()->avatar }}" />{{ Auth::user()->name }}<a href="{{ route('user.logout') }}">{{ trans('messages.Logout') }}</a></li>
                     @endif
