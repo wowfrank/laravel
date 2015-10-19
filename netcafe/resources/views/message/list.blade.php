@@ -163,6 +163,7 @@
 						<h3> {{ $message->user->name }}</h3>
 						<p> {{ $message->msg_content }}</p>
 					</div>
+					<a href="" target="_blank"></a>
 		        </li>
 		    @endforeach
 		    
