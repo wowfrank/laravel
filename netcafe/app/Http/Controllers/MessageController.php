@@ -23,7 +23,7 @@ class MessageController extends Controller
     // this will store a single message to our database
     // @param $request
     public function storeMessage(MessageCreateRequest $request) {
-    	if($request->ajax()) {
+    	if(!$request->ajax()) {
     		$message = Message::create($request->all());
     		$message->msg_ip = $request->ip();
     		$message->save();

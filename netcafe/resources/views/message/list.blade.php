@@ -123,7 +123,7 @@
 <div class="content-section" id="portfolio">
     <div class="container">
     	<!-- show login if not auth -->
-    	@if(Auth::user())
+    	@if(!Auth::check())
 	    <div class="row">
 	        <div class="col-md-6 col-md-offset-3">
 	        	<h2>Login Using Social Sites</h2>
