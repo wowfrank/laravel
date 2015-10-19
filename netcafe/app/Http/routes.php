@@ -71,10 +71,6 @@ Route::get('/auth/login', 'Auth\AuthController@getLogin');
 Route::post('/auth/login', 'Auth\AuthController@postLogin');
 Route::get('/auth/logout', 'Auth\AuthController@getLogout');
 
-Route::get('/user/logout', 
-			['as' => 'user.logout',
-			'uses' => 'Auth\AuthController@getUserLogout']);
-
 // Message create and list
 Route::get('message',  
 			['as' => 'message.list', 

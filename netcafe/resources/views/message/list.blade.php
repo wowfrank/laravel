@@ -130,7 +130,6 @@
 	            <a class="btn btn-primary" href="{{ route('social.login', ['baidu']) }}"><img src="{{ asset('images/baidu-login-short.png') }}" /></a>
 	            <a class="btn btn-primary" href="{{ route('social.login', ['qq']) }}"><img src="{{ asset('images/qq-login-short.png') }}" /></a>
 	            <a class="btn btn-primary" href="{{ route('social.login', ['weibo']) }}"><img src="{{ asset('images/weibo-login-short.png') }}" /></a>
-	            <a class="btn btn-primary" href="{{ route('social.login', ['google']) }}">Google</a>
 	        </div>
 	    </div>
 	    <!-- else show the form -->

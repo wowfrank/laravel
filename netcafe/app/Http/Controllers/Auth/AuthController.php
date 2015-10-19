@@ -108,11 +108,4 @@ class AuthController extends Controller
         return redirect($this->redirectPath());
     }
 
-    public function getUserLogout() 
-    {
-        Auth::logout();
-
-        return redirect(route('/'));
-    }
-
 }
