@@ -165,7 +165,7 @@
 						</section>
 					@endforeach
 				@endif
-				{!! $users->render() !!}
+				{!! $messages->render() !!}
        		</div>
 		</section>
     </div> <!-- /.container -->
