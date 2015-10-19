@@ -172,7 +172,7 @@
 </div> <!-- /#portfolio -->
 @stop
 @section('scripts')
-<scripts>
+<script>
 (function(){
 
     var loading_options = {
@@ -188,5 +188,5 @@
       itemSelector : "#one-message li.item"
     });
 })(jQuery);
-</scripts>
+</script>
 @stop
