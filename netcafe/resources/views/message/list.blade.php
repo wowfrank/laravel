@@ -184,6 +184,6 @@
 		nextSelector : "#one .pagination li.active + li a",
 		itemSelector : "#one-message div.content"
     });
-})();
+})(jQuery);
 @stop
 

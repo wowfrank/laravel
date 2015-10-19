@@ -6,5 +6,5 @@
 			'numOfBlog'			=>	'8',	// *4
 			'numOfTeam'			=>	'8', 	// *4
 			'numOfMessage'		=>	'5',
-			'numOfMessages'		=>	'15', 	// number of message that show in message board
+			'numOfMessages'		=>	'5', 	// number of message that show in message board
 		];
