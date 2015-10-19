@@ -137,15 +137,10 @@
 	    @else
         <div class="row">
 	        <div class="col-md-12">
-	        	<div class="alert alert-danger hidden" id='sendMsg-errors'>
-					<strong>Whoops!</strong>
-					{{ trans('messages.There were some problems with your input.') }}<br><br>
-					<ul></ul>
-				</div>
-				<div class="alert alert-success hidden" id='sendMsg-done'>
-					<strong><i class="fa fa-check-circle fa-lg fa-fw"></i> {{ trans('messages.Success') }}. </strong>
-					{{ Session::get('success') }}
-				</div>
+
+				@include('admin.partials.success')
+				@include('admin.partials.errors')
+
 	            <form action="{{ route('message.store') }}" method="POST">
 				    <input type="hidden" name="_token" value="{{ csrf_token() }}">
 				    <input type="hidden" name="msg_uid" value="{{ Auth::user()->id }}">
