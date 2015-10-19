@@ -160,13 +160,30 @@
 							<div class="image"><img src="{{ $message->user->avatar }}" alt="" /></div>
 							<div class="content">
 								<h3> {{ $message->user->name}}</h3>
-								<p> {{	$message->msg_content }}</p>
+								<p> {{!	$message->msg_content !}}</p>
 							</div>
 						</section>
 					@endforeach
 				@endif
        		</div>
 		</section>
+
+
+		<div id="news">
+		    <ul id="items">
+		    @foreach($messages as $message)
+		        <li class="item">
+		        	<div class="image"><img src="{{ $message->user->avatar }}" alt="" /></div>
+		            <div class="content">
+						<h3> {{ $message->user->name}}</h3>
+						<p> {{!	$message->msg_content !}}</p>
+					</div>
+		        </li>
+		    @endforeach
+		    
+		    </ul>
+		</div>
+
     </div> <!-- /.container -->
 </div> <!-- /#portfolio -->
 @stop
@@ -181,9 +198,9 @@
 		        msgText: "<div class='center'>Loading news items...</div>",
 		        img: "/images/ajax-loader.gif"
 		    },
-		navSelector : "#one .pagination",
-		nextSelector : "#one .pagination li.active + li a",
-		itemSelector : "#one-message div.content"
+		navSelector : "#news .pagination",
+		nextSelector : "#news .pagination li.active + li a",
+		itemSelector : "#items li.item"
     });
 })(jQuery);
 </script>
