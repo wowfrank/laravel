@@ -1,24 +1,36 @@
-{{-- Navigation --}}
-<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
-	<div class="container-fluid">
-		{{-- Brand and toggle get grouped for better mobile display --}}
-		<div class="navbar-header page-scroll">
-			<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-main">
-				<span class="sr-only">Toggle navigation</span>
-				<span class="icon-bar"></span>
-				<span class="icon-bar"></span>
-				<span class="icon-bar"></span>
-			</button>
-			<a class="navbar-brand" href="/">{{ config('blog.name') }}</a>
-		</div>
-
-		{{-- Collect the nav links, forms, and other content for toggling --}}
-		<div class="collapse navbar-collapse" id="navbar-main">
-			<ul class="nav navbar-nav">
-				<li>
-					<a href="/">Home</a>
-				</li>
-			</ul>
-		</div>
-	</div>
-</nav>
+<div class="site-header">
+    <div class="main-header">
+        <div class="container">
+            <div id="menu-wrapper">
+                <div class="row">
+                    <div class="logo-wrapper col-md-4 col-sm-2 col-xs-8">
+                        <h1>
+                            <a href="/">{{ trans('messages.Netcafe') }}</a>
+                        </h1>
+                    </div> <!-- /.logo-wrapper -->
+                    <div class="col-md-8 col-sm-10 col-xs-4 main-menu text-right">
+                        <ul class="menu-first hidden-sm hidden-xs">
+                            <li><a href="/">{{ trans('messages.Home') }}</a></li>
+                            <li class="active"><a href="#">{{ trans('messages.Blog') }}</a></li>
+                            <li><a href="{{ route('message') }}">{{ trans('messages.Messages') }}</a></li>
+                            @if(Auth::check())
+                                <li><img src="{{ Auth::user()->avatar }}" />{{ Auth::user()->name }}<a href="{{ route('user.logout') }}">{{ trans('messages.Logout') }}</a></li>
+                            @endif
+                        </ul>
+                        <a href="#" class="toggle-menu visible-sm visible-xs"><i class="fa fa-bars"></i></a>
+                    </div> <!-- /.main-menu -->
+                </div> <!-- /.row -->
+            </div> <!-- /#menu-wrapper -->
+            <div class="menu-responsive hidden-md hidden-lg">
+                <ul>
+                    <li><a href="/">{{ trans('messages.Home') }}</a></li>
+                    <li class="active"><a href="#">{{ trans('messages.Blog') }}</a></li>
+                    <li><a href="route('message')">{{ trans('messages.Messages') }}</a></li>
+                    @if(Auth::check())
+                        <li><img src="{{ Auth::user()->avatar }}" />{{ Auth::user()->name }}<a href="{{ route('user.logout') }}">{{ trans('messages.Logout') }}</a></li>
+                    @endif
+                </ul>
+            </div> <!-- /.menu-responsive -->
+        </div> <!-- /.container -->
+    </div> <!-- /.main-header -->
+</div> <!-- /.site-header -->

@@ -23,9 +23,9 @@
             </div> <!-- /#menu-wrapper -->
             <div class="menu-responsive hidden-md hidden-lg">
                 <ul>
-                    <li><a href="#">{{ trans('messages.Home') }}</a></li>
+                    <li><a href="/">{{ trans('messages.Home') }}</a></li>
                     <li><a href="{{ route('blog.index') }}">{{ trans('messages.Blog') }}</a></li>
-                    <li class="active"><a href="#our-messages">{{ trans('messages.Messages') }}</a></li>
+                    <li class="active"><a href="#">{{ trans('messages.Messages') }}</a></li>
                     @if(Auth::check())
                         <li><img src="{{ Auth::user()->avatar }}" />{{ Auth::user()->name }}<a href="{{ route('user.logout') }}">{{ trans('messages.Logout') }}</a></li>
                     @endif
