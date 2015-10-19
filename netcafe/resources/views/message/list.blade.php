@@ -123,7 +123,7 @@
 <div class="content-section" id="portfolio">
     <div class="container">
     	<!-- show login if not auth -->
-    	@if(!Auth::user())
+    	@if(Auth::user())
 	    <div class="row">
 	        <div class="col-md-6 col-md-offset-3">
 	        	<h2>Login Using Social Sites</h2>
@@ -146,11 +146,11 @@
 					<strong><i class="fa fa-check-circle fa-lg fa-fw"></i> {{ trans('messages.Success') }}. </strong>
 					{{ Session::get('success') }}
 				</div>
-	            <form action="#" method="POST">
+	            <form action="{{ route('message.store') }}" method="POST">
 				    <input type="hidden" name="_token" value="{{ csrf_token() }}">
 				    <input type="hidden" name="msg_uid" value="{{ Auth::user()->id }}">
 				    <textarea class="form-control" rows="3" name="msg_content" id="msg_content" autofocus placeholder="{{ trans('messages.Please tell us your feelings') }}"></textarea>
-				    <button type="button" class="btn btn-info btn-sm" name="sendMsg" id="sendMsg">{{ trans('messages.Send') }}</button>
+				    <button type="submit" class="btn btn-info btn-sm" name="sendMsg" id="sendMsg">{{ trans('messages.Send') }}</button>
 				</form>
 			</div>
         </div> <!-- /.row -->
@@ -158,62 +158,20 @@
         <!-- endif -->
 
 		<section id="one" class="wrapper">
-			<div class="col-md-10 inner alt">
-			@if(count($messages) > 0)
-		        @foreach($messages as $message)
-			        <section class="spotlight">
-						<div class="image"><img src="{{ $message->user->avatar }}" alt="" /></div>
-						<div class="content">
-							<h3> {{ $message->user->name}}</h3>
-							<p> {{	$message->msg_content }}</p>
-						</div>
-					</section>
-				@endforeach
+			<div class="col-md-10">
+				@if(count($messages) > 0)
+			        @foreach($messages as $message)
+				        <section class="spotlight">
+							<div class="image"><img src="{{ $message->user->avatar }}" alt="" /></div>
+							<div class="content">
+								<h3> {{ $message->user->name}}</h3>
+								<p> {{	$message->msg_content }}</p>
+							</div>
+						</section>
+					@endforeach
 				@endif
        		</div>
 		</section>
     </div> <!-- /.container -->
 </div> <!-- /#portfolio -->
-@stop
-
-@section('scripts')
-<script>
-	(function($){
-		$('#sendMsg').click(function(e){
-			e.preventDefault();
-			$('.alert').addClass('hidden');
-			$('#sendMsg-errors ul').empty();
-
-			$(this).attr('disabled', 'disabled');
-			$.ajax({
-				url	:"{{route('message.store')}}",
-				type:'POST',
-				data:{'_token': $('input[name=_token]').val(), 
-						'msg_content': $('textarea[name=msg_content').val(),
-						'msg_uid': $('input[name=msg_uid]').val(), 
-					},
-				success: function( data ){
-                    //$('#response pre').html( data );
-                    $('#sendMsg').removeAttr('disabled');
-                    $('#sendMsg-done').removeClass('hidden');
-
-                },
-                statusCode: {
-			        422: function(data) {
-			            // Something went wrong (error in data serverside), re-enable send button
-			            $('#sendMsg').removeAttr('disabled');
-			            $('#sendMsg-errors').removeClass('hidden');
-
-					    // Errors...
-					    var errors = $.parseJSON(data.responseText);
-					    $.each(errors, function(index, value) {
-					        $('#sendMsg-errors ul').append($('<li>').append(value));
-					    });
-			        }
-			    }
-			});
-		});
-		
-	})(jQuery);
-</script>
 @stop
