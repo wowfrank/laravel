@@ -30,7 +30,7 @@ class MessageController extends Controller
 
             return redirect()
                 ->route('message.list')
-                ->withSuccess('New Message Successfully Created.');
+                ->withSuccess(trans('messages.New Message Successfully Created.'));
     	}
     }
 }

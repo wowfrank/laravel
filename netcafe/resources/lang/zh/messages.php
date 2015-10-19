@@ -162,7 +162,7 @@ return [
 	'Send'				=> '发送',
 	'Please tell us your feelings' => '请告诉我们您对我们的评价',
 	'Success'			=> '成功发送',
-	''=> '',
+	'New Message Successfully Created' => '非常感谢您的留言',
 	''=> '',
 	''=> '',
 	''=> '',
