@@ -175,8 +175,8 @@
 		        <li class="item">
 		        	<div class="image"><img src="{{ $message->user->avatar }}" alt="" /></div>
 		            <div class="content">
-						<h3> {{ $message->user->name}}</h3>
-						<p> {{!	$message->msg_content !}}</p>
+						<h3> {{ $message->user->name }}</h3>
+						<p> {{ $message->msg_content }}</p>
 					</div>
 		        </li>
 		    @endforeach
