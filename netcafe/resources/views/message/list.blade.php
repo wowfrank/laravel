@@ -152,21 +152,6 @@
         @endif
         <!-- endif -->
 
-		<section id="one" class="wrapper">
-			<div id="one-message" class="col-md-10">
-				@if(count($messages) > 0)
-			        @foreach($messages as $message)
-				        <section class="spotlight">
-							<div class="image"><img src="{{ $message->user->avatar }}" alt="" /></div>
-							<div class="content">
-								<h3> {{ $message->user->name}}</h3>
-								<p> {{!	$message->msg_content !}}</p>
-							</div>
-						</section>
-					@endforeach
-				@endif
-       		</div>
-		</section>
 
 
 		<div id="news">
