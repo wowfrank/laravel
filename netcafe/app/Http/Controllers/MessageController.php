@@ -17,7 +17,7 @@ class MessageController extends Controller
     public function listMessages() {
 
     	return view('message.list')
-    				->withMessages(Message::orderBy('created_at', 'desc')->get());
+    				->withMessages(Message::orderBy('created_at', 'desc')->paginate(config('home.numOfMessages')));
     }
 
     // this will store a single message to our database

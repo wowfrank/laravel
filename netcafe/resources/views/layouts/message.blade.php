@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
 	@include('blog.partials.head')
+	<script src="/js/vendor/jquery.infinitescroll.min.js"></script>
 </head>
 <body>
 
