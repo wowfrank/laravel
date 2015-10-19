@@ -153,7 +153,7 @@
         <!-- endif -->
 
 		<section id="one" class="wrapper">
-			<div class="col-md-10">
+			<div class="col-md-10" id="one-message">
 				@if(count($messages) > 0)
 			        @foreach($messages as $message)
 				        <section class="spotlight">
@@ -170,4 +170,23 @@
 		</section>
     </div> <!-- /.container -->
 </div> <!-- /#portfolio -->
+@stop
+@section('scripts')
+<scripts>
+(function(){
+
+    var loading_options = {
+        finishedMsg: "<div class='end-msg'>Congratulations! You've reached the end of the internet</div>",
+        msgText: "<div class='center'>Loading news items...</div>",
+        img: "/images/ajax-loader.gif"
+    };
+
+    $('#items').infinitescroll({
+      loading : loading_options,
+      navSelector : "#one .pagination",
+      nextSelector : "#one .pagination li.active + li a",
+      itemSelector : "#one-message li.item"
+    });
+})();
+</scripts>
 @stop
