@@ -27,6 +27,10 @@ class MessageController extends Controller
     		$message = Message::create($request->all());
     		$message->msg_ip = $request->ip();
     		$message->save();
+
+            return redirect()
+                ->route('message.list')
+                ->withSuccess('New Message Successfully Created.');
     	}
     }
 }
