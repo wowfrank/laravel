@@ -152,43 +152,22 @@
         @endif
         <!-- endif -->
 
-
-
-		<div id="news">
-		    <ul id="items">
-		    @foreach($messages as $message)
-		        <li class="item">
-		        	<div class="image"><img src="{{ $message->user->avatar }}" alt="" /></div>
-		            <div class="content">
-						<h3> {{ $message->user->name }}</h3>
-						<p> {{ $message->msg_content }}</p>
-					</div>
-					<a href="" target="_blank"></a>
-		        </li>
-		    @endforeach
-		    
-		    </ul>
-		</div>
-
+		<section id="one" class="wrapper">
+			<div class="col-md-10">
+				@if(count($messages) > 0)
+			        @foreach($messages as $message)
+				        <section class="spotlight">
+							<div class="image"><img src="{{ $message->user->avatar }}" alt="" /></div>
+							<div class="content">
+								<h3> {{ $message->user->name}}</h3>
+								<p> {{	$message->msg_content }}</p>
+							</div>
+						</section>
+					@endforeach
+				@endif
+				{!! $users->render() !!}
+       		</div>
+		</section>
     </div> <!-- /.container -->
 </div> <!-- /#portfolio -->
 @stop
-
-@section('scripts')
-<script>
-(function(){
-
-    $('#one-message').infinitescroll({
-		loading : {
-		        finishedMsg: "<div class='end-msg'>Congratulations! You've reached the end of the internet</div>",
-		        msgText: "<div class='center'>Loading news items...</div>",
-		        img: "/images/ajax-loader.gif"
-		    },
-		navSelector : "#news .pagination",
-		nextSelector : "#news .pagination li.active + li a",
-		itemSelector : "#items li.item"
-    });
-})(jQuery);
-</script>
-@stop
-
