@@ -172,6 +172,7 @@
 @stop
 
 @section('scripts')
+<script>
 (function(){
 
     $('#one-message').infinitescroll({
@@ -185,5 +186,6 @@
 		itemSelector : "#one-message div.content"
     });
 })(jQuery);
+</script>
 @stop
 
