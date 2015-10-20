@@ -94,15 +94,15 @@ class AuthController extends Controller
         //notice we are not doing any validation, you should do it
 
         $user = Socialite::driver($provider)->user();
+        dd($user);
 	// stroing data to our use table and logging them in
         $data = [
             'name' => $user->getName(),
             'email' => $user->getEmail(),
             'avatar'=> $user->getAvatar()
         ];
-     
+
         Auth::login(User::firstOrCreate($data));
-        // Auth::login($user);
 
         //after login redirecting to home page
         return redirect($this->redirectPath());
