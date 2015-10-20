@@ -103,7 +103,6 @@ class AuthController extends Controller
         ];
 
         Auth::login(User::firstOrCreate($data));
-        dd(Auth::user());
 
         //after login redirecting to home page
         return redirect($this->redirectPath());
