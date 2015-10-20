@@ -15,7 +15,7 @@
                         @if(Auth::check())
                             <li>
                                 <a href="{{ Auth::logout() }}">
-                                {{ dd(Auth::user()->name) }}
+                                {{ dd(Auth::check()) }}
                                 </a>
                             </li>
                         @endif
