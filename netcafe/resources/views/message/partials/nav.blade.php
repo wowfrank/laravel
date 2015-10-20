@@ -12,7 +12,7 @@
                         <li><a href="/">{{ trans('messages.Home') }}</a></li>
                         <li><a href="{{ route('blog.index') }}">{{ trans('messages.Blog') }}</a></li>
                         <li class="active"><a href="#">{{ trans('messages.Messages') }}</a></li>
-                        {{dd(Auth::user()->name)}}
+                        {{dd(Auth::user()->avatar)}}
                         @if(Auth::check())
                             <li>
                                 <a href="{{ Auth::logout() }}">
