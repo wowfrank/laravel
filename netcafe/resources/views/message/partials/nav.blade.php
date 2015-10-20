@@ -15,8 +15,7 @@
                         @if(Auth::check())
                             <li>
                                 <a href="{{ Auth::logout() }}">
-                                    <img src="{{ Auth::user()->avatar }}" height="42" width="42">
-                                    {{ Auth::user()->name }}-{{ trans('messages.Logout') }}
+                                {{ dd(Auth::user()->avatar) }}
                                 </a>
                             </li>
                         @endif
@@ -33,8 +32,6 @@
                 @if(Auth::check())
                     <li>
                         <a href="{{ Auth::logout() }}">
-                            <img src="{{ Auth::user()->avatar }}" height="42" width="42">
-                            {{ Auth::user()->name }}-{{ trans('messages.Logout') }}
                         </a>
                     </li>
                 @endif
