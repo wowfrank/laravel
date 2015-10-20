@@ -12,11 +12,11 @@
                         <li><a href="/">{{ trans('messages.Home') }}</a></li>
                         <li><a href="{{ route('blog.index') }}">{{ trans('messages.Blog') }}</a></li>
                         <li class="active"><a href="#">{{ trans('messages.Messages') }}</a></li>
-                        {{dd(Auth::user()->avatar)}}
                         @if(Auth::check())
                             <li>
                                 <a href="{{ Auth::logout() }}">
-                                {{dd(Auth::user())}}
+                                    <img src="{{ Auth::user()->avatar }}" height="42" width="42">
+                                    {{ Auth::user()->name }}-{{ trans('messages.Logout') }}
                                 </a>
                             </li>
                         @endif
@@ -33,7 +33,8 @@
                 @if(Auth::check())
                     <li>
                         <a href="{{ Auth::logout() }}">
-                        {{dd(Auth::user())}}
+                            <img src="{{ Auth::user()->avatar }}" height="42" width="42">
+                            {{ Auth::user()->name }}-{{ trans('messages.Logout') }}
                         </a>
                     </li>
                 @endif
