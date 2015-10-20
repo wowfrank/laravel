@@ -14,8 +14,7 @@
                         <li class="active"><a href="#">{{ trans('messages.Messages') }}</a></li>
                         @if(Auth::check())
                             <li>
-                                <a href="{{ Auth::logout() }}">
-                                {{ dd(Auth::check()) }}
+                                <a href="{{ Auth::logout() }}">==============================
                                 </a>
                             </li>
                         @endif
