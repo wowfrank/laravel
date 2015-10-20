@@ -15,6 +15,7 @@
                         @if(Auth::check())
                             <li>
                                 <a href="{{ Auth::logout() }}">
+                                    <img src="{{ Auth::user()->avatar }}" width="24" height="24" />
                                 </a>
                             </li>
                         @endif
@@ -31,6 +32,7 @@
                 @if(Auth::check())
                     <li>
                         <a href="{{ Auth::logout() }}">
+                            <img src="{{ Auth::user()->avatar }}" width="24" height="24" />
                         </a>
                     </li>
                 @endif
