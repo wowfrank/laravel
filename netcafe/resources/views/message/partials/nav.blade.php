@@ -12,13 +12,8 @@
                         <li><a href="/">{{ trans('messages.Home') }}</a></li>
                         <li><a href="{{ route('blog.index') }}">{{ trans('messages.Blog') }}</a></li>
                         <li class="active"><a href="#">{{ trans('messages.Messages') }}</a></li>
-                        @if(Auth::user())
-                            <li>
-                                <a href="{{ Auth::logout() }}">
-                                    <img src="{{ Auth::user()->avatar }}" width="24" height="24" />
-                                    {{ Auth::user()->name }} - {{ trans('messages.Logout') }}
-                                </a>
-                            </li>
+                        @if(Auth::check())
+                            <li><a href="{{ Auth::logout() }}"><img src="{{ Auth::user()->avatar }}" width="24" height="24" />{{ Auth::user()->name }}-{{ trans('messages.Logout') }}</a></li>
                         @endif
                     </ul>
                     <a href="#" class="toggle-menu visible-sm visible-xs"><i class="fa fa-bars"></i></a>
@@ -30,13 +25,8 @@
                 <li><a href="/">{{ trans('messages.Home') }}</a></li>
                 <li><a href="{{ route('blog.index') }}">{{ trans('messages.Blog') }}</a></li>
                 <li class="active"><a href="#">{{ trans('messages.Messages') }}</a></li>
-                @if(Auth::user())
-                    <li>
-                        <a href="{{ Auth::logout() }}">
-                            <img src="{{ Auth::user()->avatar }}" width="24" height="24" />
-                            {{ Auth::user()->name }} - {{ trans('messages.Logout') }}
-                        </a>
-                    </li>
+                @if(Auth::check())
+                    <li><a href="{{ Auth::logout() }}"><img src="{{ Auth::user()->avatar }}" width="24" height="24" />{{ Auth::user()->name }}-{{ trans('messages.Logout') }}</a></li>
                 @endif
             </ul>
         </div> <!-- /.menu-responsive -->
