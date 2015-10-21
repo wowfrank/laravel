@@ -74,16 +74,7 @@ class AuthController extends Controller
         ]);
     }
 
-    /**
-     * Login With OAuth2.0.
-     *
-     * @param  $authenticateUser $request $provider
-     * @return response
-     */
-    // public function login(AuthenticateUser $authenticateUser, Request $request, $provider = null)
-    // {
-    //    return $authenticateUser->execute($request->all(), $this, $provider);
-    // }
+
     public function redirectToProvider($provider)
     {
         return Socialite::driver($provider)->redirect();
@@ -102,7 +93,10 @@ class AuthController extends Controller
             'avatar'=> $user->getAvatar()
         ];
 
-        Auth::login(User::firstOrCreate($data));
+        $user = User::firstOrCreate($data);
+        $user->checkIfUserNeedsUpdating($data, $user);
+
+        Auth::login($user);
 
         //after login redirecting to home page
         return redirect($this->redirectPath());

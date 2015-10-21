@@ -26,7 +26,7 @@ class RestructureUsersTable extends Migration
     public function down()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->drop('avatar');
+            $table->dropColumn('avatar');
             //
         });
     }

@@ -29,7 +29,7 @@ class RestructureMessagesTable extends Migration
     {
         Schema::table('messages', function (Blueprint $table) {
             //
-            $table->drop('msg_uid');
+            $table->dropColumn('msg_uid');
         });
     }
 }
